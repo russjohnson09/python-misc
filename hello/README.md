@@ -1,0 +1,5 @@
+
+
+
+uv run main.py
+
