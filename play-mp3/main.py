@@ -3,6 +3,9 @@ import time
 
 
 pygame.init()
+
+# >   pygame.mixer.init()
+# E   pygame.error: ALSA: Couldn't open audio device: No such file or directory
 pygame.mixer.init()
 
 
