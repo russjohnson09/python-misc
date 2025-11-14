@@ -4,8 +4,6 @@ import mido
 
 # https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
-
-
 # ModuleNotFoundError: No module named 'rtmidi'
 # supports RtMidi, PortMidi and Pygame. New backends are easy to write.
 
@@ -25,13 +23,8 @@ import mido
     #     warnings.warn(msg)
     #   error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
+port = mido.open_output('Port Name')
 
-
-
-def test_main():
-
-    port = mido.open_output('Port Name')
-
-    mid = mido.MidiFile('twinkle-twinkle-little-star.mid')
-    for msg in mid.play():
-        port.send(msg)
+mid = mido.MidiFile('twinkle-twinkle-little-star.mid')
+for msg in mid.play():
+    port.send(msg)

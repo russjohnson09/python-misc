@@ -4,8 +4,6 @@ import pygame
 
 print('start')
 
-exit(0)
-
 # --- Configuration ---
 sample_rate = 44100  # samples per second
 duration = 2         # seconds
@@ -27,6 +25,11 @@ audio_data = (square_wave * 32767 * peak_amplitude).astype(np.int16)
 
 # --- Play the sound ---
 pygame.mixer.init(sample_rate, -16, 1)  # Initialize mixer (frequency, bits, channels)
+
+#   File "C:\Users\russj\dev\python-misc\play-note\.venv\Lib\site-packages\pygame\sndarray.py", line 92, in make_sound
+#     return mixer.Sound(array=array)
+#            ~~~~~~~~~~~^^^^^^^^^^^^^
+# ValueError: Array must be 2-dimensional for stereo mixer
 sound = pygame.sndarray.make_sound(audio_data)
 sound.play()
 
