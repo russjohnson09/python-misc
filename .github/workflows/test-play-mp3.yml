@@ -33,10 +33,10 @@ jobs:
           echo "alias snd-card-0 snd-dummy" | sudo tee -a /etc/modprobe.d/myalias.conf
           sudo modprobe snd-dummy # Load again after alias if needed
 
-      - name: Configure ALSA for dummy device
-        run: |
-          echo "pcm.!default { type hw card 0 }" | sudo tee /etc/asound.conf
-          echo "ctl.!default { type hw card 0 }" | sudo tee -a /etc/asound.conf
+      # - name: Configure ALSA for dummy device
+      #   run: |
+      #     echo "pcm.!default { type hw card 0 }" | sudo tee /etc/asound.conf
+      #     echo "ctl.!default { type hw card 0 }" | sudo tee -a /etc/asound.conf
 
       - name: Verify ALSA setup
         run: aplay -L # Should list the dummy device

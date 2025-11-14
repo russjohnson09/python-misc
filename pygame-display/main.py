@@ -16,7 +16,7 @@ pygame.draw.rect(screen, RED, (100, 100, 50, 50)) # Draw a red rectangle at (100
 pygame.display.flip() # Or pygame.display.update()
 
 
-pygame.time.wait(5000)
+pygame.time.wait(15000)
 
 
 
