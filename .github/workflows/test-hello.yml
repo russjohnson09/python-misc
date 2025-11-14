@@ -1,5 +1,9 @@
 name: Example
 
+on:
+  pull_request:
+    types: [opened, reopened]
+
 defaults:
   run:
     shell: bash
