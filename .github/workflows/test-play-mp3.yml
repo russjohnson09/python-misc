@@ -23,6 +23,24 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Install ALSA utilities
+        run: sudo apt-get update && sudo apt-get install -y alsa-utils
+
+      - name: Load snd-dummy module
+        run: |
+          sudo modprobe snd-dummy
+          echo "alias char-major-116 snd" | sudo tee /etc/modprobe.d/myalias.conf
+          echo "alias snd-card-0 snd-dummy" | sudo tee -a /etc/modprobe.d/myalias.conf
+          sudo modprobe snd-dummy # Load again after alias if needed
+
+      - name: Configure ALSA for dummy device
+        run: |
+          echo "pcm.!default { type hw card 0 }" | sudo tee /etc/asound.conf
+          echo "ctl.!default { type hw card 0 }" | sudo tee -a /etc/asound.conf
+
+      - name: Verify ALSA setup
+        run: aplay -L # Should list the dummy device
+
       - name: Install uv
         uses: astral-sh/setup-uv@v6
 
