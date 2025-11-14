@@ -24,14 +24,15 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Install ALSA utilities
-        run: sudo apt-get update && sudo apt-get install -y alsa-utils
+        # run: sudo apt-get update && sudo apt-get install -y alsa-utils
+        run: sudo apt-get install -y alsa-utils
 
-      - name: Load snd-dummy module
-        run: |
-          sudo modprobe snd-dummy
-          echo "alias char-major-116 snd" | sudo tee /etc/modprobe.d/myalias.conf
-          echo "alias snd-card-0 snd-dummy" | sudo tee -a /etc/modprobe.d/myalias.conf
-          sudo modprobe snd-dummy # Load again after alias if needed
+      # - name: Load snd-dummy module
+      #   run: |
+      #     sudo modprobe snd-dummy
+      #     echo "alias char-major-116 snd" | sudo tee /etc/modprobe.d/myalias.conf
+      #     echo "alias snd-card-0 snd-dummy" | sudo tee -a /etc/modprobe.d/myalias.conf
+      #     sudo modprobe snd-dummy # Load again after alias if needed
 
       # - name: Configure ALSA for dummy device
       #   run: |
