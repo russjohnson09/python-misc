@@ -1,4 +1,4 @@
-name: Example
+name:  play-mp3
 
 
 # https://graphite.com/guides/github-actions-on-pull-requests
@@ -11,6 +11,7 @@ defaults:
     shell: bash
     working-directory: ./play-mp3
 
+# https://github.com/libsdl-org/SDL/issues/10947
 jobs:
   uv-example:
     env:
