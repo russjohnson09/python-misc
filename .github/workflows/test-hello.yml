@@ -1,8 +1,10 @@
 name: Example
 
+
+# https://graphite.com/guides/github-actions-on-pull-requests
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, synchronize, reopened, closed]
 
 defaults:
   run:
