@@ -13,6 +13,9 @@ defaults:
 
 jobs:
   uv-example:
+    env:
+      SDL_VIDEODRIVER: "dummy"
+      SDL_AUDIODRIVER: "disk" # Or "dummy" if no audio output is needed at all
     name: python
     runs-on: ubuntu-latest
 
