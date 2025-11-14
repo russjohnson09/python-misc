@@ -19,7 +19,10 @@ sound = pygame.mixer.Sound(buffer)
 sound.play(0) # This is async
 
 # pygame.time.wait(int(sound.get_length() * 1000))
-time.sleep(10) # worse way to sleep not as accurate.
+# time.sleep(10) # worse way to sleep not as accurate.
 
 
 # https://github.com/vishnubob/python-midi
+
+while pygame.mixer.get_busy():
+    pygame.time.wait(1000)

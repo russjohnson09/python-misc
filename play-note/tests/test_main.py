@@ -26,7 +26,13 @@ import mido
     #   error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
 
+# https://mido.readthedocs.io/en/stable/backends/rtmidi.html
 
+# https://mido.readthedocs.io/en/stable/backends/pygame.html
+
+
+
+mido.set_backend('mido.backends.pygame')
 
 def test_main():
 
