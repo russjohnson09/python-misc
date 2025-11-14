@@ -15,3 +15,9 @@ To add C:\Users\russj\.local\bin to your PATH, either restart your shell or run:
 
     set Path=C:\Users\russj\.local\bin;%Path%   (cmd)
     $env:Path = "C:\Users\russj\.local\bin;$env:Path"   (powershell)
+
+
+
+
+
+uv init --lib lib-models

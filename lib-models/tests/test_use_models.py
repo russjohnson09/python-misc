@@ -1,13 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from user import User
-from user2 import User2
 
-from base import Base
+from lib_models import models, Base
 
-import lib_models
+User = models.User
+User2 = models.User2
+
 # https://docs.astral.sh/uv/concepts/projects/init/#libraries
-def main():
+def test_user_models_main():
     # pool config??
     # https://docs.sqlalchemy.org/en/20/core/pooling.html
     # TODO create engine should be base on environment variables or secrets stored in aws for the DEPLOY_ENV passed in environment variables.
@@ -59,7 +59,3 @@ def main():
 
 
     print("Hello from play-note!")
-
-
-if __name__ == "__main__":
-    main()
