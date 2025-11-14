@@ -15,8 +15,27 @@ pygame.draw.rect(screen, RED, (100, 100, 50, 50)) # Draw a red rectangle at (100
 
 pygame.display.flip() # Or pygame.display.update()
 
+def main():
+    i = 0
+    running = True
+    while running:
+        i += 1
+        print(i)
+        if i > 2000:
+            return
+        for event in pygame.event.get():  # Process all events in the queue
+            if event.type == pygame.QUIT:
+                running = False
+                return
+        
+        pygame.time.wait(1)
 
-pygame.time.wait(15000)
+
+main()
+
+pygame.quit()
+
+# pygame.time.wait(15000)
 
 
 
