@@ -1,6 +1,6 @@
 
-
+import main
 
 def test_main():
-
-    import main
+    main.main(500)
+    # import main

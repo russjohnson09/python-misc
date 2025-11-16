@@ -13,9 +13,10 @@ FPS = os.environ.get('FPS', 60)
 RED = (255, 0, 0)  # RGB values for red
 WHITE = (255, 255, 255) # RGB values for white background
 BLACK = (0, 0, 0) # RGB values for white background
-FILL = (5, 5, 5) # RGB values for white background
 
 FILL = (100, 100, 100) # RGB values for white background
+FILL = (20, 20, 20) # RGB values for white background
+FILL = (5, 5, 5) # RGB values for white background
 
 
 
@@ -106,7 +107,8 @@ class Game():
                 #  screen: pygame.surface.Surface, 
                 #  player: Player,
                  sprites: pygame.sprite.Group,
-                 frames_per_second: int
+                 frames_per_second: int,
+                 count_down = 0
                  ):
 
         # self.screen = screen
@@ -134,11 +136,8 @@ class Game():
         return True
 
 
-# https://pyga.me/docs/ref/display.html#pygame.display.set_window_position
-# switch to pygame-ce???
-# https://www.reddit.com/r/pygame/comments/1ajih56/pygame_or_pygamece/
-# pygame-ce 2.5.6 (SDL 2.32.10, Python 3.13.9)                                                                                                                                             
-def main():
+
+def main_loop_outer(countdown):
 
 
     
@@ -160,17 +159,17 @@ def main():
     pygame.display.flip() # Or pygame.display.update()
 
     clock = pygame.time.Clock()
-
-    i = 0
     running = True
 
-
+    screen.fill(FILL)
 
     while running:
-        i += 1
-        # print(i)
-        if i > 555:
-            return
+        if countdown is not None:
+            pygame.display.set_caption(f"Countdown: {countdown}")
+            countdown -= 1
+            if countdown < 0:
+                return
+        
         
         screen.fill(FILL)
 
@@ -186,11 +185,17 @@ def main():
         # https://www.pygame.org/docs/ref/time.html#pygame.time.Clock.tick
         clock.tick(FPS)
 
-    return
+
+# https://pyga.me/docs/ref/display.html#pygame.display.set_window_position
+# switch to pygame-ce???
+# https://www.reddit.com/r/pygame/comments/1ajih56/pygame_or_pygamece/
+# pygame-ce 2.5.6 (SDL 2.32.10, Python 3.13.9)                                                                                                                                             
+def main(countdown = None):
 
 
-_init()
+    _init()
+    main_loop_outer(countdown)
 
-main()
+    pygame.quit()
 
-pygame.quit()
+
