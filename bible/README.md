@@ -40,3 +40,17 @@ According to textual critic Fenton Hort, Sinaiticus and Vaticanus were derived f
 
 
 https://en.wikipedia.org/wiki/Vulgate
+
+
+
+TODO
+
+populate a database with the book, chapter, verse, text with capitalization and punctuation, and with all lowercase and punctuation removed.
+
+
+Then sort by punctuation removed and see where Mark and Matthew are direct 1:1 copies.
+
+There are a couple greek sources used in some of the early greek to latin translations. Jerome brought about the definitive latin edition for the catholic church that most others are based on which a Nova Vlugata in 1960's?
+
+I'm interested in the one as close to Jerome as possible. He does include the long Mark 16 chapter.
+
