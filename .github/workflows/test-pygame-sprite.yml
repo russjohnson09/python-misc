@@ -1,14 +1,15 @@
+# name:  pygame-sprite
+
+
 # https://graphite.com/guides/github-actions-on-pull-requests
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    paths:
-      - 'play-mp3/**'
 
 defaults:
   run:
     shell: bash
-    working-directory: ./play-mp3
+    working-directory: ./pygame/sprite
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:

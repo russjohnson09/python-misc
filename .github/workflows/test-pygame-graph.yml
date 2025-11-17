@@ -1,14 +1,17 @@
+name:  pygame-graph
+
+
 # https://graphite.com/guides/github-actions-on-pull-requests
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     paths:
-      - 'play-mp3/**'
+      - 'pygame/graph/**'
 
 defaults:
   run:
     shell: bash
-    working-directory: ./play-mp3
+    working-directory: ./pygame/graph
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
@@ -49,4 +52,4 @@ jobs:
 
       - name: Run tests
         # For example, using `pytest`
-        run: uv run pytest tests
+        run: uv run pytest -s
