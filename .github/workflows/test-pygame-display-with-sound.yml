@@ -5,11 +5,13 @@ name:  pygame-display-with-sound
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'pygame/display-with-sound/**'
 
 defaults:
   run:
     shell: bash
-    working-directory: ./pygame-display-with-sound
+    working-directory: ./pygame/display-with-sound
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
