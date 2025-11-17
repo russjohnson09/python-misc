@@ -1,6 +1,9 @@
 import pygame
 import os
 
+from path import SinPath
+import numpy
+
 from typing import Any, Generator, List, Optional, Callable, Tuple
 Event = Generator[None, None, None]
 Callback = Callable[[], Any]
@@ -118,6 +121,24 @@ def draw_sin(surface: pygame.surface.Surface):
 # time based graph spiral
 
 
+def draw_points(
+        surface: pygame.surface.Surface, 
+                points: list[tuple[int,int]],
+                offset: numpy.array = numpy.array((0,0))):
+
+    line_color = RED
+
+    prev_pt: tuple[int,int] = None
+    for point in points:
+        # print(point, offset)
+        point_real = point + offset
+        # point_real = numpy.array(point) + numpy.array(offset) # points should already be a numpy array?
+        if not prev_pt is None:
+            # print(point)
+            pygame.draw.aaline(surface, line_color,  prev_pt, point_real)
+        
+        prev_pt = point_real
+
 
 def main_loop_outer(countdown):
 
@@ -145,8 +166,10 @@ def main_loop_outer(countdown):
 
     screen.fill(FILL)
 
+    sin_path = SinPath()
 
-    draw_sin(screen)
+
+    # draw_sin(screen)
 
 
     pygame.display.flip() # Or pygame.display.update()
@@ -163,10 +186,13 @@ def main_loop_outer(countdown):
 
         running = game.main_loop(pygame.event.get())
 
+        draw_points(surface=screen,points=sin_path.points, offset=(0,100))
+
+
         # game_sprites.update()
         # game_sprites.draw(screen)
 
-        draw_sin(screen)
+        # draw_sin(screen)
         pygame.display.flip() # Or pygame.display.update()
         # screen.update() # https://www.pygame.org/docs/ref/display.html#pygame.display.update partial screen update
 
