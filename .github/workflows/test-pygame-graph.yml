@@ -1,4 +1,4 @@
-# name:  pygame-sprite
+name:  pygame-graph
 
 
 # https://graphite.com/guides/github-actions-on-pull-requests
@@ -9,7 +9,7 @@ on:
 defaults:
   run:
     shell: bash
-    working-directory: ./pygame/sprite
+    working-directory: ./pygame/graph
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
