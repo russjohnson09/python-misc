@@ -14,8 +14,3 @@ dependencies = [
 dev = [
     "pytest>=9.0.1",
 ]
-
-[tool.uv.workspace]
-members = [
-    "lib-sprites",
-]
