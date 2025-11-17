@@ -5,6 +5,8 @@ name: lib-models
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'lib-models/**'
 
 defaults:
   run:

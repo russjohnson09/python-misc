@@ -5,6 +5,8 @@ name: pygame-display
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'pygame-display/**'
 
 defaults:
   run:

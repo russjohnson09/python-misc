@@ -5,6 +5,8 @@ name: pandas-examples
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'pandas-examples/**'
 
 defaults:
   run:
