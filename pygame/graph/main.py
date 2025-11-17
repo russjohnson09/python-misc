@@ -155,7 +155,7 @@ def draw_circle(surface: pygame.surface.Surface, point: numpy.array):
     pass
 
 # https://www.reddit.com/r/pygame/comments/nvvabc/what_are_subsurfaces_used_for/
-def main_loop_outer(countdown):
+def main_loop_outer(countdown, max_extra):
 
 
     
@@ -220,7 +220,7 @@ def main_loop_outer(countdown):
 
 
     # for i in range(0,10000):
-    for i in range(0,1000000):
+    for i in range(0,max_extra):
 
         paths.append(SinPath(offset=(180,0), frequency=0.2, speed=1.0 * i, rotation_degrees=90.0))
 
@@ -281,11 +281,11 @@ def main_loop_outer(countdown):
 # switch to pygame-ce???
 # https://www.reddit.com/r/pygame/comments/1ajih56/pygame_or_pygamece/
 # pygame-ce 2.5.6 (SDL 2.32.10, Python 3.13.9)                                                                                                                                             
-def main(countdown = None):
+def main(countdown = None, max_extra = 1000):
 
 
     _init()
-    main_loop_outer(countdown)
+    main_loop_outer(countdown, max_extra)
 
     pygame.quit()
 
