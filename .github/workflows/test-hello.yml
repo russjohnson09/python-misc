@@ -5,6 +5,8 @@ name: hello
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'hello/**'
 
 defaults:
   run:

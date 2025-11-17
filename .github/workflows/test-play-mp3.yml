@@ -1,10 +1,9 @@
-name:  play-mp3
-
-
 # https://graphite.com/guides/github-actions-on-pull-requests
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'play-mp3/**'
 
 defaults:
   run:

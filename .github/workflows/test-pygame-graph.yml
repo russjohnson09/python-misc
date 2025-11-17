@@ -5,6 +5,8 @@ name:  pygame-graph
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'pygame/graph/**'
 
 defaults:
   run:
