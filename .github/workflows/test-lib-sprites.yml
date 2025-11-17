@@ -1,5 +1,3 @@
-name:  pygame-graph
-
 
 # https://graphite.com/guides/github-actions-on-pull-requests
 on:

@@ -14,6 +14,8 @@ def rot_center(image, rect, angle):
     rot_rect = rot_image.get_rect(center=rect.center)
     return rot_image,rot_rect
 
+
+# TODO use pylogger with debug logs.
 class Spritesheet(object):
     def __init__(self, filename):
         try:
