@@ -3,17 +3,24 @@ import os
 
 from path import SinPath
 import numpy
+import math
+from scipy.ndimage import rotate
 
 from typing import Any, Generator, List, Optional, Callable, Tuple
 Event = Generator[None, None, None]
 Callback = Callable[[], Any]
 Colour = Tuple[int, int, int]
 
+# FPS = os.environ.get('FPS', 60)
+# FPS = os.environ.get('FPS', 120)
+# FPS = os.environ.get('FPS', 240)
 FPS = os.environ.get('FPS', 60)
 
 RED = (255, 0, 0)  # RGB values for red
 WHITE = (255, 255, 255) # RGB values for white background
 BLACK = (0, 0, 0) # RGB values for white background
+BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
 
 FILL = (100, 100, 100) # RGB values for white background
 FILL = (20, 20, 20) # RGB values for white background
@@ -97,8 +104,6 @@ class Game():
 
 
 def draw_sin(surface: pygame.surface.Surface):
-    import math
-    import time
 
     line_color = RED
 
@@ -140,6 +145,16 @@ def draw_points(
         prev_pt = point_real
 
 
+def draw_circle(surface: pygame.surface.Surface, point: numpy.array):
+
+
+     #(r, g, b) is color, (x, y) is center, R is radius and w is the thickness of the circle border.
+    pygame.draw.circle(surface, BLUE, point, 10.0, 2)
+
+
+    pass
+
+# https://www.reddit.com/r/pygame/comments/nvvabc/what_are_subsurfaces_used_for/
 def main_loop_outer(countdown):
 
 
@@ -164,16 +179,48 @@ def main_loop_outer(countdown):
     clock = pygame.time.Clock()
     running = True
 
-    screen.fill(FILL)
+    # screen.fill(FILL)
+    # https://www.reddit.com/r/pygame/comments/ppglzo/transparent_surfaces_in_pygame_20/
 
-    sin_path = SinPath()
+    # https://www.reddit.com/r/pygame/comments/ppglzo/transparent_surfaces_in_pygame_20/
+    # surf = pygame.Surface(size, pygame.SRCALPHA)
+    points_surface =  pygame.Surface(screen.size, pygame.SRCALPHA) # screen.copy()
 
+    offset = numpy.array((0,100))
+
+    sin_path = SinPath(offset)
+
+    sin_path2 = SinPath(offset=(0,200), frequency=0.05)
+
+    # TODO add a rotate
+    # sin_path2.points = rotate(sin_path2.points, angle=45)
+
+
+
+    paths: list[SinPath] = [sin_path, sin_path2]
+
+    paths.append(SinPath(offset=(0,200), frequency=0.1))
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=0.2))
+
+
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=1.2))
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=1.4))
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=1.6))
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=1.8))
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=2.0))
+    paths.append(SinPath(offset=(0,300), frequency=0.2, speed=22))
 
     # draw_sin(screen)
 
 
     pygame.display.flip() # Or pygame.display.update()
 
+
+    for sp in paths:
+        draw_points(surface=points_surface,points=sp.points, offset=sp.offset)
+    #draw_points(surface=points_surface,points=sin_path2.points, offset=sin_path.offset)
+
+    tick = 0
     while running:
         if countdown is not None:
             pygame.display.set_caption(f"Countdown: {countdown}")
@@ -181,12 +228,24 @@ def main_loop_outer(countdown):
             if countdown < 0:
                 return
         
+
+        screen.fill(FILL)
+
+        for sp in paths:
+            # draw_points(surface=points_surface,points=sin_path.points, offset=sin_path.offset)
+            draw_circle(surface=screen, point=sp.get_next_point())
+
+        screen.blit(points_surface)
+        # for sp in paths:
+        #     draw_points(surface=screen,points=sp.points, offset=sp.offset)
         
-
-
         running = game.main_loop(pygame.event.get())
 
-        draw_points(surface=screen,points=sin_path.points, offset=(0,100))
+
+
+        # sin_path.do_tick()
+
+
 
 
         # game_sprites.update()
@@ -198,6 +257,10 @@ def main_loop_outer(countdown):
 
         # https://www.pygame.org/docs/ref/time.html#pygame.time.Clock.tick
         clock.tick(FPS)
+        # print(clock.get_fps())
+        actual_fps = clock.get_fps()
+        if actual_fps < 55.0:
+            print(actual_fps)
 
 
 # https://pyga.me/docs/ref/display.html#pygame.display.set_window_position

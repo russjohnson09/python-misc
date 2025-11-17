@@ -24,7 +24,7 @@ def sin_path(frequency = 0.01, amplitude = 50.0, end_x = 640) -> list[np.array]:
     points = []
     for i in range(0, 100000, step):
         # x = i * 2.0 * math.pi
-        x = i
+        x = i * 2.0
         y = (amplitude * math.sin(x * frequency))
         points.append(np.array((x,y)))
         if x > end_x:
@@ -34,18 +34,37 @@ def sin_path(frequency = 0.01, amplitude = 50.0, end_x = 640) -> list[np.array]:
     print(len(points)) # 642
     return points
 
+# https://www.reddit.com/r/learnpython/comments/1e8os0i/rotating_a_vertex_using_numpy/
+# https://numpy.org/doc/2.1/reference/generated/numpy.roll.html
+
+# https://stackoverflow.com/questions/57602828/how-to-rotate-square-numpy-array-of-2-dimensional-by-45-degree-in-python
+# https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.rotate.html
+
 class SinPath():
 
+    speed: float = 1.0
+    _tick: float = 0.0
     points: list[np.array]
 
-    def __init__(self):
+    offset: np.array
+
+    def __init__(self, offset, frequency = 0.01, amplitude = 50.0, speed = 1.0):
         print('SinPath')
-        self.points = sin_path()
+        self.points = sin_path(frequency, amplitude)
+        self.offset = offset
+        self.speed = speed
         pass
 
+    def _do_tick(self):
+        self._tick += self.speed
     
-    def get_point(self, t: int):
+    def get_next_point(self):
         # loop
-        return self.points[t % len(self.points)]
+        idx = math.floor(self._tick)
+        point = self.points[idx % len(self.points)] + self.offset
+        # if increment_tick:
+        self._do_tick()
+        
+        return point
 
     
