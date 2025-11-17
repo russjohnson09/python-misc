@@ -31,7 +31,6 @@ def sin_path(frequency = 0.01, amplitude = 50.0, end_x = 640) -> list[np.array]:
             break
         # prev_pt = (i, y)
 
-    print(len(points)) # 642
     return points
 
 def rotate(origin, point, angle):
@@ -62,7 +61,6 @@ class SinPath():
     offset: np.array
 
     def __init__(self, offset, frequency = 0.01, amplitude = 50.0, speed = 1.0, rotation_degrees = 0.0):
-        print('SinPath')
         self.points = sin_path(frequency, amplitude)
         if rotation_degrees != 0.0:
             rotation_radians = rotation_degrees * (math.pi / 180.0)

@@ -219,7 +219,8 @@ def main_loop_outer(countdown):
     paths.append(SinPath(offset=(180,0), frequency=0.2, speed=1.0, rotation_degrees=90.0))
 
 
-    for i in range(0,10000):
+    # for i in range(0,10000):
+    for i in range(0,1000000):
 
         paths.append(SinPath(offset=(180,0), frequency=0.2, speed=1.0 * i, rotation_degrees=90.0))
 
