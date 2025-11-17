@@ -34,6 +34,19 @@ def sin_path(frequency = 0.01, amplitude = 50.0, end_x = 640) -> list[np.array]:
     print(len(points)) # 642
     return points
 
+def rotate(origin, point, angle):
+    """
+    Rotate a point counterclockwise by a given angle around a given origin.
+
+    The angle should be given in radians.
+    """
+    ox, oy = origin
+    px, py = point
+
+    qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
+    qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
+    return np.array((qx, qy))
+
 # https://www.reddit.com/r/learnpython/comments/1e8os0i/rotating_a_vertex_using_numpy/
 # https://numpy.org/doc/2.1/reference/generated/numpy.roll.html
 
@@ -48,9 +61,13 @@ class SinPath():
 
     offset: np.array
 
-    def __init__(self, offset, frequency = 0.01, amplitude = 50.0, speed = 1.0):
+    def __init__(self, offset, frequency = 0.01, amplitude = 50.0, speed = 1.0, rotation_degrees = 0.0):
         print('SinPath')
         self.points = sin_path(frequency, amplitude)
+        if rotation_degrees != 0.0:
+            rotation_radians = rotation_degrees * (math.pi / 180.0)
+            # https://stackoverflow.com/questions/10973766/understanding-the-map-function
+            self.points = [rotate((0,0), point, rotation_radians) for point in self.points]
         self.offset = offset
         self.speed = speed
         pass

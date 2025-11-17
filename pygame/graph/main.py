@@ -210,6 +210,19 @@ def main_loop_outer(countdown):
     paths.append(SinPath(offset=(0,300), frequency=0.2, speed=2.0))
     paths.append(SinPath(offset=(0,300), frequency=0.2, speed=22))
 
+    paths.append(SinPath(offset=(0,0), frequency=0.2, speed=1.0, rotation_degrees=45.0))
+
+
+    # instead of draw circle 
+    paths.append(SinPath(offset=(0,380), frequency=0.2, speed=1.0, rotation_degrees=-45.0))
+
+    paths.append(SinPath(offset=(180,0), frequency=0.2, speed=1.0, rotation_degrees=90.0))
+
+
+    for i in range(0,10000):
+
+        paths.append(SinPath(offset=(180,0), frequency=0.2, speed=1.0 * i, rotation_degrees=90.0))
+
     # draw_sin(screen)
 
 
