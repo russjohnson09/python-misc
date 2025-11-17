@@ -40,9 +40,17 @@ class GalagaSpritesheet(Spritesheet):
 
 
 
+class Velocity:
+
+    x = 0
+    y = 0
+
+
 
 class PlayerSprite(pygame.sprite.Sprite):
 
+    # I am accidently making these static.
+    # Including velocity which I'm now fixing
     tick = 0
     frame = 0
     animation = 'idle'
@@ -57,17 +65,56 @@ class PlayerSprite(pygame.sprite.Sprite):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
 
-        # self.tick = 0
-        # self.frame = 0
-        # image = spritesheet.image_at((0, 0, 16, 16)) # TODO multiple images for player animation
-        # colorkey = (255, 255, 255)
-        # images = ss.images_at((0, 0, 16, 16),(17, 0, 16,16))#, colorkey=(255, 255, 255))
-        # self.images = [spritesheet.image_at((0, 0, 16, 16)), 
-        #                spritesheet.image_at((16 * 1 + 1, 0, 16, 16)),
-        #                spritesheet.image_at((16 * 2 + 1, 0, 16, 16))
-        #                ]
         
         self.animations['idle'] = [spritesheet.image_at((18 * i, 0, 18, 18)) for i in range(0,7)]
+        self.images = self.animations.get(self.animation)
+        self.image = self.images[0] # current image
+        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
+        self.rect: pygame.Rect = self.image.get_rect()
+        # self.rect = self.rect.copy()
+
+        # self.rect.topleft = (0,0)
+        # self.rect.h = 50
+        self.rect = pygame.Rect(0,0,18,18)
+
+        self.velocity = Velocity()
+
+
+    # TODO change animation
+    def update(self):
+        self.tick += 1
+
+        # ticks or frames
+        if self.tick % 30 == 0:
+            self.frame += 1
+
+        # self.rect.x += self.velocity.x
+        self.rect.y += self.velocity.y
+
+        self.image = self.images[self.frame % len(self.images)]
+
+    #     # self.pos = (0,0)
+
+
+
+
+class BeeSprite(pygame.sprite.Sprite):
+
+
+    tick = 0
+    frame = 0
+    animation = 'idle'
+    # https://www.pygame.org/docs/ref/sprite.html
+
+    animations = {
+        'idle': [],
+    }
+    def __init__(self, spritesheet: GalagaSpritesheet):
+        # I should pull in some singleton class for sprite management here.
+        super().__init__()
+
+        
+        self.animations['idle'] = [spritesheet.image_at((18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
         self.images = self.animations.get(self.animation)
         self.image = self.images[0] # current image
         # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
@@ -80,7 +127,6 @@ class PlayerSprite(pygame.sprite.Sprite):
     def update(self):
         self.tick += 1
 
-        print(self.tick)
         # ticks or frames
         if self.tick % 30 == 0:
             self.frame += 1
@@ -88,3 +134,89 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.image = self.images[self.frame % len(self.images)]
 
     #     # self.pos = (0,0)
+
+
+
+class ShrimpSprite(pygame.sprite.Sprite):
+
+
+    tick = 0
+    frame = 0
+    animation = 'idle'
+    # https://www.pygame.org/docs/ref/sprite.html
+
+    animations = {
+        'idle': [],
+    }
+    def __init__(self, spritesheet: GalagaSpritesheet):
+        # I should pull in some singleton class for sprite management here.
+        super().__init__()
+
+        
+        self.animations['idle'] = [spritesheet.image_at((18 * i, 18 * 6, 18, 18)) for i in range(0,7)]
+        self.images = self.animations.get(self.animation)
+        self.image = self.images[0] # current image
+        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0,0)
+        # self.rect.h = 50
+
+
+    # TODO change animation
+    def update(self):
+        self.tick += 1
+
+        # ticks or frames
+        if self.tick % 30 == 0:
+            self.frame += 1
+
+        self.image = self.images[self.frame % len(self.images)]
+
+    #     # self.pos = (0,0)
+
+
+
+class ShipExplosion(pygame.sprite.Sprite):
+
+
+    tick = 0
+    frame = 0
+    animation = 'idle'
+    # https://www.pygame.org/docs/ref/sprite.html
+
+    animations = {
+        'idle': [],
+    }
+    def __init__(self, spritesheet: GalagaSpritesheet):
+        # I should pull in some singleton class for sprite management here.
+        super().__init__()
+
+        
+        # 16 + 2 = 18
+        # 32 + 2 = 34 for the size with padding
+        offset_x = 36 * 4
+        self.animations['idle'] = [spritesheet.image_at((offset_x + (34 * i), 0, 34, 34)) for i in range(0,4)]
+
+        self.animations['idle'] = [pygame.transform.scale(image, (image.height / 2, image.width / 2)) for image in self.animations['idle']]
+
+        self.images = self.animations.get(self.animation)
+        self.image = self.images[0] # current image
+        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0,0)
+        # self.rect.h = 50
+
+
+    # TODO change animation
+    def update(self):
+        self.tick += 1
+
+        # ticks or frames
+        if self.tick % 30 == 0:
+            self.frame += 1
+
+        self.image = self.images[self.frame % len(self.images)]
+
+    #     # self.pos = (0,0)
+
+
