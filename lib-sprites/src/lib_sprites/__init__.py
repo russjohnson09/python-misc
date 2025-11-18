@@ -15,41 +15,22 @@ def rot_center(image, rect, angle):
     return rot_image,rot_rect
 
 
-# TODO use pylogger with debug logs.
-class Spritesheet(object):
-    def __init__(self, filename):
-        try:
-            self.sheet = pygame.image.load(filename).convert_alpha()#.convert()
-        except Exception as e:
-            raise e
-
-    # Load a specific image from a specific rectangle
-    def image_at(self, rectangle):
-        "Loads image from x,y,x+offset,y+offset"
-        rect = pygame.Rect(rectangle)
-
-        return self.sheet.subsurface(rect)
-
-
-
-class GalagaSpritesheet(Spritesheet):
-
-    def __init__(self):
-        filename = os.path.join(ASSET_DIR, 'galaga_sprites.png')
-        super().__init__(filename)
-
-
-
-
-
 class Velocity:
 
     x = 0
     y = 0
 
 
+class GalagaSprite(pygame.sprite.Sprite):
 
-class ShipSprite(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+
+        import lib_spritesheet
+        self.spritesheet = lib_spritesheet.GalagaSpritesheet()
+
+
+class ShipSprite(GalagaSprite):
 
     # I am accidently making these static.
     # Including velocity which I'm now fixing
@@ -63,11 +44,11 @@ class ShipSprite(pygame.sprite.Sprite):
         'idle': [],
         'red': [],
     }
-    def __init__(self, spritesheet: GalagaSpritesheet):
+    def __init__(self):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
 
-        
+        spritesheet = self.spritesheet
         self.animations['idle'] = [spritesheet.image_at((18 * i, 0, 18, 18)) for i in range(0,7)]
         self.images = self.animations.get(self.animation)
         self.image = self.images[0] # current image
@@ -100,7 +81,7 @@ class ShipSprite(pygame.sprite.Sprite):
 
 
 
-class BeeSprite(pygame.sprite.Sprite):
+class BeeSprite(GalagaSprite):
 
 
     tick = 0
@@ -111,11 +92,12 @@ class BeeSprite(pygame.sprite.Sprite):
     animations = {
         'idle': [],
     }
-    def __init__(self, spritesheet: GalagaSpritesheet):
+    def __init__(self):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
 
-        
+        spritesheet = self.spritesheet
+
         self.animations['idle'] = [spritesheet.image_at((18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
         self.images = self.animations.get(self.animation)
         self.image = self.images[0] # current image
@@ -139,7 +121,7 @@ class BeeSprite(pygame.sprite.Sprite):
 
 
 
-class ShrimpSprite(pygame.sprite.Sprite):
+class ShrimpSprite(GalagaSprite):
 
 
     tick = 0
@@ -150,11 +132,12 @@ class ShrimpSprite(pygame.sprite.Sprite):
     animations = {
         'idle': [],
     }
-    def __init__(self, spritesheet: GalagaSpritesheet):
+    def __init__(self):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
 
-        
+        spritesheet = self.spritesheet
+
         self.animations['idle'] = [spritesheet.image_at((18 * i, 18 * 6, 18, 18)) for i in range(0,7)]
         self.images = self.animations.get(self.animation)
         self.image = self.images[0] # current image
@@ -178,7 +161,7 @@ class ShrimpSprite(pygame.sprite.Sprite):
 
 
 
-class ShipExplosion(pygame.sprite.Sprite):
+class ShipExplosion(GalagaSprite):
 
 
     tick = 0
@@ -189,10 +172,10 @@ class ShipExplosion(pygame.sprite.Sprite):
     animations = {
         'idle': [],
     }
-    def __init__(self, spritesheet: GalagaSpritesheet):
+    def __init__(self):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
-
+        spritesheet = self.spritesheet
         
         # 16 + 2 = 18
         # 32 + 2 = 34 for the size with padding

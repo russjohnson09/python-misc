@@ -1,6 +1,6 @@
 
 
-from lib_sprites import GalagaSpritesheet, ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion
+from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion
 import pygame
 
 from .conftest import get_screen
@@ -9,8 +9,8 @@ FILL = (5, 5, 5)
 
 
 def test_main():
-    galaga_spritesheet = GalagaSpritesheet()
-    galaga_spritesheet2 = GalagaSpritesheet()
+    # galaga_spritesheet = GalagaSpritesheet()
+    # galaga_spritesheet2 = GalagaSpritesheet()
 
     screen = get_screen()
 
@@ -20,10 +20,10 @@ def test_main():
     enemy_sprites = pygame.sprite.Group()
     non_collision_sprites = pygame.sprite.Group()
 
-    player1 = ShipSprite(galaga_spritesheet)
+    player1 = ShipSprite()
     player_sprites.add(player1)
 
-    player2 = ShipSprite(galaga_spritesheet2)
+    player2 = ShipSprite()
 
     player2.rect.x = 18
     player2.rect.y = 32
@@ -31,13 +31,13 @@ def test_main():
     player2.velocity.y = -1
     player_sprites.add(player2)
 
-    bee = BeeSprite(galaga_spritesheet)
+    bee = BeeSprite()
     bee.rect.x = 18
 
-    shrimp = ShrimpSprite(galaga_spritesheet)
+    shrimp = ShrimpSprite()
     shrimp.rect.x = 18 * 2
 
-    ship_explosion = ShipExplosion(galaga_spritesheet)
+    ship_explosion = ShipExplosion()
     ship_explosion.rect.y = 18
 
     enemy_sprites.add(bee)
