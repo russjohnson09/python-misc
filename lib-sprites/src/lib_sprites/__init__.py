@@ -49,7 +49,7 @@ class Velocity:
 
 
 
-class PlayerSprite(pygame.sprite.Sprite):
+class ShipSprite(pygame.sprite.Sprite):
 
     # I am accidently making these static.
     # Including velocity which I'm now fixing
