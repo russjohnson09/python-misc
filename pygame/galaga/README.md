@@ -4,6 +4,8 @@
 uv add git+ssh://git@github.com/russjohnson09/python-misc.git#subdirectory=lib-sprites
 uv add git+https://github.com/russjohnson09/python-misc.git#subdirectory=lib-sprites
 
+# Package update
+uv lock --upgrade
 
 # Test
 uv sync --locked --all-extras --dev
