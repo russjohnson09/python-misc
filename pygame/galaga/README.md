@@ -1,3 +1,8 @@
+
+# Test
+uv sync --locked --all-extras --dev
+uv run pytest -s
+
 https://downloads.khinsider.com/game-soundtracks/album/rockman-x5-original-soundtrack-beta-tracks
 
 

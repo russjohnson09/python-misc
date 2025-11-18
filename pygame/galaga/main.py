@@ -1,6 +1,9 @@
 import pygame
 import time
 from typing import Any, Generator, List, Optional, Callable, Tuple
+import lib_sprites
+
+print(lib_sprites)
 Event = Generator[None, None, None]
 Callback = Callable[[], Any]
 Colour = Tuple[int, int, int]
@@ -114,12 +117,13 @@ def main_loop(screen):
     # event_queue.append(sound_loop())
 
     square = Square(screen)
-
+    
     i = 0
     running = True
     while running:
         i += 1
-        print(i)
+        print(lib_sprites)
+
         if i > 555:
             return
         for event in pygame.event.get():  # Process all events in the queue
