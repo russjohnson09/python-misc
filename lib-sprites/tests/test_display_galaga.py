@@ -1,6 +1,6 @@
 
 
-from lib_sprites import GalagaSpritesheet, PlayerSprite, BeeSprite, ShrimpSprite, ShipExplosion
+from lib_sprites import GalagaSpritesheet, ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion
 import pygame
 
 from .conftest import get_screen
@@ -20,10 +20,10 @@ def test_main():
     enemy_sprites = pygame.sprite.Group()
     non_collision_sprites = pygame.sprite.Group()
 
-    player1 = PlayerSprite(galaga_spritesheet)
+    player1 = ShipSprite(galaga_spritesheet)
     player_sprites.add(player1)
 
-    player2 = PlayerSprite(galaga_spritesheet2)
+    player2 = ShipSprite(galaga_spritesheet2)
 
     player2.rect.x = 18
     player2.rect.y = 32
