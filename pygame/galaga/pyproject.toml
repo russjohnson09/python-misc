@@ -5,6 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "lib-models",
+    "lib-sprites",
     "pygame-ce>=2.5.6",
 ]
 
@@ -12,3 +14,7 @@ dependencies = [
 dev = [
     "pytest>=9.0.1",
 ]
+
+[tool.uv.sources]
+# lib-models = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdirectory = "lib-models",  branch= "main" }
+lib-sprites = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites", branch= "main" }
