@@ -1,3 +1,4 @@
+uv add git+https://github.com/russjohnson09/python-misc.git#subdirectory=lib-spritesheet
 
 
 

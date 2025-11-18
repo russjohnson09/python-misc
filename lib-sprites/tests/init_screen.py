@@ -9,10 +9,6 @@ SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 
 
-def _init():
-    pygame.init()
-    pygame.mixer.init()
-
 #  640x480 psone
 def get_screen(screen_width = SCREEN_WIDTH, screen_height = SCREEN_HEIGHT) -> pygame.surface.Surface:
     # screen_width = 800
