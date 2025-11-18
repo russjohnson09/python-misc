@@ -46,7 +46,16 @@ wheels = [
 [[package]]
 name = "lib-sprites"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#2919451c50eca8f6f8164a71af9373b9695edb83" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#9268e66420850202639b2b7ee5ecee1d99a09638" }
+dependencies = [
+    { name = "lib-spritesheet" },
+    { name = "pygame-ce" },
+]
+
+[[package]]
+name = "lib-spritesheet"
+version = "0.1.0"
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#9268e66420850202639b2b7ee5ecee1d99a09638" }
 dependencies = [
     { name = "pygame-ce" },
 ]
