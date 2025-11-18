@@ -16,4 +16,4 @@ dev = [
 
 [tool.uv.sources]
 lib-models = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdirectory = "lib-models",  branch= "main" }
-lib-sprites = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites", branch= "main" }
+lib-sprites = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites" }

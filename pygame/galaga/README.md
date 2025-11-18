@@ -1,4 +1,10 @@
 
+
+
+uv add git+ssh://git@github.com/russjohnson09/python-misc.git#subdirectory=lib-sprites
+uv add git[+ssh://git@github.com/russjohnson09/python-misc.git](https://github.com/russjohnson09/python-misc.git)#subdirectory=lib-sprites
+
+
 # Test
 uv sync --locked --all-extras --dev
 uv run pytest -s

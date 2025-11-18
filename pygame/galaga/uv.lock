@@ -27,7 +27,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "lib-sprites", git = "ssh://git@github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites&branch=main" },
+    { name = "lib-sprites", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites" },
     { name = "pygame-ce", specifier = ">=2.5.6" },
 ]
 
@@ -46,7 +46,7 @@ wheels = [
 [[package]]
 name = "lib-sprites"
 version = "0.1.0"
-source = { git = "ssh://git@github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites&branch=main#2919451c50eca8f6f8164a71af9373b9695edb83" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#2919451c50eca8f6f8164a71af9373b9695edb83" }
 dependencies = [
     { name = "pygame-ce" },
 ]

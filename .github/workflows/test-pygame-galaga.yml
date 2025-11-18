@@ -20,6 +20,8 @@ jobs:
     name: python
     runs-on: ubuntu-latest
 
+      # git@github.com: Permission denied (publickey).
+      # fatal: Could not read from remote repository.
     steps:
       - uses: actions/checkout@v5
 
