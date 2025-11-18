@@ -7,9 +7,6 @@ from .conftest import get_screen
 FILL = (5, 5, 5)
 
 
-
-
-
 def test_main():
     galaga_spritesheet = GalagaSpritesheet()
     galaga_spritesheet2 = GalagaSpritesheet()
