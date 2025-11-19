@@ -6,7 +6,6 @@ _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirnam
 
 ASSET_DIR = os.environ.get('ASSET_DIR', _default_asset_dir)
 
-
 # https://stackoverflow.com/questions/21080790/pygame-and-rotation-of-a-sprite
 def rot_center(image, rect, angle):
     """rotate an image while keeping its center"""
@@ -16,12 +15,6 @@ def rot_center(image, rect, angle):
 
 
 class Sound(pygame.mixer.Sound):
-    # def __init__(self, filename):
-    #     # try:
-    #     #     self.sound = pygame.mixer.Sound(filename)
-    #     #     # self.sheet = pygame.image.load(filename).convert_alpha()#.convert()
-    #     # except Exception as e:
-    #     #     raise e
 
     # Load a specific image from a specific rectangle
     def play(self):
