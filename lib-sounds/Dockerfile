@@ -1,5 +1,7 @@
 FROM python:3.13-alpine
 
+# is setting the working directory necessary
+
 # https://hub.docker.com/_/python
 
 
@@ -10,9 +12,14 @@ FROM python:3.13-alpine
 
 # https://github.com/astral-sh/uv/issues/6392
 
+RUN pwd
+
+
 RUN apk add curl git
 RUN apk add uv
 
+COPY ./pyproject.toml pyproject.toml
+# COPY ./uv.lock uv.lock
 
 RUN uv venv
 RUN uv sync --all-extras

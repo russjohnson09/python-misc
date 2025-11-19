@@ -23,6 +23,10 @@ FROM astral/uv:python3.13-alpine
 
 # RUN apk add uv
 
+COPY ./.python-version .python-version
+COPY ./pyproject.toml pyproject.toml
+COPY ./uv.lock uv.lock
+
 RUN uv venv
 RUN uv sync --locked --all-extras
 # RUN uv sync --locked --all-extras --dev
