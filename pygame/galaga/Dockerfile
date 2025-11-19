@@ -94,6 +94,7 @@ COPY ./ .
 RUN uv sync --all-extras
 
 
+# my repo is public though is the problem, so I'll have no issue with that
 # docker build . --target=run --progress plain -t lib-sounds-test
 # docker images
 FROM base AS run
@@ -136,6 +137,7 @@ RUN ls /app/tests/assets
 RUN uv sync --all-extras
 RUN ls /app/tests/assets
 
+# It probably makes more sense to just include the assets path when running the container as a part of some volume
 ENV ASSET_DIR='/app/tests/assets' 
 
 RUN uv run pytest

@@ -6,7 +6,7 @@ import os
 _root_repo_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../'))
 _default_asset_dir = os.path.abspath(os.path.join(_root_repo_dir, 'assets'))
 
-os.environ['ASSET_DIR'] = _default_asset_dir
+os.environ['ASSET_DIR'] = os.environ.get('ASSET_DIR', _default_asset_dir)
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480

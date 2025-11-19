@@ -2,12 +2,19 @@
 
 from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion
 import pygame
+import os
 
 from .conftest import get_screen
 FILL = (5, 5, 5)
 
 
+# print('environment')
+# print(os.environ)
+
 def test_main():
+    # print('test_main')
+    # print(os.environ.get('ASSET_DIR'))
+
     screen = get_screen()
 
     clock = pygame.time.Clock()
@@ -67,7 +74,8 @@ def test_main():
                
                 for block in blocks_hit_list:
                     # tests\test_display_galaga.py <BeeSprite Sprite(in 0 groups)>
-                    print(block)
+                    # print(block)
+                    pass
 
 
 

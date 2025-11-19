@@ -122,7 +122,7 @@ def main_loop(screen):
     running = True
     while running:
         i += 1
-        print(lib_sprites)
+        # print(lib_sprites)
 
         if i > 555:
             return
