@@ -102,7 +102,10 @@ WORKDIR /app
 # do I need to copy over portmidi again?
 # do I reinstall 
 COPY --from=build /app /app
-COPY ./ .
+# COPY ./ .
+
+RUN ls /app/tests
+RUN ls /app/tests/assets
 
 
 RUN apk add alsa-utils
@@ -129,8 +132,10 @@ RUN aplay -L
 # ENV SDL_AUDIODRIVER='alsa' 
 ENV SDL_AUDIODRIVER='dummy' 
 
-
+RUN ls /app/tests/assets
 RUN uv sync --all-extras
-ENV ASSET_DIR='/data/tests/assets' 
+RUN ls /app/tests/assets
+
+ENV ASSET_DIR='/app/tests/assets' 
 
 RUN uv run pytest
