@@ -10,4 +10,5 @@ FROM python:3.13-alpine
 
 # https://github.com/astral-sh/uv/issues/6392
 
-
+RUN apk add curl git
+RUN apk add uv

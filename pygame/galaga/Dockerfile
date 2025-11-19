@@ -1,8 +1,8 @@
 # https://hub.docker.com/_/python
 # FROM python:3.13-alpine
-# https://hub.docker.com/r/astral/uv
 # FROM ghcr.io/astral-sh/uv:python3.13-alpine
-FROM astral-sh/uv:python3.13-alpine
+# https://hub.docker.com/r/astral/uv
+FROM astral/uv:python3.13-alpine
 
 
 
