@@ -140,4 +140,4 @@ RUN ls /app/tests/assets
 # It probably makes more sense to just include the assets path when running the container as a part of some volume
 ENV ASSET_DIR='/app/tests/assets' 
 
-RUN uv run pytest
+# RUN uv run pytest

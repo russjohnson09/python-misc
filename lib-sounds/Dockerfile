@@ -140,4 +140,4 @@ ENV ASSET_DIR='/app/tests/assets'
 
 # #37 12.67 tests/test_main.py Fatal Python error: Segmentation fault
 # only main has the segmentation fault though
-# RUN uv run pytest
+RUN uv run pytest
