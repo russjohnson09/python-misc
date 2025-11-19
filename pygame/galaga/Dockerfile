@@ -28,6 +28,9 @@ COPY ./pyproject.toml pyproject.toml
 COPY ./uv.lock uv.lock
 
 RUN uv venv
+
+COPY ./ .
+
 RUN uv sync --locked --all-extras
 # RUN uv sync --locked --all-extras --dev
 
