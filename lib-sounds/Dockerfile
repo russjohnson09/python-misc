@@ -90,6 +90,7 @@ RUN uv venv
 RUN uv sync --all-extras --no-install-project
 
 COPY ./ .
+
 RUN uv sync --all-extras
 
 
@@ -100,7 +101,8 @@ WORKDIR /app
 
 # do I need to copy over portmidi again?
 # do I reinstall 
-COPY --from=BUILD /app /app
+COPY --from=build /app /app
+COPY ./ .
 
 
 RUN apk add alsa-utils
@@ -129,6 +131,6 @@ ENV SDL_AUDIODRIVER='dummy'
 
 
 RUN uv sync --all-extras
-ENV ASSETS_DIR='/data/tests/assets' 
+ENV ASSET_DIR='/data/tests/assets' 
 
 RUN uv run pytest
