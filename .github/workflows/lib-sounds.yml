@@ -33,10 +33,11 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
-        name: Build and push
+        name: Build Only
         uses: docker/build-push-action@v6
         with:
-          context: .
+        #     working-directory: ./lib-sounds is not respected?
+          context: ./lib-sounds
           push: false
           # tags: user/app:latest
 
