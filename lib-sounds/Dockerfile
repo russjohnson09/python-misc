@@ -12,3 +12,7 @@ FROM python:3.13-alpine
 
 RUN apk add curl git
 RUN apk add uv
+
+
+RUN uv venv
+RUN uv sync --all-extras
