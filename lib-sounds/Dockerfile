@@ -94,7 +94,7 @@ COPY ./ .
 RUN uv sync --all-extras
 
 
-# docker build . --target=run --progress plain
+# docker build . --target=run --progress plain -t lib-sounds-test
 # docker images
 FROM base AS run
 WORKDIR /app

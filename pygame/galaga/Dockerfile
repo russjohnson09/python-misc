@@ -2,9 +2,12 @@
 # FROM python:3.13-alpine
 # FROM ghcr.io/astral-sh/uv:python3.13-alpine
 # https://hub.docker.com/r/astral/uv
-FROM astral/uv:python3.13-alpine
+# FROM astral/uv:python3.13-alpine
+FROM python:3.13-alpine AS run
 
 
+RUN apk add curl git uv build-base
+# RUN apk add curl git build-base
 
 # FROM ubuntu:22.04
 
