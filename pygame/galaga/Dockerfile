@@ -28,6 +28,8 @@ COPY ./pyproject.toml pyproject.toml
 COPY ./uv.lock uv.lock
 
 RUN uv venv
+# https://docs.astral.sh/uv/concepts/projects/sync/#partial-installations
+RUN uv sync --all-extras --no-install-project
 
 COPY ./ .
 
