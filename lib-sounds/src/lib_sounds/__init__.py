@@ -79,6 +79,9 @@ def _load_sound_segment(snd: pygame.mixer.Sound | bytearray,
 
 
 class AndSoundBoard():
+    soundboard_mappings = {
+        
+    }
     def __init__(self):
         filename = os.path.join(ASSET_DIR, f'&.mp3')
         # super().__init__(filename)
@@ -95,9 +98,12 @@ class AndSoundBoard():
     def play(self, name):
         start_seconds =  0
         end_seconds =  None
-        if name == 'came':
-            start_seconds =  5.282
-            end_seconds =  5.955
+        self.soundboard_mappings.get(name, {}).get('start_seconds')
+        self.soundboard_mappings.get(name, {}).get('end_seconds')
+
+        # if name == 'came':
+        #     start_seconds =  5.282
+        #     end_seconds =  5.955
         
         if end_seconds is None:
             return

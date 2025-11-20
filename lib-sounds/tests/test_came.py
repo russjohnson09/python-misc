@@ -118,7 +118,7 @@ def test_came():
 
     # came.play()
 
-    andSoundBoard.play('came')
+    # andSoundBoard.play('came')
 
     i = 0
     while i < (60 * 15):
@@ -131,6 +131,9 @@ def test_came():
                 if event.key == pygame.K_k:
                     print('play note')
                     andSoundBoard.play('came')
+                elif event.key == pygame.K_a:
+                    print('play note')
+                    andSoundBoard.play('again')
             #     if event.key == pygame.K_RETURN:  # Check if Enter was pressed
             #         print('play note')
             #         piano.play_note(note='A4')
