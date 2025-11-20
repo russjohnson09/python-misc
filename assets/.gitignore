@@ -1,0 +1,23 @@
+*
+
+!&.mp3
+!.gitignore
+
+# Python 2.7.x is required. (Conversion to Python 3 should be trivial if needed.) Add the top-level directory (the folder containing this file) to the PYTHONPATH, e.g. from a bash shell:
+
+
+
+# https://github.com/ajjackson/pysfz
+# https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+
+
+
+# pitch shift files in build
+# assets/build
+
+
+#https://samplefocus.com/categories/piano
+
+# https://musescore.org/en/node/13216
+
+# https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
