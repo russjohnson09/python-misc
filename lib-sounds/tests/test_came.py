@@ -128,12 +128,14 @@ def test_came():
                 return
             elif event.type == pygame.KEYDOWN:
                 print('keydown', event.key)
-                if event.key == pygame.K_k:
-                    print('play note')
+                if event.key == pygame.K_c:
                     andSoundBoard.play('came')
                 elif event.key == pygame.K_a:
-                    print('play note')
-                    andSoundBoard.play('again')
+                    andSoundBoard.play('and')
+                elif event.key == pygame.K_r:
+                    andSoundBoard.play('right')
+                elif event.key == pygame.K_w:
+                    andSoundBoard.play('wrong')
             #     if event.key == pygame.K_RETURN:  # Check if Enter was pressed
             #         print('play note')
             #         piano.play_note(note='A4')
