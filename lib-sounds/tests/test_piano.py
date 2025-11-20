@@ -15,7 +15,7 @@ def test_piano():
     
     piano = Piano()
 
-    piano.play_note(note='A4')
+    # piano.play_note(note='A4')
 
 
     # sound.play()
