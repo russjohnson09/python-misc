@@ -31,4 +31,17 @@ class MMX5StageStart(Sound):
         super().__init__(filename)
 
 
+class PianoNote(Sound):
+    def __init__(self, note='A4'):
+        filename = os.path.join(ASSET_DIR, f'UprightPianoKW-small-SFZ+FLAC-20190703/UprightPianoKW-small-SFZ+FLAC-20190703/samples/A4vH.flac')
+        super().__init__(filename)
+
+# UprightPianoKW-small-SFZ+FLAC-20190703
+class Piano():
+
+
+    def play_note(self, note='A4'):
+        piano_note = PianoNote(note=note)
+
+        return piano_note.play()
 
