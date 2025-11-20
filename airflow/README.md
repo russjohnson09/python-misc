@@ -17,6 +17,9 @@ uv run airflow config list --defaults > "airflow.cfg"
 
 AIRFLOW_HOME=. uv run airflow standalone
 
+
+2025-11-20T05:10:42.173706Z [warning  ] Could not import pandas. Holidays will not be considered. [airflow.example_dags.plugins.workday] loc=workday.py:41
+
 password will be visible in the output
 Simple auth manager | Password for user 'admin': nPvqKKUgahWfYcFD
 airflow\simple_auth_manager_passwords.json.generated
