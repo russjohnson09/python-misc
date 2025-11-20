@@ -1,6 +1,6 @@
 *
 
-&.mp3
+!&.mp3
 !.gitignore
 
 # Python 2.7.x is required. (Conversion to Python 3 should be trivial if needed.) Add the top-level directory (the folder containing this file) to the PYTHONPATH, e.g. from a bash shell:
