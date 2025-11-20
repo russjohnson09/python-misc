@@ -22,7 +22,6 @@ jobs:
       - uses: astral-sh/setup-uv@v6
 
       - run: uv sync --all-extras --dev --locked
-      - run: uv 
 
       - run: uv run airflow db reset -y
       - run: uv run airflow cheat-sheet
