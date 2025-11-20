@@ -119,6 +119,10 @@ def test_came():
     # came.play()
 
     # andSoundBoard.play('came')
+    andSoundBoard.play('came')
+    # andSoundBoard.play('and')
+    # andSoundBoard.play('right')
+    # andSoundBoard.play('wrong')
 
     i = 0
     while i < (60 * 15):
