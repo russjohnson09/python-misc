@@ -58,5 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: test-results/
+          path: pygame/sprite/test-results/
+          if-no-files-found: error
+
           retention-days: 7 # Optional: set retention period
