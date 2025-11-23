@@ -19,6 +19,7 @@ FILL = (20, 20, 20) # RGB values for white background
 FILL = (5, 5, 5) # RGB values for white background
 
 
+screen = None
 
 
 def _init():
@@ -30,6 +31,7 @@ def _init():
 
 #  640x480 psone
 def get_screen(screen_width = 640, screen_height = 480) -> pygame.surface.Surface:
+    global screen
     # screen_width = 800
     # screen_height = 600
     # screen = pygame.display.set_mode((screen_width, screen_height))
@@ -195,6 +197,9 @@ def main(countdown = None):
 
     _init()
     main_loop_outer(countdown)
+
+    pygame.image.save(screen, "screenshot.png")
+
 
     pygame.quit()
 
