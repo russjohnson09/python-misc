@@ -6,12 +6,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     paths:
-      - 'pygame/keyboard_inputs/**'
+      - 'pygame/keyboard_input/**'
 
 defaults:
   run:
     shell: bash
-    working-directory: ./pygame/keyboard_inputs
+    working-directory: ./pygame/keyboard_input
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
