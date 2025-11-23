@@ -6,12 +6,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     paths:
-      - 'pygame/sprite/**'
+      - 'pygame/keyboard_input/**'
 
 defaults:
   run:
     shell: bash
-    working-directory: ./pygame/sprite
+    working-directory: ./pygame/keyboard_input
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
@@ -29,18 +29,6 @@ jobs:
         # run: sudo apt-get update && sudo apt-get install -y alsa-utils
         run: sudo apt-get install -y alsa-utils
 
-      # - name: Load snd-dummy module
-      #   run: |
-      #     sudo modprobe snd-dummy
-      #     echo "alias char-major-116 snd" | sudo tee /etc/modprobe.d/myalias.conf
-      #     echo "alias snd-card-0 snd-dummy" | sudo tee -a /etc/modprobe.d/myalias.conf
-      #     sudo modprobe snd-dummy # Load again after alias if needed
-
-      # - name: Configure ALSA for dummy device
-      #   run: |
-      #     echo "pcm.!default { type hw card 0 }" | sudo tee /etc/asound.conf
-      #     echo "ctl.!default { type hw card 0 }" | sudo tee -a /etc/asound.conf
-
       - name: Verify ALSA setup
         run: aplay -L # Should list the dummy device
 
@@ -52,13 +40,4 @@ jobs:
 
       - name: Run tests
         # For example, using `pytest`
-        run: uv run pytest tests
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: pygame/sprite/test-results/
-          if-no-files-found: error
-
-          retention-days: 7 # Optional: set retention period
+        run: uv run pytest tests -s
