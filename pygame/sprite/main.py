@@ -198,7 +198,7 @@ def main(countdown = None):
     _init()
     main_loop_outer(countdown)
 
-    pygame.image.save(screen, "screenshot.png")
+    pygame.image.save(screen, "test-results/screenshot.png")
 
 
     pygame.quit()
