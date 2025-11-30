@@ -2,6 +2,9 @@
 Image is tagged -t as  static-sites-hello. Container runs in background 
 ```
 docker build . -t static-sites-hello
+docker stop static-sites-hello
+docker run --name=static-sites-hello -p 8080:80 -v ./static-html-directory:/usr/share/nginx/html:ro -d static-sites-hello
+
 docker run --name=static-sites-hello -p 8080:80 -v /root/python-misc/static-sites/hello/static-html-directory:/usr/share/nginx/html:ro -d static-sites-hello
 
 docker run --name=static-sites-hello -p 8080:80 -d static-sites-hello
