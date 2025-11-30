@@ -20,7 +20,14 @@ cat /etc/
 
 ln -s /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-available/hello
 
-cat /etc/nginx/sites-available/hello
+ln -s /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-enabled/hello
+
+cat /etc/nginx/sites-enabled/hello
+
+
+ /etc/init.d/nginx reload
+
+
 
 
 # Letsencrypt standalone
