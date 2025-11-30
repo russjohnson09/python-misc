@@ -13,8 +13,9 @@ uv add flask
 
 
 
+# Deploy new version
 docker build . -t flask-api
-docker run -p 8082:8000 flask-api
+docker run -p 8085:8000 flask-api
 
 
 
