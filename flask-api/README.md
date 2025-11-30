@@ -7,6 +7,10 @@ uv init
 uv add flask
 uv run -- flask run -p 8082
 
+docker build . -t flask-api
+docker run -p 8082:8000 flask-api
+
+
 
 https://flask.palletsprojects.com/en/stable/tutorial/deploy/
 
