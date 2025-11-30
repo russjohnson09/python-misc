@@ -20,6 +20,8 @@ cat /etc/
 
 ln -s /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-available/hello
 
+cat /etc/nginx/sites-available/hello
+
 
 # Letsencrypt standalone
 sudo certbot certonly --webroot --webroot-path ~/python-misc/static-sites/hello/static-html-directory/ --domains hello.ihateiceforfree.com
