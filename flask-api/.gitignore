@@ -1,0 +1,7 @@
+# ignore local sqlite database
+# I'm probably going to keep the api itself as light as possible
+# and not even give it a database directly.
+# download a wave file using some library.
+*.db
+
+# TODO add this to -v
