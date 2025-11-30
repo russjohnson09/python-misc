@@ -17,7 +17,8 @@ FROM nginx
 
 # https://www.digitalocean.com/community/tutorials/deploy-react-application-with-nginx-on-ubuntu
 
-COPY static-html-directory /usr/share/nginx/html
+
+# COPY static-html-directory /usr/share/nginx/html
 
 #  docker build . -t static-sites-hello
 #  docker run static-sites-hello -d -p 8080:80
