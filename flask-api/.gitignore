@@ -3,3 +3,5 @@
 # and not even give it a database directly.
 # download a wave file using some library.
 *.db
+
+# TODO add this to -v

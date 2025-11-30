@@ -32,6 +32,8 @@ def chess_1():
     return jsonify({'status': 'okay'})
 
 # detect if chess move is legal.
+# requires the board state and a move.
+
 
 
 
