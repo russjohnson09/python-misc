@@ -1,15 +1,15 @@
-docker build . -t static-sites-hello
-
-docker run --name=static-sites-react-app -p 8081:80 -v ./static-html-directory:/usr/share/nginx/html:ro -d static-sites-hello
+docker run -p 8081:80 -v ./default.conf:/etc/nginx/sites-enabled/default:ro -v ./build:/usr/share/nginx/html:ro -d nginx
 
 
-docker run -p 8081:80 -v ./nginx.conf:/etc/nginx/nginx.conf:ro -v ./build:/usr/share/nginx/html:ro -d nginx
+cp react-app.conf /etc/nginx/sites-enabled/
+/etc/init.d/nginx reload 
 
-docker run -p 8081:80 -v .defaultf:/etc/nginx/sites-enabled/default:ro -v ./build:/usr/share/nginx/html:ro -d nginx
+curl react-app.localhost
+
+curl react-app.ihateiceforfree.com
 
 
 Here you can practice using the react-app.
-
 
 
 Below is the documentation auto-generated
