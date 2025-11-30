@@ -16,9 +16,9 @@ uv add flask
 docker build . -t flask-api
 docker stop flask-api
 docker rm flask-api
-docker run --name=flask-api -d -p 8085:8000 flask-api
+docker run --name=flask-api -v ./static:/app/static -d -p 8085:8000 flask-api
 
-curl localhost:8085
+curl localhost:8085/test/test.html
 
 
 ## Nginx and letsencrypt setup
@@ -30,7 +30,9 @@ curl flask-api.localhost
 curl flask-api.ihateiceforfree.com
 
 sudo certbot certonly --webroot --webroot-path ./static --domains flask-api.ihateiceforfree.com
+sudo certbot
 
+choose flask-api.ihateiceforfree.com
 
 
 

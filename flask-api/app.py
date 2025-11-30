@@ -1,4 +1,4 @@
-from flask import Flask,  url_for, redirect, send_from_directory
+from flask import Flask,  url_for, redirect, send_from_directory, jsonify
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -22,6 +22,17 @@ def static_serve(path):
 
     # Using request args for path will expose you to directory traversal attacks
     return send_from_directory('static', path)
+
+
+# blueprint chess
+
+
+@app.route("/chess")
+def chess_1():
+    return jsonify({'status': 'okay'})
+
+# detect if chess move is legal.
+
 
 
 # def app(environ, start_response):
