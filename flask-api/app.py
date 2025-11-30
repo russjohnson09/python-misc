@@ -1,4 +1,7 @@
 from flask import Flask,  url_for, redirect, send_from_directory
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -13,7 +16,10 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 @app.route('/<path:path>')
-def send_report(path):
+def static_serve(path):
+    print(path)
+    app.logger.info(path)
+
     # Using request args for path will expose you to directory traversal attacks
     return send_from_directory('static', path)
 

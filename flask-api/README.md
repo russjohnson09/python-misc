@@ -1,6 +1,5 @@
 
-uv run -- flask run -p 8082
-
+uv run -- flask --debug run -p 8082
 
 
 https://docs.astral.sh/uv/guides/projects/
@@ -15,7 +14,24 @@ uv add flask
 
 # Deploy new version
 docker build . -t flask-api
-docker run -p 8085:8000 flask-api
+docker stop flask-api
+docker rm flask-api
+docker run --name=flask-api -d -p 8085:8000 flask-api
+
+curl localhost:8085
+
+
+## Nginx and letsencrypt setup
+cp flask-api.conf /etc/nginx/sites-enabled/
+/etc/init.d/nginx reload 
+
+curl flask-api.localhost
+
+curl flask-api.ihateiceforfree.com
+
+sudo certbot certonly --webroot --webroot-path ./static --domains flask-api.ihateiceforfree.com
+
+
 
 
 
