@@ -21,28 +21,26 @@ cat /etc/
 
 ln -s /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-available/hello
 
-ln -s /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-enabled/hello
+cp /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-enabled/hello
+/etc/init.d/nginx reload
 
 cat /etc/nginx/sites-enabled/hello
 
-
-/etc/init.d/nginx reload
-
 curl hello.localhost
-
 curl hello.ihateiceforfree.com
 
 
 
 
 
-# Letsencrypt standalone
+# Letsencrypt
+I split this up into the initial cert using webroot as the challenge and then just running certbot and using the reinstall on the cert just generated.
+
 sudo certbot certonly --webroot --webroot-path ~/python-misc/static-sites/hello/static-html-directory/ --domains hello.ihateiceforfree.com
 
+sudo certbot
 
+choose hello.ihateiceforfree.com
 
-
-testroot@vak-wordpress-2:~/python-misc/static-sites/hello# sudo certbot certonly --webroot
-Saving debug log to /var/log/letsencrypt/letsencrypt.log
-Please enter the domain name(s) you would like on your certificate (comma and/or
-space separated) (Enter 'c' to cancel): 
+Successfully deployed certificate for hello.ihateiceforfree.com to /etc/nginx/sites-enabled/hello
+Congratulations! You have successfully enabled HTTPS on https://hello.ihateiceforfree.com

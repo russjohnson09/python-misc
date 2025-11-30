@@ -14,6 +14,18 @@ Here you can practice using the react-app.
 
 Below is the documentation auto-generated
 
+# Letsencrypt
+I split this up into the initial cert using webroot as the challenge and then just running certbot and using the reinstall on the cert just generated.
+
+sudo certbot certonly --webroot --webroot-path ~/python-misc/static-sites/react-app/build/ --domains react-app.ihateiceforfree.com
+
+sudo certbot
+
+choose react-app.ihateiceforfree.com
+
+Successfully deployed certificate for hello.ihateiceforfree.com to /etc/nginx/sites-enabled/hello
+Congratulations! You have successfully enabled HTTPS on https://hello.ihateiceforfree.com
+
 
 # Getting Started with Create React App
 
