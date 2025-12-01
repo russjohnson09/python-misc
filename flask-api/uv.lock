@@ -69,7 +69,7 @@ dependencies = [
 requires-dist = [
     { name = "flask", specifier = ">=3.1.2" },
     { name = "gunicorn", specifier = ">=23.0.0" },
-    { name = "lib-chess", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=python-libs%2Flib-chess" },
+    { name = "lib-chess", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=python-libs%2Flib-chess&branch=main" },
 ]
 
 [[package]]
@@ -136,7 +136,7 @@ wheels = [
 [[package]]
 name = "lib-chess"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=python-libs%2Flib-chess#4f26be1700fb4ee0dbc1364c83670d210c34a24b" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=python-libs%2Flib-chess&branch=main#3155f82bdab96b4a211d0542d6f3a7eabf6aa387" }
 dependencies = [
     { name = "python-chess" },
     { name = "sqlalchemy" },

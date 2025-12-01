@@ -1,3 +1,6 @@
+
+uv run -- flask --debug run -p 8082
+
 # Extend using volume
 
 systemctl stop docker
@@ -14,7 +17,6 @@ https://docs.digitalocean.com/products/volumes/how-to/expand-partitions/
 sudo e2fsck -f /dev/disk/by-id/scsi-0DO_Volume_volume-nyc1-01-part1
 
 
-uv run -- flask --debug run -p 8082
 
 
 https://docs.astral.sh/uv/guides/projects/
