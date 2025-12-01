@@ -8,11 +8,17 @@ from lib_chess.models.base import Base
 logging.basicConfig(level=logging.DEBUG)
 
 engine = create_engine("sqlite:///test.db")
-try:
-    Base.metadata.create_all(engine)
-except:
-    #sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table game already exists
-    pass
+
+def _create_tables():
+
+    try:
+        Base.metadata.create_all(engine)
+    except:
+        #sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table game already exists
+        pass
+    return
+
+_create_tables()
 
 app = Flask(__name__)
 
