@@ -14,7 +14,7 @@ class Game(Base):
 
     # id = Column(Integer, primary_key=True, autoincrement=True)
 
-    uuid = Column(String, primary_key=True, default=_init_uuid())
+    uuid = Column(String, primary_key=True, default=_init_uuid)
 
     # serialized string of game state
     fen = Column(String)
