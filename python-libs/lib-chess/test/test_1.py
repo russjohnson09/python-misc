@@ -62,6 +62,8 @@ def test_create_game_session():
 
 
     gs = GameSession(engine=engine)
+    gs = GameSession(engine=engine)
+    gs = GameSession(engine=engine)
 
     print(gs._board)
     print(gs._board.fen())

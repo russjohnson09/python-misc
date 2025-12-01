@@ -1,7 +1,14 @@
 from flask import Flask,  url_for, redirect, send_from_directory, jsonify
 import logging
+from sqlalchemy import create_engine, Column, Integer, String
+
+from lib_chess import GameSession
+from lib_chess.models.base import Base
 
 logging.basicConfig(level=logging.DEBUG)
+
+engine = create_engine("sqlite:///test.db")
+Base.metadata.create_all(engine)
 
 app = Flask(__name__)
 
@@ -30,6 +37,17 @@ def static_serve(path):
 @app.route("/chess")
 def chess_1():
     return jsonify({'status': 'okay'})
+
+@app.get("/chess/<string:id>")
+def chess_by_id(id):
+    if id == 'new':
+        print('create new session')
+        print(GameSession)
+        gs = GameSession(engine)
+        return jsonify({'status': 'okay', 'uuid': gs.uuid, 'fen': gs.fen()})
+    else:
+        gs = GameSession(engine, uuid=id)
+        return jsonify({'status': 'okay', 'uuid': gs.uuid, 'fen': gs.fen()})
 
 # detect if chess move is legal.
 # requires the board state and a move.
