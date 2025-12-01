@@ -11,4 +11,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-lib-chess = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "python-libs/lib-chess"  }
+lib-chess = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "python-libs/lib-chess", branch = "main"  }

@@ -13,6 +13,7 @@ uv add flask
 
 
 # Deploy new version
+git pull
 docker build . -t flask-api
 docker stop flask-api
 docker rm flask-api
