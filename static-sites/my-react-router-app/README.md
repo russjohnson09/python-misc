@@ -1,3 +1,7 @@
+npm run dev
+
+https://chessboardjs.com/download
+
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
