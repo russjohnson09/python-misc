@@ -1,3 +1,18 @@
+# Extend using volume
+
+systemctl stop docker
+
+
+https://forums.docker.com/t/how-do-i-change-the-docker-image-installation-directory/1169
+
+https://superuser.com/questions/1326168/how-to-add-mount-block-storage-on-digitalocean-droplet-under-server-root
+
+
+https://docs.digitalocean.com/products/volumes/how-to/expand-partitions/
+
+
+sudo e2fsck -f /dev/disk/by-id/scsi-0DO_Volume_volume-nyc1-01-part1
+
 
 uv run -- flask --debug run -p 8082
 
@@ -13,7 +28,8 @@ uv add flask
 
 
 # Deploy new version
-docker image prune
+docker container prune
+docker image prune -all
 git pull
 git checkout main
 docker build . -t flask-api
