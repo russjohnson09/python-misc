@@ -1,6 +1,7 @@
 from flask import Flask,  url_for, redirect, send_from_directory, jsonify
 import logging
 from sqlalchemy import create_engine, Column, Integer, String
+from flask_cors import CORS
 
 from lib_chess import GameSession
 from lib_chess.models.base import Base
@@ -21,6 +22,13 @@ def _create_tables():
 _create_tables()
 
 app = Flask(__name__)
+# cors = CORS(app, resources={r"/api/*": {"origins": "localhost"}})
+
+# https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
+# CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+CORS(app)
+# Access to fetch at 'https://flask-api.ihateiceforfree.com/chess/349d1547-7d16-45f1-93a6-1c118faab145' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
 
 # TODO download from &.wav soundboard
 @app.route("/came")

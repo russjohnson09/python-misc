@@ -8,6 +8,7 @@ dependencies = [
     "lib-chess",
     "flask>=3.1.2",
     "gunicorn>=23.0.0",
+    "flask-cors>=6.0.1",
 ]
 
 [tool.uv.sources]
