@@ -59,16 +59,11 @@ def chess_by_id(id):
         gs = GameSession(engine, uuid=id)
         return jsonify({'status': 'okay', 'uuid': gs.uuid, 'fen': gs.fen()})
 
-@app.get("/chess/<string:move>")
-def chess_by_id(id):
-    if id == 'new':
-        print('create new session')
-        print(GameSession)
-        gs = GameSession(engine)
-        return jsonify({'status': 'okay', 'uuid': gs.uuid, 'fen': gs.fen()})
-    else:
-        gs = GameSession(engine, uuid=id)
-        return jsonify({'status': 'okay', 'uuid': gs.uuid, 'fen': gs.fen()})
+@app.get("/chess/<string:id>/<string:move>")
+def chess_move(id: str, move: str):
+    gs = GameSession(engine, uuid=id)
+    success = gs.move_uci(move)
+    return jsonify({'success': success, 'uuid': gs.uuid, 'fen': gs.fen()})
 
 # detect if chess move is legal.
 # requires the board state and a move.

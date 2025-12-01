@@ -1,5 +1,6 @@
+uv run -- flask --debug run -p 8082 -h localhost
 
-uv run -- flask --debug run -p 8082
+
 
 # Extend using volume
 
