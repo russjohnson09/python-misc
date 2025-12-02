@@ -8,7 +8,8 @@ dependencies = [
     "lib-chess",
     "flask>=3.1.2",
     "gunicorn>=23.0.0",
+    "flask-cors>=6.0.1",
 ]
 
 [tool.uv.sources]
-lib-chess = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "python-libs/lib-chess"  }
+lib-chess = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "python-libs/lib-chess", branch = "main"  }

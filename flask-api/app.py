@@ -1,6 +1,7 @@
 from flask import Flask,  url_for, redirect, send_from_directory, jsonify
 import logging
 from sqlalchemy import create_engine, Column, Integer, String
+from flask_cors import CORS
 
 from lib_chess import GameSession
 from lib_chess.models.base import Base
@@ -8,9 +9,26 @@ from lib_chess.models.base import Base
 logging.basicConfig(level=logging.DEBUG)
 
 engine = create_engine("sqlite:///test.db")
-Base.metadata.create_all(engine)
+
+def _create_tables():
+
+    try:
+        Base.metadata.create_all(engine)
+    except:
+        #sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table game already exists
+        pass
+    return
+
+_create_tables()
 
 app = Flask(__name__)
+# cors = CORS(app, resources={r"/api/*": {"origins": "localhost"}})
+
+# https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
+# CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
+CORS(app)
+# Access to fetch at 'https://flask-api.ihateiceforfree.com/chess/349d1547-7d16-45f1-93a6-1c118faab145' from origin 'http://127.0.0.1:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
 
 # TODO download from &.wav soundboard
 @app.route("/came")
@@ -48,6 +66,12 @@ def chess_by_id(id):
     else:
         gs = GameSession(engine, uuid=id)
         return jsonify({'status': 'okay', 'uuid': gs.uuid, 'fen': gs.fen()})
+
+@app.get("/chess/<string:id>/<string:move>")
+def chess_move(id: str, move: str):
+    gs = GameSession(engine, uuid=id)
+    success = gs.move_uci(move)
+    return jsonify({'success': success, 'uuid': gs.uuid, 'fen': gs.fen()})
 
 # detect if chess move is legal.
 # requires the board state and a move.

@@ -1,3 +1,4 @@
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04
 
 Image is tagged -t as  static-sites-hello. Container runs in background 
 ```
@@ -19,8 +20,6 @@ Then redirect.
 
 cat /etc/
 
-ln -s /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-available/hello
-
 cp /root/python-misc/static-sites/hello/hello.conf /etc/nginx/sites-enabled/hello
 /etc/init.d/nginx reload
 
@@ -34,6 +33,8 @@ curl hello.ihateiceforfree.com
 
 
 # Letsencrypt
+sudo snap install --classic certbot
+
 I split this up into the initial cert using webroot as the challenge and then just running certbot and using the reinstall on the cert just generated.
 
 sudo certbot certonly --webroot --webroot-path ~/python-misc/static-sites/hello/static-html-directory/ --domains hello.ihateiceforfree.com
