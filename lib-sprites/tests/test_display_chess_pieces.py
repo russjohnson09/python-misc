@@ -1,6 +1,6 @@
 
 
-from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion, WhitePawn, ChessBoard
+from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion, WhitePawn, ChessBoard, WhiteKing, BlackKing, WhiteQueen
 import pygame
 
 from .conftest import get_screen
@@ -47,6 +47,9 @@ def test_main():
     for row_idx in range(0,8):
         for col_idx in range(0,8):
             pawn3 = WhitePawn()
+            pawn3 = WhiteKing()
+            pawn3 = BlackKing()
+            pawn3 = WhiteQueen()
             pawn3.rect.x = 66 + 48 * col_idx
             pawn3.rect.y = 34 + 48 * row_idx
             
