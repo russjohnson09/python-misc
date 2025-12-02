@@ -8,6 +8,10 @@
 *.txt
 *.sfz
 
+
+# https://www.spriters-resource.com/nes/chessmaster/
+!NES - The Chessmaster - Miscellaneous - Chessmen.png
+
 !&.mp3
 !/chesspieces/wikipedia/*
 !.gitignore

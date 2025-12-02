@@ -205,3 +205,17 @@ class ShipExplosion(GalagaSprite):
     #     # self.pos = (0,0)
 
 
+# https://www.spriters-resource.com/nes/chessmaster/asset/33121/
+class WhitePawn(pygame.sprite.Sprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self):
+        super().__init__()
+        filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        self.image = pygame.image.load(filename).convert_alpha()#.convert()
+
+        # size = self.image.get_size()
+        # scale = 0.2
+        # create a 2x bigger image than self.image
+        # self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()
