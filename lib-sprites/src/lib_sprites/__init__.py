@@ -204,4 +204,136 @@ class ShipExplosion(GalagaSprite):
 
     #     # self.pos = (0,0)
 
+class ChessBoard(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chess Board.png')
 
+        self.image = pygame.image.load(filename).convert_alpha()
+
+        scale = 2
+        size = self.image.get_size()
+        self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()
+
+class WhitePawn(pygame.sprite.Sprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self):
+        super().__init__()
+        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chessmen.png')
+        spritesheet = pygame.image.load(filename).convert_alpha()
+
+
+        # spritesheet.image_at(offset_x + (34 * i), 0, 34, 34)
+        x = 150
+        y = 0
+        w = 20
+        h = 20
+        rect = pygame.Rect((x,y,w,h))
+
+        self.image = spritesheet.subsurface(rect)
+
+
+        # self.image = spritesheet.image_at(x, y, w, h)
+
+        size = self.image.get_size()
+
+        scale = 2
+        # create a 2x bigger image than self.image
+        self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()
+
+class WhiteQueen(pygame.sprite.Sprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self):
+        super().__init__()
+        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chessmen.png')
+
+        spritesheet = pygame.image.load(filename).convert_alpha()
+
+
+        x = 30
+        y = 0
+        w = 22
+        h = 22
+        rect = pygame.Rect((x,y,w,h))
+
+        self.image = spritesheet.subsurface(rect)
+
+
+        # self.image = spritesheet.image_at(x, y, w, h)
+
+        size = self.image.get_size()
+
+        scale = 2
+        # create a 2x bigger image than self.image
+        self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()
+
+# https://www.spriters-resource.com/nes/chessmaster/asset/33121/
+class WhiteKing(pygame.sprite.Sprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self):
+        super().__init__()
+        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chessmen.png')
+
+        spritesheet = pygame.image.load(filename).convert_alpha()
+
+
+        # spritesheet.image_at(offset_x + (34 * i), 0, 34, 34)
+        x = 0
+        y = 0
+        w = 22
+        h = 22
+        rect = pygame.Rect((x,y,w,h))
+
+        self.image = spritesheet.subsurface(rect)
+
+
+        # self.image = spritesheet.image_at(x, y, w, h)
+
+        size = self.image.get_size()
+
+        scale = 2
+        # create a 2x bigger image than self.image
+        self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()
+
+
+class BlackKing(pygame.sprite.Sprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self):
+        super().__init__()
+        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chessmen.png')
+
+        spritesheet = pygame.image.load(filename).convert_alpha()
+
+
+        # spritesheet.image_at(offset_x + (34 * i), 0, 34, 34)
+        x = 0
+        y = 30
+        w = 22
+        h = 22
+        rect = pygame.Rect((x,y,w,h))
+
+        self.image = spritesheet.subsurface(rect)
+
+
+        # self.image = spritesheet.image_at(x, y, w, h)
+
+        size = self.image.get_size()
+
+        scale = 2
+        # create a 2x bigger image than self.image
+        self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()

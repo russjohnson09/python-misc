@@ -1,6 +1,20 @@
-*
+*.mp3
+*.img
+*.flac
+*.wav
+*.jpg
+*.png
+*.7z
+*.txt
+*.sfz
+
+
+# https://www.spriters-resource.com/nes/chessmaster/
+!NES - The Chessmaster - Miscellaneous - Chessmen.png
+!NES - The Chessmaster - Miscellaneous - Chess Board.png
 
 !&.mp3
+!/chesspieces/wikipedia/*
 !.gitignore
 
 # Python 2.7.x is required. (Conversion to Python 3 should be trivial if needed.) Add the top-level directory (the folder containing this file) to the PYTHONPATH, e.g. from a bash shell:
