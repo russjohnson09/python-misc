@@ -1,0 +1,18 @@
+[project]
+name = "mouse_input"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pygame-ce>=2.5.6",
+    "lib-sprites",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+]
+
+[tool.uv.sources]
+lib-sprites = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites" }
