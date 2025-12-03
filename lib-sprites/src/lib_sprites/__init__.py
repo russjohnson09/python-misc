@@ -247,34 +247,53 @@ class WhitePawn(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-class WhiteQueen(pygame.sprite.Sprite):
-    # https://www.pygame.org/docs/ref/sprite.html
-    def __init__(self):
-        super().__init__()
-        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
-        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chessmen.png')
 
+class ChessPiece(pygame.sprite.Sprite):
+
+    original_image: any
+    highlighted_image: any
+    image: any
+
+    is_highlighted = False
+
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self, rect: pygame.Rect = pygame.Rect((30,0,22,22))):
+        super().__init__()
+        filename = os.path.join(ASSET_DIR, 'NES - The Chessmaster - Miscellaneous - Chessmen.png')
         spritesheet = pygame.image.load(filename).convert_alpha()
 
-
-        x = 30
-        y = 0
-        w = 22
-        h = 22
-        rect = pygame.Rect((x,y,w,h))
-
-        self.image = spritesheet.subsurface(rect)
-
-
-        # self.image = spritesheet.image_at(x, y, w, h)
-
-        size = self.image.get_size()
-
+        image = spritesheet.subsurface(rect)
+        size = image.get_size()
         scale = 2
         # create a 2x bigger image than self.image
-        self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+        image = pygame.transform.scale(image, (int(size[0]*scale), int(size[1]*scale)))
+        size = image.get_size()
+        
+        colorImage = pygame.Surface(size).convert_alpha()
+        colorImage.fill(pygame.Color(0,255,0)) # green
+
+
+
+        # https://www.pygame.org/docs/ref/color.html
+
+        self.highlighted_image = image.copy()
+
+        self.highlighted_image.blit(colorImage, (0,0), special_flags = pygame.BLEND_RGBA_MULT)
+
+        self.image = self.original_image = image
 
         self.rect = self.image.get_rect()
+    
+    def update(self):
+        if self.is_highlighted:
+            self.image = self.highlighted_image
+        else:
+            self.image = self.original_image
+        return
+
+class WhiteQueen(ChessPiece):
+    pass
+
 
 # https://www.spriters-resource.com/nes/chessmaster/asset/33121/
 class WhiteKing(pygame.sprite.Sprite):
@@ -335,5 +354,36 @@ class BlackKing(pygame.sprite.Sprite):
         scale = 2
         # create a 2x bigger image than self.image
         self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
+
+        self.rect = self.image.get_rect()
+
+
+class Windows31Mouse(pygame.sprite.Sprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+    def __init__(self):
+        super().__init__()
+        # filename = os.path.join(ASSET_DIR, 'chesspieces/wikipedia/wP.png')
+        filename = os.path.join(ASSET_DIR, 'MS-DOS - Windows 3.1 - Miscellaneous - Cursor.png')
+
+        spritesheet = pygame.image.load(filename).convert_alpha()
+
+
+        # spritesheet.image_at(offset_x + (34 * i), 0, 34, 34)
+        x = 1
+        y = 7
+        w = 12
+        h = 20
+        rect = pygame.Rect((x,y,w,h))
+
+        self.image = spritesheet.subsurface(rect)
+
+
+        # self.image = spritesheet.image_at(x, y, w, h)
+
+        # size = self.image.get_size()
+
+        # scale = 2
+        # create a 2x bigger image than self.image
+        # self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
 
         self.rect = self.image.get_rect()
