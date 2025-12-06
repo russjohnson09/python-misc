@@ -1,3 +1,8 @@
+# Installing python and uv
+[./uv.md](./uv.md)
+
+
+
 https://cloud.digitalocean.com/networking/domains/voiceartistkay.com?i=a539de
 
 https://flask-api.ihateiceforfree.com/
