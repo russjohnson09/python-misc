@@ -4,6 +4,8 @@ from OpenSSL import crypto, SSL
 # https://stackoverflow.com/questions/27164354/create-a-self-signed-x509-certificate-in-python
 
 def cert_gen(
+    KEY_FILE = "private.key",
+    CERT_FILE="selfsigned.crt",
     emailAddress="emailAddress",
     commonName="commonName",
     countryName="NT",
@@ -13,9 +15,7 @@ def cert_gen(
     organizationUnitName="organizationUnitName",
     serialNumber=0,
     validityStartInSeconds=0,
-    validityEndInSeconds=10*365*24*60*60,
-    KEY_FILE = "private.key",
-    CERT_FILE="selfsigned.crt"):
+    validityEndInSeconds=10*365*24*60*60):
     #can look at generated file using openssl:
     #openssl x509 -inform pem -in selfsigned.crt -noout -text
     # create a key pair
@@ -37,8 +37,20 @@ def cert_gen(
     cert.set_pubkey(k)
     cert.sign(k, 'sha512')
     with open(CERT_FILE, "wt") as f:
-        f.write(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8"))
+        f.write(crypto.dump_certificate(
+            crypto.FILETYPE_PEM, 
+            cert).decode("utf-8"))
     with open(KEY_FILE, "wt") as f:
         f.write(crypto.dump_privatekey(crypto.FILETYPE_PEM, k).decode("utf-8"))
 
-cert_gen()
+# https://stackoverflow.com/questions/39356413/how-to-add-a-custom-ca-root-certificate-to-the-ca-store-used-by-pip-in-windows
+
+cert_gen(
+    KEY_FILE = "server_key.key",
+    CERT_FILE="server_cert.crt",
+)
+
+cert_gen(
+    KEY_FILE = "client_key.key",
+    CERT_FILE="client_cert.crt",
+)
