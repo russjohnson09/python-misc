@@ -47,12 +47,12 @@ def gen_keys(
 
 # https://stackoverflow.com/questions/39356413/how-to-add-a-custom-ca-root-certificate-to-the-ca-store-used-by-pip-in-windows
 
-cert_gen(
-    KEY_FILE = "server_key.key",
-    CERT_FILE="server_cert.crt",
-)
+# cert_gen(
+#     KEY_FILE = "server_key.key",
+#     CERT_FILE="server_cert.crt",
+# )
 
-cert_gen(
-    KEY_FILE = "client_key.key",
-    CERT_FILE="client_cert.crt",
-)
+# cert_gen(
+#     KEY_FILE = "client_key.key",
+#     CERT_FILE="client_cert.crt",
+# )
