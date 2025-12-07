@@ -16,7 +16,7 @@ def _load_verify_locations(context):
 
     pass
 
-enable_ssl = False
+enable_ssl = True
 
 class TcpServer(
 

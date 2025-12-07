@@ -18,7 +18,7 @@ def _load_verify_locations(context, cert_dir):
 
     pass
 
-enable_ssl = False
+enable_ssl = True
 
 
 class TcpClient(
