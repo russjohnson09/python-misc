@@ -1,24 +1,16 @@
 [project]
-name = "lib-network"
+name = "hello"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+authors = [
+    { email = "russjohnson09@gmail.com" }
+]
 requires-python = ">=3.13"
 dependencies = [
-    "pyopenssl>=25.3.0",
+    "flet[all]>=0.28.3",
 ]
 
 [build-system]
 requires = ["uv_build>=0.9.16,<0.10.0"]
 build-backend = "uv_build"
-
-[dependency-groups]
-dev = [
-    "pytest>=9.0.2",
-]
-
-[tool.pytest.ini_options]
-filterwarnings = [
-    "error",
-    "ignore::DeprecationWarning:.*.*"
-]
