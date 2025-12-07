@@ -139,6 +139,7 @@ class InstantMessenger():
 
         try:
             self.tcp_server.start()
+    # def __init__(self, host = '0.0.0.0', port = 9999, cert_dir = None):
 
         except Exception as e:
             messagebox.showerror("Failed", f"Failed to start server {self.tcp_server._host}:{self.tcp_server._port}\n{e}") 
@@ -204,8 +205,11 @@ class InstantMessenger():
         pass
 
     def server_start(self):
+        cert_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'certs'))
+
         self.tcp_server = TcpServer(
-            host=self.server_host
+            host=self.server_host,
+            cert_dir=cert_dir
         )
         print("server start")
 
