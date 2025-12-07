@@ -5,6 +5,7 @@ from lib_network import TcpServer
 from instant_message import instant_messenger as im
 import platform
 import os
+import time
 
 
 # https://www.pythonguis.com/tutorials/tkinter-basic-widgets/
@@ -17,6 +18,12 @@ def _send_message(*args):
 
     # PY_VAR0
     print(msg)
+    value = msg.get()
+
+    im.add_message(value)
+
+    msg.set('')
+
 
     pass
 
@@ -44,7 +51,7 @@ root.title("Rusty's IM")
 
 
 root.geometry("850x800")
-
+im.root = root
 msg = StringVar()
 
 def _specs_popup():
@@ -60,10 +67,19 @@ def _specs_popup():
     im.specs_popup()
     pass
 
+def _ip_popup():
+    im.ip_popup()
+
+def _add_about_menu_items(menu_about: Menu):
+    menu_about.add_command(label='Specs', command=_specs_popup)
+    menu_about.add_command(label='Ip', command=_ip_popup)
+
+
 def _add_about_menu(menubar: Menu):
     menu_about = Menu(menubar)
-    menu_about.add_command(label='Specs', command=_specs_popup)
+    _add_about_menu_items(menu_about)
     menubar.add_cascade(menu=menu_about, label='About')
+
 
     pass
 
@@ -73,7 +89,20 @@ def _add_menu(win):
     _add_about_menu(menubar)
 
 
+# main_iterator = 0
 
+def mainloop(root):
+    # def iterating_func():
+
+    #     im.loop()
+
+    #     root.after(1000, iterating_func)
+
+    root.after(0, im.loop_start())
+    root.mainloop()
+    # while True:
+    #     root.update_idletasks()
+    #     root.update()
 
 
 def main():
@@ -126,8 +155,9 @@ def main():
     # orient = 'horizontal', command = t.xview)
     # t['yscrollcommand'] = ys.set
     # t['xscrollcommand'] = xs.set
-    t.insert('end', "Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...")
+    # t.insert('end', "Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...")
 
+    im.scrolled_text = t
     
     t.grid(column = 0, row = 10, sticky = 'nwes')
 
@@ -143,7 +173,11 @@ def main():
 
     root.bind("<Return>", _send_message)
 
-    root.mainloop()
+    print("loop start")
+    # root.mainloop()
+    # https://stackoverflow.com/questions/29158220/tkinter-understanding-mainloop
+    mainloop(root)
+
 
 
 

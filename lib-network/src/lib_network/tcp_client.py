@@ -18,9 +18,6 @@ def _load_verify_locations(context, cert_dir):
 
     pass
 
-enable_ssl = True
-
-
 class TcpClient(
 
 ):
@@ -30,7 +27,7 @@ class TcpClient(
     # uv run client.py --key=123121321
     # verify the hashed password.
     # I'd like to also verify the client cert if possible at some point.
-    def __init__(self, cert_dir = None, host = '0.0.0.0'):
+    def __init__(self, host = '0.0.0.0', port = 9999, enable_ssl = True, cert_dir = None,):
 
         context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         context.verify_mode = ssl.CERT_REQUIRED
@@ -44,7 +41,10 @@ class TcpClient(
 
         # cert to share with others.
 
+        self._host = host
+        self._port = port
         self._context = context
+        self._enable_ssl = enable_ssl
 
         self._buffer_size = 1024
 
@@ -77,7 +77,7 @@ class TcpClient(
         # Address might be in a TIME_WAIT status, ignore this
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
-        if enable_ssl:
+        if self._enable_ssl:
             sock = self._context.wrap_socket(sock)
 
         print("client attempting connection ", (host, port))
