@@ -182,7 +182,7 @@ requires-dist = [
 [[package]]
 name = "lib-network"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network#8a3d045f114a64672483968af42de18c33443f6c" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network#5065339f57edec9629c95cadabc8cfe760468513" }
 dependencies = [
     { name = "pyopenssl" },
 ]
@@ -190,7 +190,7 @@ dependencies = [
 [[package]]
 name = "lib-spritesheet"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#8a3d045f114a64672483968af42de18c33443f6c" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#5065339f57edec9629c95cadabc8cfe760468513" }
 dependencies = [
     { name = "pygame-ce" },
 ]
