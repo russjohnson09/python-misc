@@ -19,8 +19,9 @@ def _send_message(*args):
     # PY_VAR0
     print(msg)
     value = msg.get()
+    name_str = name.get()
 
-    im.add_message(value)
+    im.add_message(f"{name_str}: {value}")
 
     msg.set('')
 
@@ -51,8 +52,18 @@ root.title("Rusty's IM")
 
 
 root.geometry("850x800")
+mainframe = ttk.Frame(root, padding=(3, 3, 12, 12))
+
 im.root = root
 msg = StringVar()
+
+name = StringVar()
+name_entry = ttk.Entry(mainframe, width=7, 
+    textvariable=name)
+name_entry.grid(column=0, row=0, sticky=(W, E))
+
+
+name.set('NameHere')
 
 def _specs_popup():
     print("specs")
@@ -107,7 +118,6 @@ def mainloop(root):
 
 def main():
     # win = Toplevel(root)
-    mainframe = ttk.Frame(root, padding=(3, 3, 12, 12))
 
 
     # win = Toplevel(root)
@@ -141,7 +151,7 @@ def main():
     ttk.Button(mainframe, text="Start Server", 
     command=_start_server).grid(column=3, row=5, sticky=W)
 
-    ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
+    # ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
     # ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
     # ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
     t = ScrolledText(mainframe,

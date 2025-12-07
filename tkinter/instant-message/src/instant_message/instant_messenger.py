@@ -9,6 +9,8 @@ import socket
 import datetime
 import time
 from tkinter.scrolledtext import ScrolledText
+import tkinter as tk
+
 
 import requests
 
@@ -139,6 +141,7 @@ class InstantMessenger():
 
         try:
             self.tcp_server.start()
+    # def __init__(self, host = '0.0.0.0', port = 9999, cert_dir = None):
 
         except Exception as e:
             messagebox.showerror("Failed", f"Failed to start server {self.tcp_server._host}:{self.tcp_server._port}\n{e}") 
@@ -147,6 +150,22 @@ class InstantMessenger():
         print("started server")
         pass
 
+
+
+    def _get_messages(self):
+        if not self._client_connected:
+            return
+        response = self.tcp_client.send({"type": "get_messages"})
+        # self.scrolled_text.set(response)
+        # https://stackoverflow.com/questions/27966626/how-to-clear-delete-the-contents-of-a-tkinter-text-widget
+        # https://stackoverflow.com/questions/50144388/python-tkinter-what-does-tkinter-end-do
+        self.scrolled_text.delete(1.0, tk.END)
+        # self.scrolled_text.insert("end-1c", response)
+
+        response_str = '\n'.join(response.get('messages'))
+        self.scrolled_text.insert(tk.END, response_str)
+        return
+    
     def _loop(self):
         i = 0
 
@@ -157,16 +176,22 @@ class InstantMessenger():
             ip = self._get_public_api(use_cache)
             time.sleep(1)
             self.root.title(f"Rusty's IM {self.get_duration()}\t {ip}")
-
-        pass
+            self._get_messages()
 
     def add_message(self, msg: str):
         if not self._client_connected:
             self.client_connect()
-        
 
-        # add message should actually not do anything besides send it to the server
-        self.scrolled_text.insert('end', f"{msg}\n")
+        if not msg:
+            return
+        
+        # TODO add name to all messages
+        response = self.tcp_client.send({"msg": msg, "type": "im"})    
+
+        # self.scrolled_text.insert("end-1c", response)
+        response_str = '\n'.join(response.get('messages'))
+        self.scrolled_text.delete(1.0, tk.END)
+        self.scrolled_text.insert(tk.END, response_str)
 
 
         pass
@@ -204,8 +229,11 @@ class InstantMessenger():
         pass
 
     def server_start(self):
+        cert_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'certs'))
+
         self.tcp_server = TcpServer(
-            host=self.server_host
+            host=self.server_host,
+            cert_dir=cert_dir
         )
         print("server start")
 
@@ -223,7 +251,12 @@ class InstantMessenger():
 
     
     def client_init(self):
-        self.tcp_client = TcpClient()
+        cert_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'certs'))
+
+
+        self.tcp_client = TcpClient(
+            cert_dir=cert_dir
+        )
 
 
         print("init client")
