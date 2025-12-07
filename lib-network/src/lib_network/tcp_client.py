@@ -48,9 +48,6 @@ class TcpClient(
 
         self._buffer_size = 1024
 
-        # self._host = host
-        # self._port = 9999
-
 
         pass
 

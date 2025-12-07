@@ -1,0 +1,22 @@
+[project]
+name = "instant-message"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "russjohnson09@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "lib-spritesheet",
+    "lib-network",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.16,<0.10.0"]
+build-backend = "uv_build"
+
+
+[tool.uv.sources]
+lib-spritesheet = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-spritesheet" }
+lib-network = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-network" }
