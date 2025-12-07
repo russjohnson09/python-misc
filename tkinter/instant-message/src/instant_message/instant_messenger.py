@@ -146,7 +146,7 @@ class InstantMessenger():
 
     def server_start(self):
         self.tcp_server = TcpServer(
-            self.host
+            host=self.host
         )
         print("server start")
 
