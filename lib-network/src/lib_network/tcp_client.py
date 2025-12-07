@@ -55,18 +55,31 @@ class TcpClient(
         sock = self._sock
         sock.close()
 
+    
+
     def send(self, content: dict):
 
         print("send message:", content)
         sock = self._sock
-        sock.sendall(json.dumps(content).encode('utf-8'))
+        content_str = json.dumps(content) + "\n"
+        sock.sendall(content_str.encode('utf-8'))
 
         # sock.shutdown(socket.SHUT_WR)
 
         buffer_size = self._buffer_size
         # shutdown might be redundant/unnecessary (tells connected host that we're done sending data)
 
-        data = sock.recv(buffer_size)
+        # data = sock.recv(buffer_size)
+        data = b''
+        while True:
+            # data = b''
+            data_chunk = sock.recv(buffer_size)
+            print("client received chunk:", data_chunk)
+            if not data_chunk: # client closed its connection
+                return False
+            data += data_chunk
+            if b'\n' in data_chunk:
+                break
 
         print("client received response", data)
         # sock.close()
