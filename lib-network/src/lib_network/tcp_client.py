@@ -8,6 +8,7 @@ import threading
 import ssl
 from time import sleep
 import json
+from .utils import receive_data_json
 
 from .gen_keys import gen_keys
 
@@ -56,21 +57,31 @@ class TcpClient(
         sock.close()
 
     def send(self, content: dict):
+        try:
+            print("send message:", content)
+            sock = self._sock
+            content_str = f"{json.dumps(content)}\n"
+            print(content_str)
+            sock.sendall(content_str.encode('utf-8'))
 
-        print("send message:", content)
-        sock = self._sock
-        sock.sendall(json.dumps(content).encode('utf-8'))
+            # payload = receive_data_json(sock) # json.loads(data)
+            # print("tcp_client received:", payload)
 
-        # sock.shutdown(socket.SHUT_WR)
+            # sock.shutdown(socket.SHUT_WR)
 
-        buffer_size = self._buffer_size
-        # shutdown might be redundant/unnecessary (tells connected host that we're done sending data)
+            # buffer_size = self._buffer_size
+            # shutdown might be redundant/unnecessary (tells connected host that we're done sending data)
 
-        data = sock.recv(buffer_size)
+            # data = sock.recv(buffer_size)
 
-        print("client received response", data)
-        # sock.close()
-        return json.loads(data)
+            # print("client received response", data)
+            # sock.close()
+            # return json.loads(data)
+            # return payload
+        except Exception as e:
+            return {}
+
+        return {}
 
     def connect(self, host = '127.0.0.1', port = 9999):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -90,6 +101,3 @@ class TcpClient(
         print("client connected")
 
 
-    
-# threading.Thread(target=receive,daemon=True).start()
-# send()

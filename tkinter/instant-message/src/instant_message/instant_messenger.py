@@ -9,6 +9,8 @@ import socket
 import datetime
 import time
 from tkinter.scrolledtext import ScrolledText
+import tkinter as tk
+
 
 import requests
 
@@ -149,7 +151,7 @@ class InstantMessenger():
 
     def _loop(self):
         i = 0
-
+        self._ip_internal = _ip_from_dns()
         while True:
             i += 1
             # print(f"_loop {i}")
@@ -157,8 +159,23 @@ class InstantMessenger():
             ip = self._get_public_api(use_cache)
             time.sleep(1)
             self.root.title(f"Rusty's IM {self.get_duration()}\t {ip}")
+            self._get_messages()
 
         pass
+
+    def _get_messages(self):
+        if not self._client_connected:
+            return
+        response = self.tcp_client.send({"type": "get_messages", "name": self._ip_internal})
+        print("_get_message")
+        print(response)
+        # self.scrolled_text.set(response)
+        # https://stackoverflow.com/questions/27966626/how-to-clear-delete-the-contents-of-a-tkinter-text-widget
+        # https://stackoverflow.com/questions/50144388/python-tkinter-what-does-tkinter-end-do
+        self.scrolled_text.delete(1.0, tk.END)
+        # self.scrolled_text.insert("end-1c", response)
+        self.scrolled_text.insert(tk.END, response)
+        return
 
     def add_message(self, msg: str):
         if not self._client_connected:
@@ -166,8 +183,12 @@ class InstantMessenger():
         
 
         # add message should actually not do anything besides send it to the server
-        self.scrolled_text.insert('end', f"{msg}\n")
+        # self.scrolled_text.insert('end', f"{msg}\n")
 
+        # ip = self._get_public_api()
+
+
+        self.tcp_client.send({"msg": msg, "type": "im", "name": self._ip_internal})
 
         pass
 
