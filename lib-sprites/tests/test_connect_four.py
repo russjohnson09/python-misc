@@ -3,7 +3,7 @@
 from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion, WhitePawn, ChessBoard, WhiteKing, BlackKing, WhiteQueen, Windows31Mouse, OctopusBattery
 import pygame
 
-from .conftest import get_screen
+from .conftest import get_screen_nes as get_screen
 FILL = (5, 5, 5)
 
 
@@ -69,7 +69,7 @@ def test_main():
             
             player_sprites.add(pawn3)
 
-    mouse_sprite = OctopusBattery()
+    mouse_sprite = OctopusBattery(OctopusBattery.OFFSET_BLUE)
     mouse_sprites.add(mouse_sprite)
 
     def _check_collisions():

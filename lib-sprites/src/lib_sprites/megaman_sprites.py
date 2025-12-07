@@ -42,6 +42,9 @@ class MegamanSprite(pygame.sprite.Sprite):
 
 class OctopusBattery(MegamanSprite):
 
+    OFFSET_RED = 14
+    OFFSET_ORANGE = 71
+    OFFSET_BLUE = 128
 
     tick = 0
     frame = 0
@@ -51,13 +54,28 @@ class OctopusBattery(MegamanSprite):
     animations = {
         'idle': [],
     }
-    def __init__(self):
+    def __init__(self, x_offset = OFFSET_RED, y_offset = 68, x_space_between_sprites = 19):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
 
         spritesheet = self.spritesheet
 
-        self.animations['idle'] = [_image_at(spritesheet,(18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
+        # self.animations['idle'] = [_image_at(spritesheet,(18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
+
+        # self.y_offset = 68
+        # self.x_offset = 14
+        # self.x_offset = 57
+
+        # x_space_between_sprites = 19
+
+        self.animations['idle'] = [
+            _image_at(spritesheet, (x_offset ,y_offset,16,16)),
+            _image_at(spritesheet, (x_offset + (x_space_between_sprites * 1),y_offset,16,16)),
+            _image_at(spritesheet, (x_offset + (x_space_between_sprites * 2),y_offset,16,16))
+
+            ]
+
+
         self.images = self.animations.get(self.animation)
         self.image = self.images[0] # current image
         # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
