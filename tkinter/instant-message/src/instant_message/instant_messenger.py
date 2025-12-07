@@ -62,7 +62,9 @@ class InstantMessenger():
     # host = '127.0.0.1'
     # I think this is for the whole house though and not my computer specifically?
     # If it is unique to my computer can I open up a port to accept a tcp connection?
-    host = '75.114.168.151'
+    
+    server_host = '0.0.0.0'
+    client_host = '75.114.168.151'
 
     port = 9999
 
@@ -83,7 +85,13 @@ class InstantMessenger():
     def _server_start(self):
         print("start in thread")
         # needs a new thread
-        self.tcp_server.start()
+
+        try:
+            self.tcp_server.start()
+
+        except Exception as e:
+            messagebox.showerror("Failed", f"Failed to start server {self.tcp_server._host}:{self.tcp_server._port}\n{e}") 
+
 
         print("started server")
         pass
@@ -146,7 +154,7 @@ class InstantMessenger():
 
     def server_start(self):
         self.tcp_server = TcpServer(
-            host=self.host
+            host=self.server_host
         )
         print("server start")
 
@@ -177,7 +185,7 @@ class InstantMessenger():
     def client_connect(self):
         try:
             #     def connect(self, host = '127.0.0.1', port = 9999):
-            self.tcp_client.connect(host=self.host, port=self.port)
+            self.tcp_client.connect(host=self.client_host, port=self.port)
             # ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
             self._client_connected = True
 
