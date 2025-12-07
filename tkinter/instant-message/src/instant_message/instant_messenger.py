@@ -50,6 +50,29 @@ ip from checkip.amazonaws.com: {_public_ip()}
 """
 
 
+# https://en.wikipedia.org/wiki/STUN
+
+# For P2P, either a) the customer adds a static rule ("port forwarding" aka DNAT) to always send packets for specified TCP/UDP port towards their computer (node A). Other nodes can then simply use the public address of the router and it'll forward packets internally to node A.
+# https://superuser.com/questions/1427873/how-p2p-connections-are-established-over-the-internet
+
+
+# NAT breakthrough usually requires some centralised server anyway to set up the connection between p2p nodes.
+
+# I think it would be good to comment on NAT breakthrough in your work without implementing it.
+
+# As others have said, P2P is client-server, where normally either node can be either client or server. unless you do clever things with multicasting.. Non P2P would involve clients all connecting to a single server (or cluster of servers)
+
+
+# https://ngrok.com/docs/universal-gateway/tcp#agent-cli
+
+# ngrok tcp 192.168.1.2:5432
+
+
+# https://vpn.net/
+#  I'm going to just try hamachi for now.
+
+# 25.44.155.87
+
 class InstantMessenger():
 
     scrolled_text: ScrolledText
@@ -64,7 +87,11 @@ class InstantMessenger():
     # If it is unique to my computer can I open up a port to accept a tcp connection?
     
     server_host = '0.0.0.0'
-    client_host = '75.114.168.151'
+    # client_host = '75.114.168.151'
+
+    #logmein hamachi
+    #2620:9b::192c:9b57
+    client_host = '25.44.155.87'
 
     port = 9999
 
@@ -193,7 +220,7 @@ class InstantMessenger():
             print("Failed to connect")
             # messagebox.Message()
             # https://www.geeksforgeeks.org/python/python-tkinter-messagebox-widget/
-            messagebox.showerror("Failed", f"Failed to connect {self.host}:{self.port}\n{e}") 
+            messagebox.showerror("Failed", f"Failed to connect {self.client_host}:{self.port}\n{e}") 
 
             pass
 
