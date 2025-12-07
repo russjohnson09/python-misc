@@ -18,6 +18,8 @@ class TcpServer(
 
 ):
 
+    _messages = []
+
     # verify a client using some shared password? gen invite links and anyone with the link can connect?
     # Probably a link.
     # uv run client.py --key=123121321
@@ -68,6 +70,16 @@ class TcpServer(
 
         if payload.get('msg') == 'close':
             return False
+        
+        if payload.get('type') == 'get_messages':
+            conn.sendall((json.dumps({"type": "get_messages","messages": self._messages}) + "\n").encode('utf-8'))
+
+            return True
+        if payload.get('type') == 'im':
+            self._messages.append(payload.get('msg'))
+            conn.sendall((json.dumps({"type": "get_messages","messages": self._messages}) + "\n").encode('utf-8'))
+
+            return True
 
         print("server send", (json.dumps({"msg": "pong"}) + "\n"))
         conn.sendall((json.dumps({"msg": "pong"}) + "\n").encode('utf-8'))
@@ -113,6 +125,7 @@ class TcpServer(
         print("server accepting connections")
 
         i = 0
+        # require multiple threads for each client connection
         while i < 3:
             i += 1
             threading.Thread(
