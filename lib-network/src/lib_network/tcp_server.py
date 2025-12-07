@@ -45,10 +45,27 @@ class TcpServer(
         self._host = host
         self._port = 9999
         self._buffer_size = 1024
-                
-
-
         pass
+
+    def _connection_loop():
+        print("server:: awaiting next connection")
+        conn, addr = sock.accept()
+        print("server accepting connections", conn, addr)
+
+        data = b''
+        while True:
+            new_data = conn.recv(buffer_size)
+            if not new_data:
+                break
+            data += new_data
+        
+            print("server received:",data)
+
+
+        # https://www.reddit.com/r/PLC/comments/1izcfsn/tcp_socket_keep_open_or_always_close/
+        conn.sendall(b'pong')
+            # send my response
+        conn.close()
 
     def start(self):
         print("start")
@@ -69,30 +86,8 @@ class TcpServer(
         print("socket is listening", (host, port))
         sock = self._context.wrap_socket(sock, server_side=True)
 
-        print("start accepting connections")
-        conn, addr = sock.accept()
+        print("server accepting connections")
+
+        # TODO 
         while True:
-            data = conn.recv(buffer_size)
-            if not data:
-                break
-            print("received:",data)
-        conn.close()
-
-# def send(hostname: str = "127.0.0.1", destPort: int = 9999, content: str = b"test", buffer_size: int = 1024):
-#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     # Address might be in a TIME_WAIT status, ignore this
-#     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-#     # Removed bind
-#     sock.connect((hostname, destPort))
-#     sock.sendall(content)
-#     # shutdown might be redundant/unnecessary (tells connected host that we're done sending data)
-#     sock.shutdown(socket.SHUT_WR)
-#     while True:
-#         data = sock.recv(buffer_size)
-#         if len(data) == 0:
-#             break
-#     sock.close()
-    
-# threading.Thread(target=receive,daemon=True).start()
-# send()
+            self._connection_loop()
