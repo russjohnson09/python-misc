@@ -18,6 +18,8 @@ class TcpServer(
 
 ):
 
+    _messages = []
+
     # verify a client using some shared password? gen invite links and anyone with the link can connect?
     # Probably a link.
     # uv run client.py --key=123121321
@@ -50,22 +52,56 @@ class TcpServer(
         sock = self._sock
         buffer_size = self._buffer_size
 
-        # data = b''
-        data = conn.recv(buffer_size)
-
-        if not data: # client closed its connection
-            return False
-
+        data = b''
+        while True:
+            # data = b''
+            data_chunk = conn.recv(buffer_size)
+            print("server received chunk:", data_chunk)
+            if not data_chunk: # client closed its connection
+                return False
+            data += data_chunk
+            if b'\n' in data_chunk:
+                break
         
-        print("server received:",data)
+        print("server received:", data)
 
         payload = json.loads(data)
+        print("server received payload:", payload)
 
         if payload.get('msg') == 'close':
             return False
+        
+        if payload.get('type') == 'get_messages':
+            conn.sendall((json.dumps({"type": "get_messages","messages": self._messages}) + "\n").encode('utf-8'))
 
-        conn.sendall(json.dumps({"msg": "pong"}).encode('utf-8'))
+            return True
+        if payload.get('type') == 'im':
+            self._messages.append(payload.get('msg'))
+            conn.sendall((json.dumps({"type": "get_messages","messages": self._messages}) + "\n").encode('utf-8'))
+
+            return True
+
+        print("server send", (json.dumps({"msg": "pong"}) + "\n"))
+        conn.sendall((json.dumps({"msg": "pong"}) + "\n").encode('utf-8'))
         return True
+    
+    def _accept_connection(self):
+        sock = self._sock
+        while True:
+            # thread accept connection to allow multiple clients
+            # update the fetching of data from a client to look for newline
+            conn, addr = sock.accept()
+
+            print("server accepted connection from ", addr)
+
+            # TODO 
+            while True:
+                try:
+                    if not self._connection_loop(conn):
+                        conn.close()
+                        break
+                except Exception as e:
+                    pass
 
     def start(self):
         print("start")
@@ -88,15 +124,39 @@ class TcpServer(
         self._sock = sock
         print("server accepting connections")
 
-        conn, addr = sock.accept()
+        i = 0
+        # require multiple threads for each client connection
+        while i < 3:
+            i += 1
+            threading.Thread(
+                target=self._accept_connection,
+                args=()
+                # target=tcp_server.receive
+                ,daemon=True
+                # https://docs.python.org/3/library/threading.html
+                # A thread can be flagged as a “daemon thread”. The significance of this flag is that the entire Python program exits when only daemon threads are left. The initial value is inherited from the creating thread. The flag can be set through the daemon property or the daemon constructor argument.
 
-        # TODO 
-        while True:
-            try:
-                if not self._connection_loop(conn):
-                    conn.close()
-            except Exception as e:
-                pass
+                ).start()
+        # threading.Thread(
+        #     target=self._accept_connection,
+        #     args=()
+        #     # target=tcp_server.receive
+        #     ,daemon=True
+        #     # https://docs.python.org/3/library/threading.html
+        #     # A thread can be flagged as a “daemon thread”. The significance of this flag is that the entire Python program exits when only daemon threads are left. The initial value is inherited from the creating thread. The flag can be set through the daemon property or the daemon constructor argument.
+
+        #     ).start()
+        # threading.Thread(
+        #     target=self._accept_connection,
+        #     args=()
+        #     # target=tcp_server.receive
+        #     ,daemon=True
+        #     # https://docs.python.org/3/library/threading.html
+        #     # A thread can be flagged as a “daemon thread”. The significance of this flag is that the entire Python program exits when only daemon threads are left. The initial value is inherited from the creating thread. The flag can be set through the daemon property or the daemon constructor argument.
+
+        #     ).start()
+        self._accept_connection()
+
 
 
         return
