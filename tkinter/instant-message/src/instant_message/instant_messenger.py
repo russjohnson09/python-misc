@@ -73,6 +73,21 @@ ip from checkip.amazonaws.com: {_public_ip()}
 
 # 25.44.155.87
 
+# ERROR:  authentication failed: Usage of ngrok requires a verified account and authtoken.
+
+# No requests to display yet
+# To get started, make a request to one of your tunnel URLs
+# tcp://0.tcp.ngrok.io:17058
+
+
+# CNAME tcp.mydomain.com -> 5.tcp.ngrok.io
+# pull in ngrok tcp
+# Forwarding                    tcp://0.tcp.ngrok.io:17058 -> localhost:9999 
+
+# static text file using netlify
+
+
+# static-sites\im\im.txt
 class InstantMessenger():
 
     scrolled_text: ScrolledText
@@ -101,6 +116,15 @@ class InstantMessenger():
     tcp_client = None
 
     public_ip = None
+
+    def _get_server_details(self):
+        print("get details")
+        # 
+        details = requests.get('https://im.ihateiceforfree.com/im.json').json()
+
+        print(details)
+
+        return details
 
     def _get_public_api(self, use_cache = True):
         if not self.public_ip or not use_cache:
@@ -211,6 +235,15 @@ class InstantMessenger():
     
     def client_connect(self):
         try:
+            details = self._get_server_details()
+
+            im_server = details.get('im_server')
+            split_details = im_server.split("//")
+            client_host, port = split_details[1].split(":")
+            print(client_host, port)
+            self.client_host = client_host
+            self.port = int(port)
+
             #     def connect(self, host = '127.0.0.1', port = 9999):
             self.tcp_client.connect(host=self.client_host, port=self.port)
             # ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
