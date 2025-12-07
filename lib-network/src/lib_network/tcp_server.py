@@ -5,11 +5,13 @@ import sys
 import os
 import re
 import threading
+import ssl
+from time import sleep
 
 from .gen_keys import gen_keys
 
-def _load_verify_locations():
-    context.load_verify_locations('server_cert.crt')
+def _load_verify_locations(context):
+    # context.load_verify_locations('server_cert.crt')
 
     pass
 
@@ -30,10 +32,10 @@ class TcpServer(
 
         # cert to share with others.
 
-        if not cert_location:
-            cert_dir = os.path.abspath(os.path.dirname(__file__), 'certs')
-        cert = os.path.abspath(cert_dir, 'public.crt')
-        key = os.path.abspath(cert_dir, 'private.key')
+        if not cert_dir:
+            cert_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'certs'))
+        cert = os.path.abspath(os.path.join(cert_dir, 'public.crt'))
+        key = os.path.abspath(os.path.join(cert_dir, 'private.key'))
         if not os.path.isfile(key):
             gen_keys(key, cert)
         
