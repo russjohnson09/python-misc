@@ -7,6 +7,7 @@ import re
 import threading
 import ssl
 from time import sleep
+import json
 
 from .gen_keys import gen_keys
 
@@ -53,31 +54,26 @@ class TcpClient(
 
         pass
 
-    def send(self, content = 'ping'):
+    def close(self):
+        sock = self._sock
+        sock.close()
+
+    def send(self, content: dict):
 
         print("send message:", content)
         sock = self._sock
-        sock.sendall(content.encode('utf-8'))
-        sock.sendall(content.encode('utf-8'))
+        sock.sendall(json.dumps(content).encode('utf-8'))
 
         # sock.shutdown(socket.SHUT_WR)
 
         buffer_size = self._buffer_size
         # shutdown might be redundant/unnecessary (tells connected host that we're done sending data)
 
-        received_data = b''
-        while True:
-            print("awaiting response")
-            # TODO response from request from client
-            # list - list users
-            # 
-            data = sock.recv(buffer_size)
+        data = sock.recv(buffer_size)
 
-            if len(data) == 0:
-                break
-            received_data += data
-        print("client received response", received_data)
-        sock.close()
+        print("client received response", data)
+        # sock.close()
+        return json.loads(data)
 
     def connect(self, host = '127.0.0.1', port = 9999):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

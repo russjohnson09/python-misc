@@ -16,7 +16,17 @@ def _start_client(tcp_client):
     print("_start_client")
     tcp_client.connect()
 
-    tcp_client.send()
+    response = tcp_client.send({"msg": "ping"})
+    print(response)
+
+    response = tcp_client.send({"msg": "ping"})
+    print(response)
+    # response = tcp_client.send({"msg": "close"})
+
+    tcp_client.close()
+
+    # constantly ping the server for the current state of the chess board.
+
 
 
 def test_server():
@@ -51,4 +61,4 @@ def test_server():
         ).start()
     
 
-    sleep(2)
+    sleep(3)

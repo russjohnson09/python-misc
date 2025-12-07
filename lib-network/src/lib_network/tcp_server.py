@@ -7,6 +7,7 @@ import re
 import threading
 import ssl
 from time import sleep
+import json
 
 from .gen_keys import gen_keys
 
@@ -49,38 +50,27 @@ class TcpServer(
         self._buffer_size = 1024
         pass
 
-    def _connection_loop(self):
-        try:
+    def _connection_loop(self, conn):
 
-            sock = self._sock
-            buffer_size = self._buffer_size
+        sock = self._sock
+        buffer_size = self._buffer_size
 
-            print("server:: awaiting next connection")
-            conn, addr = sock.accept()
-            print("server:: accepting connections", conn, addr)
-            print("server::")
+        # data = b''
+        data = conn.recv(buffer_size)
 
-            data = b''
-            while True:
-                print("server:: recv")
-                new_data = conn.recv(buffer_size)
-                print(new_data)
-                if not new_data:
-                    print("no new data")
-                    break
-                data += new_data
-            
-            print("server received:",data)
+        if not data: # client closed its connection
+            return False
 
-            conn.sendall(b'pong')
-        except Exception as e:
-            print("failed to send")
+        
+        print("server received:",data)
 
-        # https://www.reddit.com/r/PLC/comments/1izcfsn/tcp_socket_keep_open_or_always_close/
-        # conn.shutdown(socket.SHUT_WR)
+        payload = json.loads(data)
 
-            # send my response
-        # conn.close()
+        if payload.get('msg') == 'close':
+            return False
+
+        conn.sendall(json.dumps({"msg": "pong"}).encode('utf-8'))
+        return True
 
     def start(self):
         print("start")
@@ -104,6 +94,15 @@ class TcpServer(
         self._sock = sock
         print("server accepting connections")
 
+        conn, addr = sock.accept()
+
         # TODO 
         while True:
-            self._connection_loop()
+            try:
+                if not self._connection_loop(conn):
+                    conn.close()
+            except Exception as e:
+                pass
+
+
+        return
