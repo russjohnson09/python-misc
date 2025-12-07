@@ -15,6 +15,8 @@ def _load_verify_locations(context):
 
     pass
 
+enable_ssl = False
+
 class TcpServer(
 
 ):
@@ -47,25 +49,38 @@ class TcpServer(
         self._buffer_size = 1024
         pass
 
-    def _connection_loop():
-        print("server:: awaiting next connection")
-        conn, addr = sock.accept()
-        print("server accepting connections", conn, addr)
+    def _connection_loop(self):
+        try:
 
-        data = b''
-        while True:
-            new_data = conn.recv(buffer_size)
-            if not new_data:
-                break
-            data += new_data
-        
+            sock = self._sock
+            buffer_size = self._buffer_size
+
+            print("server:: awaiting next connection")
+            conn, addr = sock.accept()
+            print("server:: accepting connections", conn, addr)
+            print("server::")
+
+            data = b''
+            while True:
+                print("server:: recv")
+                new_data = conn.recv(buffer_size)
+                print(new_data)
+                if not new_data:
+                    print("no new data")
+                    break
+                data += new_data
+            
             print("server received:",data)
 
+            conn.sendall(b'pong')
+        except Exception as e:
+            print("failed to send")
 
         # https://www.reddit.com/r/PLC/comments/1izcfsn/tcp_socket_keep_open_or_always_close/
-        conn.sendall(b'pong')
+        # conn.shutdown(socket.SHUT_WR)
+
             # send my response
-        conn.close()
+        # conn.close()
 
     def start(self):
         print("start")
@@ -84,8 +99,9 @@ class TcpServer(
         sock.bind((host, port))
         sock.listen()
         print("socket is listening", (host, port))
-        sock = self._context.wrap_socket(sock, server_side=True)
-
+        if enable_ssl:
+            sock = self._context.wrap_socket(sock, server_side=True)
+        self._sock = sock
         print("server accepting connections")
 
         # TODO 

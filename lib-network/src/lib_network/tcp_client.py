@@ -17,6 +17,9 @@ def _load_verify_locations(context, cert_dir):
 
     pass
 
+enable_ssl = False
+
+
 class TcpClient(
 
 ):
@@ -55,20 +58,25 @@ class TcpClient(
         print("send message:", content)
         sock = self._sock
         sock.sendall(content.encode('utf-8'))
+        sock.sendall(content.encode('utf-8'))
+
+        # sock.shutdown(socket.SHUT_WR)
+
         buffer_size = self._buffer_size
         # shutdown might be redundant/unnecessary (tells connected host that we're done sending data)
-        sock.shutdown(socket.SHUT_WR)
 
-
+        received_data = b''
         while True:
             print("awaiting response")
             # TODO response from request from client
             # list - list users
             # 
             data = sock.recv(buffer_size)
+
             if len(data) == 0:
-                print("client received", data)
                 break
+            received_data += data
+        print("client received response", received_data)
         sock.close()
 
     def connect(self, host = '127.0.0.1', port = 9999):
@@ -76,12 +84,10 @@ class TcpClient(
         # Address might be in a TIME_WAIT status, ignore this
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         
-        sock = self._context.wrap_socket(sock)
+        if enable_ssl:
+            sock = self._context.wrap_socket(sock)
 
         print("client attempting connection ", (host, port))
-        print("attempt 2")
-        print("attempt 2")
-        print("attempt 2")
         # Removed bind
         # success = sock.connect((host, port))
         sock.connect((host, port))
