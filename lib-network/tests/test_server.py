@@ -33,8 +33,6 @@ def test_server():
 
     print(TcpServer)
 
-    assert 1 == 1
-
     tcp_server = TcpServer()
 
     threading.Thread(
