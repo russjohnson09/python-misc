@@ -8,6 +8,7 @@ import sys
 import socket
 import datetime
 import time
+from tkinter.scrolledtext import ScrolledText
 
 import requests
 
@@ -51,15 +52,23 @@ ip from checkip.amazonaws.com: {_public_ip()}
 
 class InstantMessenger():
 
+    scrolled_text: ScrolledText
     _loop_thread = None
     root = None
 
     start_time = time.time()
-    host = '127.0.0.1'
+
+
+    # host = '127.0.0.1'
+    # I think this is for the whole house though and not my computer specifically?
+    # If it is unique to my computer can I open up a port to accept a tcp connection?
+    host = '75.114.168.151'
+
     port = 9999
 
     tcp_server = None
 
+    _client_connected = False # TODO move this to tcp_client
     tcp_client = None
 
     public_ip = None
@@ -92,6 +101,16 @@ class InstantMessenger():
 
         pass
 
+    def add_message(self, msg: str):
+        if not self._client_connected:
+            self.client_connect()
+        
+
+        # add message should actually not do anything besides send it to the server
+        self.scrolled_text.insert('end', f"{msg}\n")
+
+
+        pass
 
     def specs_popup(self):
         messagebox.showinfo("Specs", 
@@ -126,10 +145,10 @@ class InstantMessenger():
         pass
 
     def server_start(self):
-        self.tcp_server = TcpServer()
+        self.tcp_server = TcpServer(
+            self.host
+        )
         print("server start")
-
-
 
 
         threading.Thread(
@@ -158,9 +177,9 @@ class InstantMessenger():
     def client_connect(self):
         try:
             #     def connect(self, host = '127.0.0.1', port = 9999):
-
             self.tcp_client.connect(host=self.host, port=self.port)
             # ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+            self._client_connected = True
 
         except Exception as e:
             print("Failed to connect")

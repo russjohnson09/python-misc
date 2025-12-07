@@ -18,6 +18,12 @@ def _send_message(*args):
 
     # PY_VAR0
     print(msg)
+    value = msg.get()
+
+    im.add_message(value)
+
+    msg.set('')
+
 
     pass
 
@@ -149,8 +155,9 @@ def main():
     # orient = 'horizontal', command = t.xview)
     # t['yscrollcommand'] = ys.set
     # t['xscrollcommand'] = xs.set
-    t.insert('end', "Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...")
+    # t.insert('end', "Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...Lorem ipsum...\n...\n...")
 
+    im.scrolled_text = t
     
     t.grid(column = 0, row = 10, sticky = 'nwes')
 
