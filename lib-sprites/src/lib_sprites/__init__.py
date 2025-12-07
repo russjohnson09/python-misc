@@ -1,5 +1,6 @@
 import pygame
 import os
+from .megaman_sprites import OctopusBattery
 
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
@@ -387,3 +388,9 @@ class Windows31Mouse(pygame.sprite.Sprite):
         # self.image = pygame.transform.scale(self.image, (int(size[0]*scale), int(size[1]*scale)))
 
         self.rect = self.image.get_rect()
+
+
+
+__all__ = [
+    OctopusBattery
+]
