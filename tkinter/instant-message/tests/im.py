@@ -1,11 +1,19 @@
+import os
+
+_root_repo_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../'))
+_default_asset_dir = os.path.abspath(os.path.join(_root_repo_dir, 'assets'))
+os.environ['ASSET_DIR'] = _default_asset_dir
+
 from tkinter import *
 from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 from lib_network import TcpServer
 from instant_message import instant_messenger as im
 import platform
-import os
+from connect_four import ConnectFourBoard
 import time
+import threading
+
 
 
 # https://www.pythonguis.com/tutorials/tkinter-basic-widgets/
@@ -28,16 +36,30 @@ def _send_message(*args):
 
     pass
 
-def _start_tcp_thread(tcp_server):
-    print("_start_tcp_thread")
-    print(tcp_server)
-    tcp_server.start()
-
 def _start_server():
     if im.tcp_server:
         print("already started")
     # tcp_server = TcpServer()
     im.server_start()
+
+
+def _start_connect_four_thread():
+    connect_four_board = ConnectFourBoard()
+    print("connect four thread")
+    while True:
+        if not connect_four_board.loop():
+            return
+
+def _start_connect_four():
+    print("connect four")
+    threading.Thread(
+        target=_start_connect_four_thread,
+        args=()
+        # target=tcp_server.receive
+        ,daemon=True
+        # https://docs.python.org/3/library/threading.html
+        # A thread can be flagged as a “daemon thread”. The significance of this flag is that the entire Python program exits when only daemon threads are left. The initial value is inherited from the creating thread. The flag can be set through the daemon property or the daemon constructor argument.
+        ).start()
 
 def _client_connect():
     im.client_connect()
@@ -150,6 +172,9 @@ def main():
 
     ttk.Button(mainframe, text="Start Server", 
     command=_start_server).grid(column=3, row=5, sticky=W)
+
+    ttk.Button(mainframe, text="Connect Four", 
+    command=_start_connect_four).grid(column=3, row=6, sticky=W)
 
     # ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
     # ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
