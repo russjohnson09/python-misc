@@ -1,10 +1,13 @@
 
 
-from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion, WhitePawn, ChessBoard, WhiteKing, BlackKing, WhiteQueen, Windows31Mouse, OctopusBattery
+from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion, WhitePawn, \
+    ChessBoard, WhiteKing, BlackKing, WhiteQueen, Windows31Mouse, OctopusBattery, ConnectFourBoard, ConnectFourNumbers
 import pygame
 
 from .conftest import get_screen_nes as get_screen
 FILL = (5, 5, 5)
+FILL = (15, 15, 15)
+FILL = (100, 100, 100)
 
 
 # https://en.wikipedia.org/wiki/PlayStation_technical_specifications
@@ -31,32 +34,45 @@ def test_main():
     clock = pygame.time.Clock()
 
     bg_sprites =  pygame.sprite.Group()
-    board = ChessBoard()
+    column_numbers =  pygame.sprite.Group()
+
+    # TODO have ConnectFourBoard handle the top numbers
+    board = ConnectFourBoard()
+    one = ConnectFourNumbers(ConnectFourNumbers.ONE)
+    two = ConnectFourNumbers(ConnectFourNumbers.TWO)
+    three = ConnectFourNumbers(ConnectFourNumbers.THREE)
+    four = ConnectFourNumbers(ConnectFourNumbers.FOUR)
+    five = ConnectFourNumbers(ConnectFourNumbers.FIVE)
+    six = ConnectFourNumbers(ConnectFourNumbers.SIX)
+    seven = ConnectFourNumbers(ConnectFourNumbers.SEVEN)
+
+    board.rect.x = 0
+    board.rect.y = 16
+    
+    number_padding = 24
+    number_y_pos = 5
+    number_x_pos = 20
+    one.rect.topleft = (number_x_pos + 0,number_y_pos)
+    two.rect.topleft = (number_x_pos + 1 * number_padding,number_y_pos)
+    three.rect.topleft =  (number_x_pos + 2 * number_padding,number_y_pos)
+    four.rect.topleft =  (number_x_pos+ 3 * number_padding,number_y_pos)
+    five.rect.topleft =  (number_x_pos+ 4 * number_padding,number_y_pos)
+    six.rect.topleft =  (number_x_pos+ 5 * number_padding,number_y_pos)
+    seven.rect.topleft =  (number_x_pos+ 6 * number_padding,number_y_pos)
 
     bg_sprites.add(board)
+
+    column_numbers.add(one)
+    column_numbers.add(two)
+    column_numbers.add(three)
+    column_numbers.add(four)
+    column_numbers.add(five)
+    column_numbers.add(six)
+    column_numbers.add(seven)
 
     player_sprites =  pygame.sprite.Group()
 
     mouse_sprites =  pygame.sprite.Group()
-
-    # pawn1 = WhitePawn()
-    # pawn1.rect.x = 65
-    # pawn1.rect.y = 34
-
-    # player_sprites.add(pawn1)
-
-    # pawn2 = WhitePawn()
-    # pawn2.rect.x = 65 + 50
-    # pawn2.rect.y = 34 + 0
-    
-    # player_sprites.add(pawn2)
-
-
-    # pawn3 = WhitePawn()
-    # pawn3.rect.x = 65 + 50 * 2
-    # pawn3.rect.y = 34 + 0
-    
-    # player_sprites.add(pawn3)
 
     for row_idx in range(0,8):
         for col_idx in range(0,8):
@@ -94,7 +110,8 @@ def test_main():
     while i < (60 * 10):
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
-        pygame.event.set_grab(True)
+        # pygame.event.set_grab(True)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 # self._quit = True
@@ -115,6 +132,9 @@ def test_main():
 
         player_sprites.update()
         player_sprites.draw(screen)
+
+        column_numbers.update()
+        column_numbers.draw(screen)
 
         mouse_sprites.update()
         mouse_sprites.draw(screen)

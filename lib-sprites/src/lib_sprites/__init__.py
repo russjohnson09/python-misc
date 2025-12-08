@@ -1,6 +1,7 @@
 import pygame
 import os
 from .megaman_sprites import OctopusBattery
+from .connect_four_sprites import ConnectFourBoard, ConnectFourNumbers
 
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
@@ -392,5 +393,7 @@ class Windows31Mouse(pygame.sprite.Sprite):
 
 
 __all__ = [
-    OctopusBattery
+    OctopusBattery,
+    ConnectFourBoard,
+ConnectFourNumbers,
 ]
