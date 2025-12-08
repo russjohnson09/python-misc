@@ -98,6 +98,15 @@ wheels = [
 ]
 
 [[package]]
+name = "connect-four"
+version = "0.1.0"
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=pygame%2Fconnect-four#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
+dependencies = [
+    { name = "lib-sprites" },
+    { name = "pygame-ce" },
+]
+
+[[package]]
 name = "cryptography"
 version = "46.0.3"
 source = { registry = "https://pypi.org/simple" }
@@ -167,6 +176,7 @@ name = "instant-message"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "connect-four" },
     { name = "lib-network" },
     { name = "lib-spritesheet" },
     { name = "requests" },
@@ -174,6 +184,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "connect-four", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=pygame%2Fconnect-four" },
     { name = "lib-network", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network" },
     { name = "lib-spritesheet", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet" },
     { name = "requests", specifier = ">=2.32.5" },
@@ -182,15 +193,24 @@ requires-dist = [
 [[package]]
 name = "lib-network"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network#02895d26082c410e0b212f9d9820c5420d4431ce" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
 dependencies = [
     { name = "pyopenssl" },
 ]
 
 [[package]]
+name = "lib-sprites"
+version = "0.1.0"
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
+dependencies = [
+    { name = "lib-spritesheet" },
+    { name = "pygame-ce" },
+]
+
+[[package]]
 name = "lib-spritesheet"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#02895d26082c410e0b212f9d9820c5420d4431ce" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
 dependencies = [
     { name = "pygame-ce" },
 ]

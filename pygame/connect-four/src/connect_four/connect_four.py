@@ -152,12 +152,12 @@ class ConnectFourBoard():
         ]
     
     just_clicked = False
-    bg_sprites =  pygame.sprite.Group()
-    column_numbers =  pygame.sprite.Group()
+    bg_sprites = None
+    column_numbers = None
     # sprite group
-    pieces_on_board = pygame.sprite.Group()
+    pieces_on_board = None
     mouse_sprite = None # OctopusBattery(OctopusBattery.OFFSET_BLUE)
-    mouse_sprites =  pygame.sprite.Group()
+    mouse_sprites =  None
 
     def _get_piece(self):
         if self.player_turn == 0:
@@ -196,6 +196,12 @@ class ConnectFourBoard():
 
     def __init__(self):
 
+        self.bg_sprites =  pygame.sprite.Group()
+        self.column_numbers =  pygame.sprite.Group()
+        # sprite group
+        self.pieces_on_board = pygame.sprite.Group()
+        self.mouse_sprite = None # OctopusBattery(OctopusBattery.OFFSET_BLUE)
+        self.mouse_sprites =  pygame.sprite.Group()
         self.screen = _init_pygame()
 
 
