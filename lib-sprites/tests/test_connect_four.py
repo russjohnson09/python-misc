@@ -33,7 +33,9 @@ connect_four_board = [
 ]
 
 
-
+# Blade Game Boy Color
+# https://www.youtube.com/watch?v=KzDjQclLPnI
+# https://www.spriters-resource.com/game_boy_gbc/blade/asset/92395/
 def _check_collisions(just_clicked, mouse_sprite, column_numbers, player_turn):
     
     if not just_clicked:
