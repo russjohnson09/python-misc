@@ -37,7 +37,7 @@ def test_main():
 
 
     i = 0
-    while i < (60 * 10):
+    while i < (60 * 500):
         if not connect_four_board.loop():
             return
         i += 1

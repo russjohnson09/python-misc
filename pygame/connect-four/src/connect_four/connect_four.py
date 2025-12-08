@@ -80,12 +80,62 @@ def _has_win_vertical(found, player, board):
 
 
 def _has_diag_top_left(found, player, board):
+    count = 1
 
-    return False
+    row_idx, col_idx = found
+
+
+    while True:
+        row_idx += 1
+        col_idx += 1
+
+        if col_idx > 6 or row_idx > 5:
+            break
+        if player != board[row_idx][col_idx]:
+            break
+        count += 1
+
+    row_idx, col_idx = found
+
+    while True:
+        row_idx += -1
+        col_idx += -1
+        if row_idx < 0 or col_idx < 0:
+            break
+        if player != board[row_idx][col_idx]:
+            break
+        count += 1
+
+    return count == 4
 
 def _has_diag_top_right(found, player, board):
+    count = 1
 
-    return False
+    row_idx, col_idx = found
+
+
+    while True:
+        row_idx += -1
+        col_idx += 1
+
+        if col_idx > 6 or row_idx < 0:
+            break
+        if player != board[row_idx][col_idx]:
+            break
+        count += 1
+        
+    row_idx, col_idx = found
+
+    while True:
+        row_idx += 1
+        col_idx += -1
+        if row_idx > 5 or col_idx < 0:
+            break
+        if player != board[row_idx][col_idx]:
+            break
+        count += 1
+
+    return count == 4
 
 class ConnectFourBoard():
 
