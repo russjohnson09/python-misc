@@ -54,19 +54,9 @@ class OctopusBattery(MegamanSprite):
     animations = {
         'idle': [],
     }
-    def __init__(self, x_offset = OFFSET_RED, y_offset = 68, x_space_between_sprites = 19):
-        # I should pull in some singleton class for sprite management here.
-        super().__init__()
 
+    def update_image(self,  x_offset = OFFSET_RED, y_offset = 68, x_space_between_sprites = 19):
         spritesheet = self.spritesheet
-
-        # self.animations['idle'] = [_image_at(spritesheet,(18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
-
-        # self.y_offset = 68
-        # self.x_offset = 14
-        # self.x_offset = 57
-
-        # x_space_between_sprites = 19
 
         self.animations['idle'] = [
             _image_at(spritesheet, (x_offset ,y_offset,16,16)),
@@ -81,6 +71,23 @@ class OctopusBattery(MegamanSprite):
         # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
         self.rect = self.image.get_rect()
         self.rect.topleft = (0,0)
+        pass
+
+    def __init__(self, x_offset = OFFSET_RED, y_offset = 68, x_space_between_sprites = 19):
+        # I should pull in some singleton class for sprite management here.
+        super().__init__()
+
+        self.update_image(x_offset, y_offset, x_space_between_sprites)
+
+        # self.animations['idle'] = [_image_at(spritesheet,(18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
+
+        # self.y_offset = 68
+        # self.x_offset = 14
+        # self.x_offset = 57
+
+        # x_space_between_sprites = 19
+
+
         # self.rect.h = 50
 
 

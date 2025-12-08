@@ -58,13 +58,25 @@ class ConnectFourNumbers(ChessSprite):
     SIX = (25,74,6,6)
     SEVEN = (25,50,6,6)
 
+
+    idx_array = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN]
+
+    idx = 0
+
+
+
     def __init__(self, rect = ONE):
         # I should pull in some singleton class for sprite management here.
         super().__init__()
 
         spritesheet = self.spritesheet
-
         self.image = _image_at(spritesheet,rect)
 
         self.rect = self.image.get_rect()
         self.rect.topleft = (0,0)
+
+        self.idx = 0
+        for rect_item in self.idx_array:
+            if rect_item == rect:
+                break
+            self.idx += 1

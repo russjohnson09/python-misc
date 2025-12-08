@@ -23,7 +23,74 @@ FILL = (100, 100, 100)
 
 # red pacman ghost and pacman.
 
+connect_four_board = [
+    [None,None,None,None,None,None,None],
+    [None,None,None,None,None,None,None],
+    [None,None,None,None,None,None,None],
+    [None,None,None,None,None,None,None],
+    [None,None,None,None,None,None,None],
+    [None,None,None,None,None,None,None]
+]
+
+
+
+def _check_collisions(just_clicked, mouse_sprite, column_numbers, player_turn):
+    
+    if not just_clicked:
+        return False
+    print("check collisions")
+    print(just_clicked)
+    just_clicked = False
+    blocks_hit_list = pygame.sprite.spritecollide(mouse_sprite, column_numbers, dokill=False)
+    if blocks_hit_list:
+        hit_column = blocks_hit_list[0]
+
+        col_idx = hit_column.idx
+        print(col_idx)
+
+
+        row_idx = 5
+
+        found = False
+        while row_idx > -1:
+            item_val = connect_four_board[row_idx][col_idx]
+
+            if item_val is None:
+                connect_four_board[row_idx][col_idx] = player_turn
+                found = True
+
+                break
+            
+            row_idx -= 1
+
+        print(connect_four_board, found)
+
+        if found:
+            return (row_idx, col_idx)
+        return found
+
+        # idx = 0
+        # for column in column_numbers:
+        #     print(hit_column, column)
+        #     if hit_column == column:
+        #         break
+        #     idx += 1
+        
+        # print(idx)
+
+        # for block in blocks_hit_list:
+        #     print(block)
+        #     # mouse collision  <WhiteQueen Sprite(in 1 groups)>
+
+        #     # print("mouse collision ", block)
+        #     # block.is_highlighted = True
+        #     # block.highlight()
+        #     break
+
+
 def test_main():
+    player_turn = 0
+
     # galaga_spritesheet = GalagaSpritesheet()
     # galaga_spritesheet2 = GalagaSpritesheet()
 
@@ -35,6 +102,7 @@ def test_main():
 
     bg_sprites =  pygame.sprite.Group()
     column_numbers =  pygame.sprite.Group()
+    pieces_on_board = pygame.sprite.Group()
 
     # TODO have ConnectFourBoard handle the top numbers
     board = ConnectFourBoard()
@@ -74,43 +142,15 @@ def test_main():
 
     mouse_sprites =  pygame.sprite.Group()
 
-    for row_idx in range(0,8):
-        for col_idx in range(0,8):
-            pawn3 = WhitePawn()
-            pawn3 = WhiteKing()
-            pawn3 = BlackKing()
-            pawn3 = WhiteQueen()
-            pawn3.rect.x = 66 + 48 * col_idx
-            pawn3.rect.y = 34 + 48 * row_idx
-            
-            player_sprites.add(pawn3)
 
     mouse_sprite = OctopusBattery(OctopusBattery.OFFSET_BLUE)
     mouse_sprites.add(mouse_sprite)
 
-    def _check_collisions():
-        for player in player_sprites:
-            player.is_highlighted = False
-        for mouse_sprite in mouse_sprites:
-            blocks_hit_list = pygame.sprite.spritecollide(mouse_sprite, player_sprites, dokill=False)
 
-            if blocks_hit_list:
-                # ps: pygame.sprite.Sprite = player_sprite
-                # ps.kill()  # TODO replace with explosion
-               
-                for block in blocks_hit_list:
-                    # mouse collision  <WhiteQueen Sprite(in 1 groups)>
-
-                    # print("mouse collision ", block)
-                    block.is_highlighted = True
-                    # block.highlight()
-                    break # only include the first collision
-
+    just_clicked = False
     i = 0
     while i < (60 * 10):
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
-
-        # pygame.event.set_grab(True)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -119,6 +159,8 @@ def test_main():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
+            elif event.type == pygame.MOUSEBUTTONUP:
+                just_clicked = True
         pygame.event.get()
         screen.fill(FILL)
 
@@ -139,7 +181,33 @@ def test_main():
         mouse_sprites.update()
         mouse_sprites.draw(screen)
 
-        _check_collisions()
+        pieces_on_board.update()
+        pieces_on_board.draw(screen)
+
+        found = _check_collisions(just_clicked,mouse_sprite,column_numbers, player_turn)
+
+        if found:
+            (row_idx, col_idx) = found
+
+            if player_turn == 0:
+                piece = OctopusBattery(OctopusBattery.OFFSET_BLUE)
+                pieces_on_board.add(piece)
+            else:
+                piece = OctopusBattery(OctopusBattery.OFFSET_RED)
+                pieces_on_board.add(piece)
+
+            piece.rect.topleft = (col_idx * 24 + 14, row_idx * 24 + 20)
+
+            
+            player_turn += 1
+            player_turn = player_turn % 2
+
+
+            if player_turn == 0:
+                mouse_sprite.update_image(OctopusBattery.OFFSET_BLUE)
+            else:
+                mouse_sprite.update_image(OctopusBattery.OFFSET_RED)
+        just_clicked = False
 
         pygame.display.flip()
         clock.tick(60)
