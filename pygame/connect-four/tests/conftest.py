@@ -43,6 +43,6 @@ def get_screen_nes():
 
 def pytest_runtest_setup():
     print("pygame init")
-    pygame.init()
-    pygame.mixer.init()
+    # pygame.init()
+    # pygame.mixer.init()
     # screen = get_screen()
