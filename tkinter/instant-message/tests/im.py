@@ -52,6 +52,7 @@ def _start_connect_four_thread():
 
 def _start_connect_four():
     print("connect four")
+    # TODO if I have a client connection then start up a game with that as well.
     threading.Thread(
         target=_start_connect_four_thread,
         args=()

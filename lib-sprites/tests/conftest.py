@@ -32,11 +32,18 @@ def get_screen_nes():
     print("get_screen_nes")
 
     global _screen
-    # if _screen is None:
-    _screen = pygame.display.set_mode((SCREEN_WIDTH_NES, SCREEN_HEIGHT_NES), 
-                                      pygame.RESIZABLE | pygame.SCALED
 
-                                      )
+    if os.environ.get('FULLSCREEN') == '1':
+        _screen = pygame.display.set_mode((SCREEN_WIDTH_NES, SCREEN_HEIGHT_NES), 
+                                        pygame.FULLSCREEN | pygame.SCALED
+
+                                        )
+    else:
+        _screen = pygame.display.set_mode((SCREEN_WIDTH_NES, SCREEN_HEIGHT_NES), 
+                                        pygame.RESIZABLE | pygame.SCALED
+
+                                        )
+    
     return _screen
 
 # https://stackoverflow.com/questions/34466027/what-is-conftest-py-for-in-pytest

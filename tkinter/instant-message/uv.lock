@@ -100,7 +100,7 @@ wheels = [
 [[package]]
 name = "connect-four"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=pygame%2Fconnect-four#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=pygame%2Fconnect-four#4b58c237286deb5392af052312caffe3efbec72d" }
 dependencies = [
     { name = "lib-sprites" },
     { name = "pygame-ce" },
@@ -193,7 +193,7 @@ requires-dist = [
 [[package]]
 name = "lib-network"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-network#4b58c237286deb5392af052312caffe3efbec72d" }
 dependencies = [
     { name = "pyopenssl" },
 ]
@@ -201,7 +201,7 @@ dependencies = [
 [[package]]
 name = "lib-sprites"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#4b58c237286deb5392af052312caffe3efbec72d" }
 dependencies = [
     { name = "lib-spritesheet" },
     { name = "pygame-ce" },
@@ -210,7 +210,7 @@ dependencies = [
 [[package]]
 name = "lib-spritesheet"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#4a9b107756cb5c8b9000d43e4812ad01f24300de" }
+source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet#4b58c237286deb5392af052312caffe3efbec72d" }
 dependencies = [
     { name = "pygame-ce" },
 ]
