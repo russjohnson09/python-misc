@@ -58,6 +58,11 @@ class PongPaddle(PongSprite):
 
 class PongGhostBall(PongSprite):
 
+
+    # SCREEN_WIDTH = 320
+    SCREEN_HEIGHT = 240
+
+    ticks_since_last_hit = 120
     animation_ticks_per_frame = 15
 
     velocity = numpy.array([1.5,1.5])
@@ -80,6 +85,10 @@ class PongGhostBall(PongSprite):
 
         self.animation = 'walk_left'
         self.animations['walk_left'] = [
+             _image_at(spritesheet,(489,65,14,14)),
+             _image_at(spritesheet,(505,65,14,14))
+        ]
+        self.animations['walk_right'] = [
              _image_at(spritesheet,(457,65,14,14)),
              _image_at(spritesheet,(473,65,14,14))
         ]
@@ -92,7 +101,27 @@ class PongGhostBall(PongSprite):
         # if has collison with paddle change direction.
         # this is handled by the paddle.
         # if top or bottom wall move in opposite direction.
+    def hit_paddle(self, player):
+        if self.ticks_since_last_hit < 60:
+            return
+        self.ticks_since_last_hit = 0
+        print('hit_paddle', player)
+
+        self.velocity[0] = -self.velocity[0]
+
+        pass
+
+    def _update_animation_from_velocity(self):
+
+        if self.velocity[0] < 0:
+            self.animation = 'walk_left'
+        elif self.velocity[0] > 0:
+            self.animation = 'walk_right'
+
     def update(self):
+        self._update_animation_from_velocity()
+
+        self.ticks_since_last_hit += 1
         self.tick += 1
 
         # ticks or frames
@@ -113,8 +142,21 @@ class PongGhostBall(PongSprite):
         self.topleft += self.velocity
 
         # self.rect.topleft =   self.topleft # (int(self.topleft[0]), int(self.topleft[1]))
-
         self.rect.topleft = self.topleft #[50.5,50.0]
+
+        print(self.rect.bottomleft[1])
+        if self.rect.bottomleft[1] > self.SCREEN_HEIGHT:
+            print("hit bottom")
+            self.velocity[1] = -self.velocity[1]
+            # self.rect.bottomleft = (self.rect.bottomleft[0], self.rect.bottomleft[1] - 50)
+            print(self.rect)
+            self.topleft += self.velocity
+        elif self.rect.topleft[1] < 0:
+            self.velocity[1] = -self.velocity[1]
+            self.topleft += self.velocity
+            # self.rect.topleft = (1, self.rect.topleft[1])
+
+
 
 # (66, 66)
 # [66.79 66.79]
