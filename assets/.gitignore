@@ -44,3 +44,18 @@
 # https://musescore.org/en/node/13216
 
 # https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+
+
+
+# This is a generic platform png without any defined patterns.
+# I want something like four tiles repeating for ground.
+# I want bellow ground etc.
+# A script should take this basic platform and apply colors for the surface, subsurface, cieling etc.
+!basic_platform.png
+
+
+!mega_man_2_tiles.png
+
+
+# https://www.spriters-resource.com/snes/tetrisattack/asset/68548/
+!tetris_attack_blocks.png

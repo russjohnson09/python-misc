@@ -1,9 +1,9 @@
 import pygame
 import os
-from .megaman_sprites import OctopusBattery
+from .megaman_sprites import OctopusBattery, Megaman2Tileset
 from .connect_four_sprites import ConnectFourBoard, ConnectFourNumbers
 from .blade_sprites import Blade
-from .pong_sprites import PongGhostBall, PongPaddle
+from .pong_sprites import PongGhostBall, PongPaddle, PongLargeGhostBall, PongLargePaddle
 
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
@@ -401,4 +401,5 @@ ConnectFourNumbers,
 Blade,
 PongPaddle,
 PongGhostBall,
+PongLargeGhostBall, PongLargePaddle
 ]
