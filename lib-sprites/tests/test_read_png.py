@@ -1,4 +1,4 @@
-# from lib_sprites import PongLargeGhostBall as PongGhostBall, PongLargePaddle as PongPaddle
+from lib_sprites import Megaman2Tileset
 import pygame
 import numpy
 import os
@@ -119,15 +119,18 @@ def _get_color_down(x, y, surface):
     return surface.get_at((x, y + 1))
 
 
-class Tileset():
 
-    def __init__(self):
-        
-        pass
 
 def _apply_tileset_to_color_surface(surface, tileset):
     """given a surface with colors applied create a new surface with some tileset"""
 
+    def _is_match(color1, color2):
+        rgba1 = (color1.r,color1.g,color1.b,color1.a )
+        rgba2 = (color2.r,color2.g,color2.b,color2.a )
+        return rgba1 == rgba2
+    
+
+    # TODO define this mapping
     ceiling = pygame.Color(255,0,0)
     ceiling_left = pygame.Color(100,0,0)
     ceiling_right = pygame.Color(50,0,0)
@@ -138,7 +141,24 @@ def _apply_tileset_to_color_surface(surface, tileset):
 
     sub_surface = pygame.Color(255,0,255)
 
-    pass
+    new_surface = surface.copy()
+
+    # tileset block size
+    new_surface = _scale(new_surface, 16)
+
+    for x in range(0,surface.get_size()[0]):
+        for y in range(0,surface.get_size()[1]):
+            color: pygame.Color = surface.get_at((x,y))
+            if color.a == 0:
+                continue
+            if _is_match(color, ground):
+                # apply image at location
+                new_surface.blit(tileset.ground, (x * 16,y * 16))
+            elif _is_match(color, ground_corner_left):
+                new_surface.blit(tileset.ground_corner_left, (x * 16,y * 16))
+
+
+    return new_surface
 
 def _get_new_color(x,y, surface):
     size = surface.get_size()
@@ -252,9 +272,12 @@ def test_read_png():
                 os.path.join(ASSET_DIR, "basic_platform.png")
             ).convert_alpha()
 
-    basic_platform_image = _read_surface(basic_platform_image_original)
+    basic_platform_image_color = _read_surface(basic_platform_image_original)
 
-    basic_platform_image = _scale(basic_platform_image)
+    tileset = Megaman2Tileset()
+    surface_with_tileset_applied = _apply_tileset_to_color_surface(basic_platform_image_color, tileset)
+
+    basic_platform_image = _scale(surface_with_tileset_applied, 2)
 
 
 

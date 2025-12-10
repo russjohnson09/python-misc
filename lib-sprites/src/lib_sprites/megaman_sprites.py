@@ -27,6 +27,31 @@ def _get_megaman_spritesheet():
     print(_megaman_spritesheet, filename)
     return _megaman_spritesheet
 
+_mega_man_2_tiles = None
+def _get_mm2_tileset():
+    global _mega_man_2_tiles
+    filename = os.path.join(ASSET_DIR, 'mega_man_2_tiles.png')
+
+    if _mega_man_2_tiles is None:
+        _mega_man_2_tiles = pygame.image.load(filename).convert_alpha()
+
+    return _mega_man_2_tiles
+
+
+class Megaman2Tileset():
+
+    def __init__(self):
+        image = self.tileset = _get_mm2_tileset()
+
+        ceiling = (18,893,16,16)
+        self.ceiling = _image_at(image, ceiling)
+        self.ceiling_left = _image_at(image,ceiling)
+        self.ceiling_right = _image_at(image,ceiling)
+
+        self.ground = _image_at(image,(18,928,16,16))
+        self.ground_corner_left = _image_at(image,(18,859,16,16))
+        self.ground_corner_right = _image_at(image,(35,859,16,16))
+        self.sub_surface = _image_at(image,ceiling)
 
 class MegamanSprite(pygame.sprite.Sprite):
 
