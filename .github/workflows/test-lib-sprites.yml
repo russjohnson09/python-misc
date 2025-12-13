@@ -15,7 +15,7 @@ defaults:
 jobs:
   test:
     env:
-      # FPS: "60"
+      RUSS_FPS: "60"
       SDL_VIDEODRIVER: "dummy"
       SDL_AUDIODRIVER: "disk" # Or "dummy" if no audio output is needed at all
     name: python
