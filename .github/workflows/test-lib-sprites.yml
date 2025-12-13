@@ -38,5 +38,16 @@ jobs:
       # no  --locked on lib package
         run: uv sync --all-extras --dev
 
+
+# https://github.com/russjohnson09/python-misc/actions/runs/20198845301/job/57986769443
+# CRITICAL: You are using the SDL disk i/o audio driver!
+# CRITICAL:  Writing to file [sdlaudio.raw].
+# double free or corruption (out)
+# Fatal Python error: Aborted
+
+# Current thread 0x00007f367e529740 [pytest] (most recent call first):
+#   File "/home/runner/work/python-misc/python-misc/lib-sprites/tests/conftest.py", line 72 in get_screen_nes
+#       - name: Run tests
+#         run: SOME_MISC_ENV_VARIABLE=120 uv run pytest -s
       - name: Run tests
-        run: SOME_MISC_ENV_VARIABLE=120 uv run pytest -s
+        run: uv run pytest -s
