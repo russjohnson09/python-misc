@@ -13,9 +13,9 @@ defaults:
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
-  uv-example:
+  test:
     env:
-      FPS: "1000"
+      FPS: "60"
       SDL_VIDEODRIVER: "dummy"
       SDL_AUDIODRIVER: "disk" # Or "dummy" if no audio output is needed at all
     name: python
