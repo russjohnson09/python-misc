@@ -19,20 +19,83 @@ SCREEN_HEIGHT_NES = 240
 # SCREEN_WIDTH = SCREEN_WIDTH / 4
 # SCREEN_HEIGHT = SCREEN_HEIGHT / 4
 
+_is_init = False
+
+
+def do_init():
+    global _is_init
+    print("do_init")
+    if _is_init:
+        print("already init")
+        return
+
+    pygame.init()
+    # pygame.mixer.init()
+    # print("pygame init")
+    # pygame.init()
+    # pygame.mixer.init()
+
+    _is_init = True
+
 _screen = None
 
+
+class PygameHandler():
+
+    _fullscreen = False
+    _screen = None
+    _size = (640, 480) # psx resolution
+
+    def __init__(self, size = _size):
+        self._size = size
+        do_init()
+        
+        # segmentation fault?
+        # if self._screen is None:
+        #     self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
+        pass
+
+    def get_size(self):
+        return self._size
+
+    def get_screen(self, refresh = False):
+        global _screen
+        if _screen is not None:
+            print("screen already set")
+            self._screen = _screen
+
+        if not self._screen or refresh: # I'm not experiencing a segmentation fault but running these in github it seems like display.set_mode should only run once?
+            if self._fullscreen:
+                self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
+                pygame.FULLSCREEN | pygame.SCALED)
+            else:
+                self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
+                pygame.RESIZABLE | pygame.SCALED)
+        return self._screen
+
+    def do_fullscreen(self):
+        self._fullscreen = not self._fullscreen
+        return self.get_screen(True)
+
+
+
+
+
 def get_screen():
-    print("get_screen")
+    do_init()
+
+
     global _screen
     if _screen is None:
         _screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
     return _screen
 
 def get_screen_nes():
-    print("get_screen_nes")
+    print("pygame init")
+    do_init()
 
     global _screen
-
+    # https://stackoverflow.com/questions/68364418/pygame-weird-effects-on-the-screen-segmentation-fault-and-crash
     if os.environ.get('FULLSCREEN') == '1':
         _screen = pygame.display.set_mode((SCREEN_WIDTH_NES, SCREEN_HEIGHT_NES), 
                                         pygame.FULLSCREEN | pygame.SCALED
@@ -48,8 +111,10 @@ def get_screen_nes():
 
 # https://stackoverflow.com/questions/34466027/what-is-conftest-py-for-in-pytest
 
-def pytest_runtest_setup():
-    print("pygame init")
-    pygame.init()
-    pygame.mixer.init()
-    # screen = get_screen()
+# for some reason it seems like this wasn't being called.
+# not calling pygame.init can lead to a segmentation fault that is hard to debug
+# def pytest_runtest_setup():
+#     print("pygame init")
+#     pygame.init()
+#     pygame.mixer.init()
+#     # screen = get_screen()
