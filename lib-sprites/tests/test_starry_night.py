@@ -12,8 +12,8 @@ from .conftest import PygameHandler
 FILL = (5, 5, 5)
 FILL = (15, 15, 15)
 
-FPS = int(os.environ.get('FPS', '120'))
-# FPS = int(os.environ.get('FPS', '300'))
+# FPS = int(os.environ.get('FPS', '120'))
+FPS = int(os.environ.get('FPS', '300'))
 
 pygame_handler = PygameHandler()
 
