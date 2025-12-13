@@ -19,6 +19,27 @@ SCREEN_HEIGHT_NES = 240
 # SCREEN_WIDTH = SCREEN_WIDTH / 4
 # SCREEN_HEIGHT = SCREEN_HEIGHT / 4
 
+
+class PygameHandler():
+
+    _screen = None
+    _size = (640, 480) # psx resolution
+
+    def __init__(self, size = _size):
+        self._size = size
+        if self._screen is None:
+            self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
+        pass
+
+    def get_size(self):
+        return self._size
+
+    def get_screen(self):
+        if not self._screen:
+            self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
+        return self._screen
+
+
 _screen = None
 
 def get_screen():

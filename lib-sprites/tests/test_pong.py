@@ -78,7 +78,7 @@ def test_pong():
                     return
             # elif event.type == pygame.MOUSEBUTTONUP:
             #     just_clicked = True
-        pygame.event.get()
+        # pygame.event.get()
         screen.fill(FILL)
 
         pos =  pygame.mouse.get_pos()
