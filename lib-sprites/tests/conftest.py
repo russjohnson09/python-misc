@@ -28,8 +28,9 @@ class PygameHandler():
 
     def __init__(self, size = _size):
         self._size = size
-        if self._screen is None:
-            self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
+        # segmentation fault?
+        # if self._screen is None:
+        #     self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
         pass
 
     def get_size(self):
@@ -49,15 +50,28 @@ class PygameHandler():
         self._fullscreen = not self._fullscreen
         return self.get_screen(True)
 
+_is_init = False
+
 _screen = None
 
-def get_screen():
-    print("pygame init")
+def do_init():
+    print("do_init")
+    if _is_init:
+        print("already init")
+        return
     pygame.init()
     # pygame.mixer.init()
     # print("pygame init")
     # pygame.init()
     # pygame.mixer.init()
+
+    _is_init = True
+
+
+def get_screen():
+    do_init()
+
+
     global _screen
     if _screen is None:
         _screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
@@ -65,17 +79,10 @@ def get_screen():
 
 def get_screen_nes():
     print("pygame init")
-    pygame.init()
-    
-    # pygame.mixer.init()
-    # print("pygame init")
-    # pygame.init()
-    # pygame.mixer.init()
-
-    # print("get_screen_nes")
+    do_init()
 
     global _screen
-
+    # https://stackoverflow.com/questions/68364418/pygame-weird-effects-on-the-screen-segmentation-fault-and-crash
     if os.environ.get('FULLSCREEN') == '1':
         _screen = pygame.display.set_mode((SCREEN_WIDTH_NES, SCREEN_HEIGHT_NES), 
                                         pygame.FULLSCREEN | pygame.SCALED
