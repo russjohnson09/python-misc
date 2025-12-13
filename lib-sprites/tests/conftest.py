@@ -90,8 +90,10 @@ def get_screen_nes():
 
 # https://stackoverflow.com/questions/34466027/what-is-conftest-py-for-in-pytest
 
-def pytest_runtest_setup():
-    print("pygame init")
-    pygame.init()
-    pygame.mixer.init()
-    # screen = get_screen()
+# for some reason it seems like this wasn't being called.
+# not calling pygame.init can lead to a segmentation fault that is hard to debug
+# def pytest_runtest_setup():
+#     print("pygame init")
+#     pygame.init()
+#     pygame.mixer.init()
+#     # screen = get_screen()
