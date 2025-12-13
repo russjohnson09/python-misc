@@ -243,6 +243,9 @@ def _add_stars(screen_size):
 # https://github.com/SuperNReal/jumpy/blob/main/my_code.py
 
 
+# https://stackoverflow.com/questions/39712307/is-there-a-way-with-pygame-to-get-keyboard-input-when-the-window-is-minimized
+# 
+
 # namco that one spaceship game had some good parallax scrolling.
 def test_starry_night():
 
