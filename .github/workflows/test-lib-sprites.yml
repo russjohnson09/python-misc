@@ -19,7 +19,8 @@ jobs:
       SDL_AUDIODRIVER: "disk" # Or "dummy" if no audio output is needed at all
       # RUSS_FPS: "60"
     name: python
-    runs-on: ubuntu-22
+    # runs-on: ubuntu-22
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v5
