@@ -19,6 +19,23 @@ SCREEN_HEIGHT_NES = 240
 # SCREEN_WIDTH = SCREEN_WIDTH / 4
 # SCREEN_HEIGHT = SCREEN_HEIGHT / 4
 
+_is_init = False
+
+
+def do_init():
+    global _is_init
+    print("do_init")
+    if _is_init:
+        print("already init")
+        return
+
+    pygame.init()
+    # pygame.mixer.init()
+    # print("pygame init")
+    # pygame.init()
+    # pygame.mixer.init()
+
+    _is_init = True
 
 class PygameHandler():
 
@@ -28,6 +45,8 @@ class PygameHandler():
 
     def __init__(self, size = _size):
         self._size = size
+        do_init()
+        
         # segmentation fault?
         # if self._screen is None:
         #     self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
@@ -50,22 +69,9 @@ class PygameHandler():
         self._fullscreen = not self._fullscreen
         return self.get_screen(True)
 
-_is_init = False
 
 _screen = None
 
-def do_init():
-    print("do_init")
-    if _is_init:
-        print("already init")
-        return
-    pygame.init()
-    # pygame.mixer.init()
-    # print("pygame init")
-    # pygame.init()
-    # pygame.mixer.init()
-
-    _is_init = True
 
 
 def get_screen():
