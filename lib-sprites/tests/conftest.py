@@ -52,13 +52,25 @@ class PygameHandler():
 _screen = None
 
 def get_screen():
-    print("get_screen")
+    print("pygame init")
+    pygame.init()
+    pygame.mixer.init()
+    print("pygame init")
+    pygame.init()
+    pygame.mixer.init()
     global _screen
     if _screen is None:
         _screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
     return _screen
 
 def get_screen_nes():
+    print("pygame init")
+    pygame.init()
+    pygame.mixer.init()
+    print("pygame init")
+    pygame.init()
+    pygame.mixer.init()
+
     print("get_screen_nes")
 
     global _screen
