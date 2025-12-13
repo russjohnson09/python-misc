@@ -3,6 +3,7 @@
 from lib_sprites import PongGhostBall, PongPaddle
 import pygame
 import numpy
+import random
 
 # from .conftest import get_screen_nes as get_screen
 from .conftest import get_screen
@@ -45,6 +46,7 @@ class Block(pygame.sprite.Sprite):
 class Star(pygame.sprite.Sprite):
     """single pixel color that fades and brightens over time"""
 
+    alpha_min = 20
     alpha = 255
     alpha_inc = -2
 
@@ -99,8 +101,8 @@ class Star(pygame.sprite.Sprite):
 
         self.alpha += self.alpha_inc
 
-        if self.alpha < 0:
-            self.alpha = 0
+        if self.alpha < self.alpha_min:
+            self.alpha = self.alpha_min
             self.alpha_inc = -(self.alpha_inc)
         elif self.alpha > 255:
             self.alpha = 255
@@ -180,18 +182,61 @@ def _add_stars(screen_size):
     star_gap = 10
     i = 0
 
+
+    rng = random.Random(1)
+    rng = random.Random(2)
+
+    star_chance = 0.02
+
+    # print(rng.random()) #0.13436424411240122
+
     # random but seeded
     # https://docs.python.org/3/library/random.html#random.seed
-    for x in range(0, screen_size[0], 50):# size[0]:
-        print(x)
-        for y in range(0, screen_size[1], 100):
-            star = Star()
+
+    # min space is 9 pixels but each square has only a 10% chance of being picked
+    # while x < screen_size[0]:# size[0]:
+    for x in range(5, screen_size[0], 9):
+        for y in range(5, screen_size[1], 9):
+            if rng.random() >=star_chance:
+                continue
+
+            color = rng.choice([
+                pygame.Color(255,255,255),
+                pygame.Color(255,255,255),
+                pygame.Color(255,255,255),
+                pygame.Color(255,255,255),
+                pygame.Color(0,0,255),
+                pygame.Color(0,255,255),
+                pygame.Color(0,255,0),
+                pygame.Color(255,0,0),
+            ])
+            size = rng.choice([
+                (1,1),
+                (1,1),
+                (1,1),
+                (1,1),
+                (2,2),
+                (2,2),
+                # (3,3),
+            ])
+            star = Star(
+                color=color,
+                size=size
+            )
+            star.alpha_min = rng.randrange(50,100)
             star.rect.topleft = (x,y)
             star_sprites_group.add(star)
-            i += 1
-            star.alpha = (x * y) % 255
+            # i += 1
+            # star.alpha = (x * y) % 255
+            star.alpha = rng.randrange(0, 255)
+            star.alpha_inc = rng.choice([-3,-2,2, 3])
+            # star.alpha_inc = randrange(0, 255)
+
             # star.alpha = i % 255
             print(f'added star ({x},{y})')
+        # inc_x = rng.randrange(50, 193)
+        # print(inc_x)
+        # x += inc_x
 
     return star_sprites_group
 
@@ -258,6 +303,11 @@ def test_starry_night():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
+                elif event.key == pygame.K_f:
+                    screen = pygame_handler.do_fullscreen()
+                    # keys = pygame.key.get_pressed()
+                    # if keys[pygame.K_RETURN] or keys[pygame.K_f]:
+                    #     return
             # elif event.type == pygame.MOUSEBUTTONUP:
             #     just_clicked = True
         screen.fill((0,0,0,0))
