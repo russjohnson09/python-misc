@@ -39,4 +39,4 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run tests
-        run: FPS=120 uv run pytest -s
+        run: SOME_MISC_ENV_VARIABLE=120 uv run pytest -s
