@@ -37,6 +37,9 @@ def do_init():
 
     _is_init = True
 
+_screen = None
+
+
 class PygameHandler():
 
     _fullscreen = False
@@ -56,7 +59,12 @@ class PygameHandler():
         return self._size
 
     def get_screen(self, refresh = False):
-        if not self._screen or refresh:
+        global _screen
+        if _screen is not None:
+            print("screen already set")
+            self._screen = _screen
+
+        if not self._screen or refresh: # I'm not experiencing a segmentation fault but running these in github it seems like display.set_mode should only run once?
             if self._fullscreen:
                 self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
                 pygame.FULLSCREEN | pygame.SCALED)
@@ -70,7 +78,6 @@ class PygameHandler():
         return self.get_screen(True)
 
 
-_screen = None
 
 
 
