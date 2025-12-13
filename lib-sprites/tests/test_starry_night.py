@@ -4,6 +4,7 @@ from lib_sprites import PongGhostBall, PongPaddle
 import pygame
 import numpy
 import random
+import os
 
 # from .conftest import get_screen_nes as get_screen
 from .conftest import get_screen
@@ -11,7 +12,7 @@ from .conftest import PygameHandler
 FILL = (5, 5, 5)
 FILL = (15, 15, 15)
 
-FPS = 120
+FPS = int(os.environ.get('FPS', '120'))
 
 pygame_handler = PygameHandler()
 
@@ -157,9 +158,6 @@ class StarrySky(pygame.sprite.Sprite):
 
         pass
 
-
-
-FPS = 120
 
 # Single server. As the server I can see both players but can't control them.
 # Each player / client sends tcp requests to update their locations and that applies to their paddle.
