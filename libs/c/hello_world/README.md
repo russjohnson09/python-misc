@@ -33,3 +33,23 @@ I still ended up installing when prompted on vscode
 
 
  C:\Windows\System32\wsl.exe --install -d Ubuntu-20.04
+
+
+  g++ --version
+Command 'g++' not found, but can be installed with:
+sudo apt install g++
+
+
+I think once wsl is setup I'm just following the ubuntu instructions?
+
+Let me check pygame.
+
+
+The window does look a little different. I am running a emulation of ubuntu.
+
+Pretty big degredation running pygame through wsl on windows.
+
+
+So doing some testing in wsl for my sound library is probably okay but I will want to switch back to windows.
+
+Visual studio installer
