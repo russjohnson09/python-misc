@@ -1,3 +1,7 @@
+https://github.com/vgmrips/vgmplay-legacy
+
+
+
 # VGMPlay [![Build Status](https://travis-ci.org/vgmrips/vgmplay.svg?branch=master)](https://travis-ci.org/vgmrips/vgmplay)
 
 The official and always up-to-date player for all [VGM](https://en.wikipedia.org/wiki/VGM_(file_format)) files.
@@ -21,6 +25,23 @@ In the future, the existing VGMPlay will be replaced by [libvgm](https://github.
 https://www.reddit.com/r/vscode/comments/socvt7/what_is_msys2_and_why_do_i_need_it_to_code_in_c/
 
 The build tools for Visual Studio 2010 (Platform Toolset = 'v100') cannot be found. To build using the v100 build tools, please install Visual Studio 2010 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+
+
+https://github.com/microsoft/vcpkg?tab=readme-ov-file#use-vcpkg
+
+
+cannot open file 'zlibstat64d.lib'
+      <AdditionalDependencies>kernel32.lib;user32.lib;advapi32.lib;winmm.lib;zlibstat64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+      vcpkg install zlib
+
+Project properties -> linker -> input -> Additional Dependencies
+
+I removed zlib
+
+unresolved external symbol gzread
+
+
 
 1. Open `VGMPlay.vcxproj`.
 2. Build the project.

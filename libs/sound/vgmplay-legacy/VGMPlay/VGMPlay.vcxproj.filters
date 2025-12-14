@@ -305,6 +305,9 @@
     <ClInclude Include="chips\opm.h">
       <Filter>SoundCore\FM OPx Chips</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pt_ioctl.c">
@@ -559,5 +562,10 @@
     <ClCompile Include="chips\opm.c">
       <Filter>SoundCore\FM OPx Chips</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VGMPlay.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

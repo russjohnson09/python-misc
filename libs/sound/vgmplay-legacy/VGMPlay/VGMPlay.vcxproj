@@ -99,6 +99,7 @@
     <ClInclude Include="dbus.h" />
     <ClInclude Include="mmkeys.h" />
     <ClInclude Include="PortTalk_IOCTL.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Stream.h" />
     <ClInclude Include="VGMFile.h" />
     <ClInclude Include="VGMPlay.h" />
@@ -201,6 +202,9 @@
     <ClCompile Include="VGMPlay.c" />
     <ClCompile Include="VGMPlayUI.c" />
     <ClCompile Include="VGMPlay_AddFmts.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VGMPlay.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -307,7 +311,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>kernel32.lib;user32.lib;advapi32.lib;winmm.lib;zlibstat64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;advapi32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
