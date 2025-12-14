@@ -18,6 +18,7 @@ jobs:
       SDL_VIDEODRIVER: "dummy"
       SDL_AUDIODRIVER: "disk" # Or "dummy" if no audio output is needed at all
       FPS: "300"
+      MAX_TEST_LOOPS: "10"
     name: python
     runs-on: ubuntu-24.04
 

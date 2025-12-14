@@ -13,6 +13,7 @@ FILL = (15, 15, 15)
 
 FPS = int(os.environ.get('FPS', '120'))
 # FPS = int(os.environ.get('FPS', '300'))
+MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 
 pygame_handler = PygameHandler()
 
@@ -42,12 +43,6 @@ class PlayerInput():
         keys = pygame.key.get_pressed()
         self._left = keys[pygame.K_a] is True
         self._right = keys[pygame.K_d] is True
-        # if event.type == pygame.KEYUP:
-        # elif event.type == pygame.KEYDOWN:
-        #     if event.key == pygame.K_ESCAPE:
-        #         return
-        #     elif event.key == pygame.K_f:
-        #         screen = pygame_handler.do_fullscreen()
 
     def get_direction(self):
         x = 0
@@ -134,7 +129,7 @@ def test_starry_night():
     estimated_delta = 60.0 / FPS
 
     i = 0
-    while i < (60 * 50):
+    while i < MAX_TEST_LOOPS:
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
         for event in pygame.event.get():
