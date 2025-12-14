@@ -1,3 +1,29 @@
+https://pgi-jcns.fz-juelich.de/portal/pages/using-c-from-python.html
+
+https://stackoverflow.com/questions/16647186/calling-c-functions-in-python
+
+
+https://askubuntu.com/questions/931940/unable-to-change-the-root-password-in-windows-10-wsl
+
+
+```
+wsl -u root
+passwd devcontainers
+```
+
+
+sudo apt install g++
+g++ --version
+
+https://pgi-jcns.fz-juelich.de/portal/pages/using-c-from-python.html
+
+cc -fPIC -shared -o libsum.so sum.c
+
+g++ main.c
+
+
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+
 # windows setup c
 https://code.visualstudio.com/docs/languages/cpp#_set-up-your-c-environment
 
