@@ -5,3 +5,5 @@
 *.so
 prog
 *.o
+
+!libsum.so
