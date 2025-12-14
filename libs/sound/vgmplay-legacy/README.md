@@ -2,6 +2,14 @@ https://github.com/vgmrips/vgmplay-legacy
 
 
 
+https://github.com/msys2/msys2-installer/releases/tag/nightly-x86_64
+
+https://github.com/msys2/msys2-installer/releases/download/nightly-x86_64/msys2-x86_64-latest.exe
+
+C:\msys64
+
+'C:\WINDOWS\system32\drivers\etc\hosts' -> '/etc/hosts'
+
 # VGMPlay [![Build Status](https://travis-ci.org/vgmrips/vgmplay.svg?branch=master)](https://travis-ci.org/vgmrips/vgmplay)
 
 The official and always up-to-date player for all [VGM](https://en.wikipedia.org/wiki/VGM_(file_format)) files.
@@ -29,9 +37,20 @@ The build tools for Visual Studio 2010 (Platform Toolset = 'v100') cannot be fou
 
 https://github.com/microsoft/vcpkg?tab=readme-ov-file#use-vcpkg
 
+cannot open file 'zlib64.lib'
 
 cannot open file 'zlibstat64d.lib'
       <AdditionalDependencies>kernel32.lib;user32.lib;advapi32.lib;winmm.lib;zlibstat64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+
+
+.\vcpkg install zlib:x64-windows-static
+
+$env:VCPKG_VISUAL_STUDIO_PATH = "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools"
+
+C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools
+
+C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\vcpkg
+https://learn.microsoft.com/en-us/vcpkg/troubleshoot/build-failures?WT.mc_id=vcpkg_inproduct_cli
 
       vcpkg install zlib
 
@@ -41,6 +60,17 @@ I removed zlib
 
 unresolved external symbol gzread
 
+1
+
+Make sure vcpkg is installed in Visual Studio Installer. Use command vcpkg install zlib.
+
+Install In classic mode, run the following vcpkg command:
+vcpkg install zlib
+vcpkg
+https://www.youtube.com/watch?v=ulftqyA3A8o
+
+1>C:\Users\russj\dev\python-misc\libs\sound\vgmplay-legacy\VGMPlay\zlib\zlib.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+1>C:\Users\russj\dev\python-misc\libs\sound\vgmplay-legacy\VGMPlay\Debug_Win64\VGMPlay.exe : fatal error LNK1120: 7 unresolved externals
 
 
 1. Open `VGMPlay.vcxproj`.
