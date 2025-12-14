@@ -1,4 +1,45 @@
+
+ obj/VGMPlayUI.o: in function `wprintc':
+VGMPlayUI.c:(.text+0x2c5): undefined reference to `__vswprintf_chk'
+
+
+
+russj@beam UCRT64 /c/Users/russj/dev/python-misc/libs/sound/vgmplay-legacy/VGMPlay
+$ make WINDOWS=1
+
+
+
+https://code.visualstudio.com/docs/cpp/config-mingw
+
+
+
+pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+C:\msys64\ucrt64\bin
+pacman -S make
+C:\msys64\usr\bin
+
+https://www.msys2.org/
+
 https://github.com/vgmrips/vgmplay-legacy
+
+Add the path of your MinGW-w64 bin folder to the Windows PATH environment variable by using the following steps:
+
+
+
+
+gcc --version
+g++ --version
+gdb --version
+
+
+make WINDOWS=1
+
+
+Package 'dbus-1' not found
+
+WINDOWS=1 make 
+
+
 
 
 
