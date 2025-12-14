@@ -68,7 +68,8 @@ ifeq ($(MACOSX), 1)
 USE_DBUS = 0
 endif
 
-CC = gcc
+#CC = gcc -std=c23
+CC = gcc -std=c11
 ifndef PREFIX
 PREFIX = /usr/local
 #PREFIX = $(HOME)/.local

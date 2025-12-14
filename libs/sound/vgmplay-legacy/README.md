@@ -1,11 +1,22 @@
 
+In file included from chips/opl.c:34,
+                 from chips/adlibemu_opl2.c:5:
+chips/../stdbool.h:12:25: error: 'bool' cannot be defined via 'typedef'
+   12 | typedef unsigned char   bool;
+
+No, this is gcc 15 being stricter/defaulting to -std=c23.
+
+
+
+
+
  obj/VGMPlayUI.o: in function `wprintc':
 VGMPlayUI.c:(.text+0x2c5): undefined reference to `__vswprintf_chk'
 
 
 
 russj@beam UCRT64 /c/Users/russj/dev/python-misc/libs/sound/vgmplay-legacy/VGMPlay
-$ make WINDOWS=1
+$ make WINDOWS=1 NO_STRICT=1
 
 
 
