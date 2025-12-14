@@ -18,6 +18,9 @@ In the future, the existing VGMPlay will be replaced by [libvgm](https://github.
 3. Done.
 
 ### Using later versions of MS Visual Studio:
+https://www.reddit.com/r/vscode/comments/socvt7/what_is_msys2_and_why_do_i_need_it_to_code_in_c/
+
+The build tools for Visual Studio 2010 (Platform Toolset = 'v100') cannot be found. To build using the v100 build tools, please install Visual Studio 2010 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
 
 1. Open `VGMPlay.vcxproj`.
 2. Build the project.
@@ -54,6 +57,24 @@ sudo apt-get install make gcc zlib1g-dev libao-dev libdbus-1-dev
 cd VGMPlay
 make
 ```
+
+./VGMPlay/vgmplay nakama.vgm
+
+
+It doesn't seem to like wsl
+
+Track Title:    Jingle - Nakama [Comrades Jingle 1 (Happily)]
+Game Name:      Shining Force
+System:         Sega Mega Drive / Genesis
+Composer:       Masahiko Yoshimura
+Release:        1992
+Version:        1.50      Gain: 1.00    Loop: No
+VGM by:         Duchemole & Danjuro
+Notes:
+
+Used chips:     SEGA PSG, YM2612  
+
+Error openning Sound Device!
 
 ## Compile VGMPlay under macOS
 
