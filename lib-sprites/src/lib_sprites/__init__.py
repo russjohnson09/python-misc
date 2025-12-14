@@ -5,6 +5,8 @@ from .connect_four_sprites import ConnectFourBoard, ConnectFourNumbers
 from .blade_sprites import Blade
 from .pong_sprites import PongGhostBall, PongPaddle, PongLargeGhostBall, PongLargePaddle
 
+from .galaga_sprites import Star, StarrySky, GalagaBgSpriteGroup, ShipSprite
+
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
 
@@ -19,12 +21,6 @@ def rot_center(image, rect, angle):
     return rot_image,rot_rect
 
 
-class Velocity:
-
-    x = 0
-    y = 0
-
-
 class GalagaSprite(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -32,56 +28,6 @@ class GalagaSprite(pygame.sprite.Sprite):
 
         import lib_spritesheet
         self.spritesheet = lib_spritesheet.GalagaSpritesheet()
-
-
-class ShipSprite(GalagaSprite):
-
-    # I am accidently making these static.
-    # Including velocity which I'm now fixing
-    tick = 0
-    frame = 0
-    animation = 'idle'
-    # https://www.pygame.org/docs/ref/sprite.html
-    image_path = "galaga_sprites.png"
-
-    animations = {
-        'idle': [],
-        'red': [],
-    }
-    def __init__(self):
-        # I should pull in some singleton class for sprite management here.
-        super().__init__()
-
-        spritesheet = self.spritesheet
-        self.animations['idle'] = [spritesheet.image_at((18 * i, 0, 18, 18)) for i in range(0,7)]
-        self.images = self.animations.get(self.animation)
-        self.image = self.images[0] # current image
-        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
-        self.rect: pygame.Rect = self.image.get_rect()
-        # self.rect = self.rect.copy()
-
-        # self.rect.topleft = (0,0)
-        # self.rect.h = 50
-        self.rect = pygame.Rect(0,0,18,18)
-
-        self.velocity = Velocity()
-
-
-    # TODO change animation
-    def update(self):
-        self.tick += 1
-
-        # ticks or frames
-        if self.tick % 30 == 0:
-            self.frame += 1
-
-        # self.rect.x += self.velocity.x
-        self.rect.y += self.velocity.y
-
-        self.image = self.images[self.frame % len(self.images)]
-
-    #     # self.pos = (0,0)
-
 
 
 
@@ -401,5 +347,9 @@ ConnectFourNumbers,
 Blade,
 PongPaddle,
 PongGhostBall,
-PongLargeGhostBall, PongLargePaddle
+PongLargeGhostBall, PongLargePaddle,
+Star,
+StarrySky,
+GalagaBgSpriteGroup,
+ShipSprite,
 ]

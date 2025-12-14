@@ -40,6 +40,13 @@ def do_init():
 _screen = None
 
 
+
+
+# tests\test_starry_night_and_player.py Windows fatal exception: access violation
+
+# Current thread 0x00001b68 (most recent call first):
+#   File "C:\Users\russ\python-misc\lib-sprites\tests\conftest.py", line 72 in get_screen
+#   File "C:\Users\russ\python-misc\lib-sprites\tests\conftest.py", line 78 in do_fullscreen
 class PygameHandler():
 
     _fullscreen = False
@@ -49,7 +56,9 @@ class PygameHandler():
     def __init__(self, size = _size):
         self._size = size
         do_init()
-        
+        self._clock = pygame.time.Clock()
+        self._font = pygame.font.SysFont("Arial" , 8 , bold = False)
+
         # segmentation fault?
         # if self._screen is None:
         #     self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
@@ -58,6 +67,26 @@ class PygameHandler():
     def get_size(self):
         return self._size
 
+    def get_clock(self):
+        return self._clock
+
+    def _fps_counter(self):
+        # fps = str(clock.get_fps())
+        fps = str(int(self._clock.get_fps()))
+
+        fps_t = self._font.render(fps , 1, pygame.Color("RED"))
+
+        self._screen.blit(fps_t,(0,0))
+
+    def debug(self):
+        self._fps_counter()
+
+
+
+# https://github.com/pygame-community/pygame-ce/issues/2737
+# If you're trying to run code that switches between SCALED and not-scaled, I think it would work to quit and re-initialize the video system while doing it. pygame.display.quit() and pygame.display.init(). Haven't tested though.
+# I cannot seem to reproduce this on Ubuntu, perhaps this is a windows only issue
+# This is in a whole stream of renderer semantics issues, and all the earliest reports were on Linux, so that's surprising. Are you using an old system SDL? It's an SDL version thing.
     def get_screen(self, refresh = False):
         global _screen
         if _screen is not None:
@@ -65,6 +94,12 @@ class PygameHandler():
             self._screen = _screen
 
         if not self._screen or refresh: # I'm not experiencing a segmentation fault but running these in github it seems like display.set_mode should only run once?
+            
+            if self._screen:
+                print('reinit')
+                pygame.display.quit()
+                pygame.display.init()
+            
             if self._fullscreen:
                 self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
                 pygame.FULLSCREEN | pygame.SCALED)
