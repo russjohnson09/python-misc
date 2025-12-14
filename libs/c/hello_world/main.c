@@ -12,7 +12,6 @@
 // g++ -shared sum.c -o libsum.so
 // g++ -c main.c -o main.o
 // g++ -o prog main.o -L. -lsum
-// g++ -o prog main.o -L/mnt/c/Users/russj/dev/python-misc/libs/c/hello_world -lsum
 
 // https://stackoverflow.com/questions/5357869/error-while-loading-shared-libraries
 
