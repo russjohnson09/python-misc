@@ -2710,6 +2710,10 @@ static void PlayVGM_UI(void)
 	
 	StopVGM();
 	
+	// make WINDOWS=1
+	//  ./vgmplay.exe ../nakama.vgm
+
+	printf("\nPlaying finished.\n");
 	printf("\nPlaying finished.\n");
 	
 	return;
