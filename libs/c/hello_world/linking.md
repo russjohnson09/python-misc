@@ -26,3 +26,7 @@ g++ -o checkbeat checkbeat.cpp -I . -L. libbeat.so.1.0.1
 
 
 g++ -o prog main.c -I. -L. -lsum
+
+
+
+ g++ -o prog main.c -I . -L. ./libsum.so

@@ -1,3 +1,16 @@
+
+https://github.com/vgmrips/vgmplay-legacy
+
+I'd like to compile and use this library under python ^^
+
+
+https://github.com/pensactius/VgmPlayer
+
+https://www.zophar.net/music/sega-mega-drive-genesis/shining-force
+
+https://vgmrips.net/packs/chip/sn76489
+
+
 # Nuked-OPN2
 High accuracy Yamaha YM3438(OPN2) emulator.
 

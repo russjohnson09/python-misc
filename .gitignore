@@ -27,3 +27,4 @@ Debug
 
 # add 'libs/visual-studio-example-c/hello/CMakeProject1/out/build/x64-debug/CMakeFiles/rules.ninja'
 build
+prog

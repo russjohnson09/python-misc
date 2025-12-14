@@ -199,10 +199,23 @@ typedef struct
 void OPN2_Reset(ym3438_t *chip);
 void OPN2_SetChipType(Bit32u type);
 void OPN2_Clock(ym3438_t *chip, Bit16s *buffer);
+
+// https://github.com/nukeykt/Genesis-Plus-GX/blob/master/core/memz80.c#L257 calls fm_write
+// fm_write is set to       fm_write = YM3438_Write;
+//   /* synchronize FM chip with CPU */
+//   fm_update(cycles);
+
+//   /* write FM register */
+//   OPN2_Write(&ym3438, a, v);
+
 void OPN2_Write(ym3438_t *chip, Bit32u port, Bit8u data);
 void OPN2_SetTestPin(ym3438_t *chip, Bit32u value);
 Bit32u OPN2_ReadTestPin(ym3438_t *chip);
 Bit32u OPN2_ReadIRQPin(ym3438_t *chip);
+
+
+// https://github.com/nukeykt/Genesis-Plus-GX/blob/4b5ccd7767ec037dc41864c1167eaa66ca452e6b/core/sound/sound.c#L230
+
 Bit8u OPN2_Read(ym3438_t *chip, Bit32u port);
 
 #ifdef __cplusplus
