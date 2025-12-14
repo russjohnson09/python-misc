@@ -1,0 +1,7 @@
+
+# g++ main.c -> a.out
+# g++ main.
+*.out
+*.so
+prog
+*.o
