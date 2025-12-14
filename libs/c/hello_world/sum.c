@@ -13,6 +13,7 @@
 
 // https://stackoverflow.com/questions/31541451/create-shared-library-from-cpp-files-and-static-library-with-g
 
+// g++ -shared sum.c -o sum.so
 int add(int a, int b) {
     return a + b;
 }

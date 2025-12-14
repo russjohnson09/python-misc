@@ -5,9 +5,22 @@
 // I have some much better examples using cmake and other things.
 // but this is a very simple way to include some shared library
 
+// TODO use headers
 
+// g++ sum.c main.c -o prog && ./prog
 
-// g++ sum.c main.c -o main.o
+// g++ -shared sum.c -o libsum.so
+// g++ -c main.c -o main.o
+// g++ -o prog main.o -L. -lsum
+// g++ -o prog main.o -L/mnt/c/Users/russj/dev/python-misc/libs/c/hello_world -lsum
+
+// https://stackoverflow.com/questions/5357869/error-while-loading-shared-libraries
+
+// https://stackoverflow.com/questions/10749058/building-and-linking-a-shared-library
+//  g++ -o prog main.c -I . -L. ./libsum.so
+
+// I hate having to deal with this, cmake or other tools make this much easier.
+// I'm not sure why -l doesn't work but directly linking to libsum.so does
 extern int add(int a, int b);
 
 
