@@ -2712,7 +2712,8 @@ static void PlayVGM_UI(void)
 	
 	// make WINDOWS=1
 	//  ./vgmplay.exe ../nakama.vgm
-
+	// TODO port the nakama.vgm reader to python
+	
 	printf("\nPlaying finished.\n");
 	printf("\nPlaying finished.\n");
 	
