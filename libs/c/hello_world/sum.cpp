@@ -14,6 +14,19 @@
 // https://stackoverflow.com/questions/31541451/create-shared-library-from-cpp-files-and-static-library-with-g
 
 // g++ -shared sum.c -o sum.so
+
+// https://stackoverflow.com/questions/67099759/ctypes-function-not-found
+
+//https://realpython.com/python-bindings-overview/#c-or-c-source
+
+
+// https://stackoverflow.com/questions/1041866/what-is-the-effect-of-extern-c-in-c
+// Don't mangle my names
+
+//  g++ -shared -o libsum.so sum.cpp
+// 
+extern "C" int add(int, int);
+
 int add(int a, int b) {
     return a + b;
 }
