@@ -17,3 +17,10 @@ gcc -o program -L. mymain.o -lmyclib
 
 
 g++ -L. main.c -o main.o
+
+
+
+https://code.visualstudio.com/docs/cpp/config-mingw
+
+
+I've installed g++
