@@ -50,8 +50,8 @@ sudo apt-get install make gcc zlib1g-dev libao-dev libdbus-1-dev
 ```
 
 #### Building
-
 ```sh
+cd VGMPlay
 make
 ```
 
