@@ -2,9 +2,11 @@
 
 from lib_sprites import ShipSprite, BeeSprite, ShrimpSprite, ShipExplosion
 import pygame
+import os
 
 from .conftest import get_screen
 FILL = (5, 5, 5)
+MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 
 
 
@@ -27,8 +29,8 @@ def test_main():
 
     player2.rect.x = 18
     player2.rect.y = 32
-    player2.velocity.x = 0
-    player2.velocity.y = -1
+    # player2.velocity.x = 0
+    # player2.velocity.y = -1
     player_sprites.add(player2)
 
     bee = BeeSprite()
@@ -50,7 +52,7 @@ def test_main():
 
 
     i = 0
-    while i < (60 * 10):
+    while i < MAX_TEST_LOOPS:
         pygame.event.get()
         screen.fill(FILL)
 

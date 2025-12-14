@@ -2,8 +2,10 @@
 
 from lib_sprites import Blade
 import pygame
+import os
 
 from .conftest import get_screen_nes as get_screen
+MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 
 FILL = (100, 100, 100)
 
@@ -25,7 +27,7 @@ def test_main():
 
     just_clicked = False
     i = 0
-    while i < (60 * 10):
+    while i < MAX_TEST_LOOPS:
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
         for event in pygame.event.get():

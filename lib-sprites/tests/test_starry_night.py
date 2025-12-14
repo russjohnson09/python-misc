@@ -13,7 +13,7 @@ FILL = (5, 5, 5)
 FILL = (15, 15, 15)
 
 FPS = int(os.environ.get('FPS', '120'))
-# FPS = int(os.environ.get('FPS', '300'))
+MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 
 pygame_handler = PygameHandler()
 
@@ -225,7 +225,6 @@ def _add_stars(screen_size):
             star.alpha_min = rng.randrange(50,100)
             star.rect.topleft = (x,y)
             star_sprites_group.add(star)
-            # i += 1
             # star.alpha = (x * y) % 255
             star.alpha = rng.randrange(0, 255)
             star.alpha_inc = rng.choice([-3,-2,2, 3])
@@ -296,7 +295,7 @@ def test_starry_night():
 
 
     i = 0
-    while i < (60 * 50):
+    while i < MAX_TEST_LOOPS:
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
         for event in pygame.event.get():
