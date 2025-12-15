@@ -1,0 +1,28 @@
+[project]
+name = "lib-add"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "russjohnson09@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "lib-add-c"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "setuptools>=80.9.0",
+]
+
+
+[build-system]
+requires = ["uv_build>=0.9.9,<0.10.0"]
+build-backend = "uv_build"
+
+
+[tool.uv.sources]
+#lib-add-c = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "libs/lib-add-c", branch="feat/test-add" }
+lib-add-c = { path = "../lib-add-c", editable = true }
