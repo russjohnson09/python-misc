@@ -244,8 +244,11 @@ EMUOBJS = \
 	$(EMUOBJ)/sn76496_opl.o \
 	$(EMUOBJ)/ym2413hd.o \
 	$(EMUOBJ)/ym2413_opl.o
-VGMPLAY_OBJS = \
-	$(OBJ)/VGMPlayUI.o
+
+
+
+# VGMPLAY_OBJS = \
+# 	$(OBJ)/VGMPlayUI.o
 
 ifeq ($(USE_DBUS), 1)
 	VGMPLAY_OBJS += $(OBJ)/dbus.o
@@ -255,11 +258,12 @@ else
 	VGMPLAY_OBJS += $(OBJ)/mmkeys_stub.o $(OBJ)/dbus_stub.o
 endif
 
-VGM2PCM_OBJS = \
-	$(OBJ)/vgm2pcm.o
+# VGM2PCM_OBJS = \
+# 	$(OBJ)/vgm2pcm.o
 VGM2WAV_OBJS = \
 	$(OBJ)/vgm2wav.o
-EXTRA_OBJS = $(VGMPLAY_OBJS) $(VGM2PCM_OBJS) $(VGM2WAV_OBJS)
+
+# EXTRA_OBJS = $(VGMPLAY_OBJS) $(VGM2PCM_OBJS) $(VGM2WAV_OBJS)
 
 
 all: vgm2wav
@@ -275,6 +279,7 @@ $(EMUOBJ)/%.o:	$(EMUSRC)/%.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(EMUFLAGS) -c $< -o $@
 
+# cmake can hopefully simplify this part
 # compile the main c-files
 $(OBJ)/%.o:	$(SRC)/%.c
 	@echo Compiling $< ...
