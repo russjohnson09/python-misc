@@ -1,24 +1,5 @@
 /*
  *  This file is part of VGMPlay <https://github.com/vgmrips/vgmplay>
- *
- *  (c)2015 libertyernie <maybeway36@gmail.com>
- *  Based on vgm2pcm.c:
- *    (c)2015 Francis Gagné <fragag1@gmail.com>
- *    (c)2015 Valley Bell
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
 #include <stdio.h>
@@ -79,16 +60,16 @@ INLINE int fputLE32(UINT32 Value, FILE* hFile)
 void usage(const char *name) {
 	fprintf(stderr, "usage: %s [options] vgm_file wav_file\n"
 		"wav_file can be - for standard output.\n", name);
-#ifdef VGM2WAV_HAS_GETOPT
-	fputs("\n"
-		"Options:\n"
-		"--loop-count {number}\n"
-		"--fade-ms {number}\n"
-		"--no-smpl-chunk\n"
-		"\n", stderr);
-#else
-	fputs("Options not supported in this build (compiled without getopt.)\n", stderr);
-#endif
+// #ifdef VGM2WAV_HAS_GETOPT
+// 	fputs("\n"
+// 		"Options:\n"
+// 		"--loop-count {number}\n"
+// 		"--fade-ms {number}\n"
+// 		"--no-smpl-chunk\n"
+// 		"\n", stderr);
+// #else
+// 	fputs("Options not supported in this build (compiled without getopt.)\n", stderr);
+// #endif
 }
 
 int main(int argc, char *argv[]) {
@@ -110,50 +91,6 @@ int main(int argc, char *argv[]) {
 
 	int c;
 
-	// Parse command line arguments
-#ifdef VGM2WAV_HAS_GETOPT
-	static struct option long_options[] = {
-		{ "loop-count", required_argument, NULL, 'l' },
-		{ "fade-ms", required_argument, NULL, 'f' },
-		{ "no-smpl-chunk", no_argument, NULL, 'S' },
-		{ "help", no_argument, NULL, '?' },
-		{ NULL, 0, NULL, 0 }
-	};
-	while ((c = getopt_long(argc, argv, "", long_options, NULL)) != -1) {
-		switch (c) {
-		case 'l':
-			c = atoi(optarg);
-			if (c <= 0) {
-				fputs("Error: loop count must be at least 1.\n", stderr);
-				usage(argv[0]);
-				return 1;
-			}
-			VGMMaxLoop = c;
-			//fprintf(stderr, "Setting max loops to %u\n", VGMMaxLoop);
-			break;
-		case 'f':
-			FadeTime = atoi(optarg);
-			//fprintf(stderr, "Setting fade-out time in milliseconds to %u\n", FadeTime);
-			break;
-		case 'S':
-			WriteSmplChunk = false;
-			break;
-		case -1:
-			break;
-		case '?':
-			usage(argv[0]);
-			return 0;
-		default:
-			usage(argv[0]);
-			return 1;
-		}
-	}
-
-	// Pretend for the rest of the program that those options don't exist
-	argv[optind - 1] = argv[0];
-	argc -= optind - 1;
-	argv += optind - 1;
-#endif
 	if (argc < 3) {
 		usage(argv[0]);
 		return 1;
