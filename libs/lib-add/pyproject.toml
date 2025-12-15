@@ -27,4 +27,4 @@ build-backend = "uv_build"
 #lib-add-c = { path = "../lib-add-c", editable = true }
 
 [tool.uv.sources]
-lib-add-c = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites", branch="feat/test-add" }
+lib-add-c = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "libs/lib-add-c", branch="feat/test-add" }
