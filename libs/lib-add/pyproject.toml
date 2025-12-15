@@ -9,6 +9,21 @@ authors = [
 requires-python = ">=3.13"
 dependencies = []
 
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "setuptools>=80.9.0",
+]
+
+
 [build-system]
 requires = ["uv_build>=0.9.9,<0.10.0"]
 build-backend = "uv_build"
+
+
+[tool.setuptools]
+ext-modules = [
+  #{name = "mylib.foo", sources = ["foo.c"]}
+  {name = "add.add", sources = ["add.cpp"]}
+]
+
