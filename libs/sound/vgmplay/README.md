@@ -1,3 +1,10 @@
+ git clean -f -- ./libs/sound/vgmplay/
+
+
+ Removing libs/sound/vgmplay/VGMPlay/obj/
+ git clean -dxf -- ./libs/sound/vgmplay/
+  make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
+
 
 In file included from chips/opl.c:34,
                  from chips/adlibemu_opl2.c:5:
