@@ -107,12 +107,16 @@ MAINFLAGS += -DDISABLE_HW_SUPPORT
 endif
 
 
-ifeq ($(DEBUG), 0)
+# debug CFLAGS has more warnings
+# ifeq ($(DEBUG), 0)
 # -- General Compile Flags --
 CFLAGS := -O3 -g0 -Wno-unused-variable -Wno-unused-value -Wno-unused-but-set-variable $(CFLAGS)
-else
-CFLAGS := -g -Wall $(CFLAGS)
-endif
+# else
+# CFLAGS := -g -Wall $(CFLAGS)
+# endif
+
+
+
 # libm (math library) and libz (zlib)
 LDFLAGS := -lm -lz $(LDFLAGS)
 
