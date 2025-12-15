@@ -175,11 +175,18 @@ endif
 endif
 
 # libs\sound\vgmplay\VGMPlay\chips\fm.h
+# 	$(EMUOBJ)/2610intf.o \
+
 # #define BUILD_YM2610  0
 
 
+# SN76489_Init
+# libs\sound\vgmplay\VGMPlay\chips\sn764intf.c
+# 	$(EMUOBJ)/sn76489.o \
+
 
 EMUOBJS = \
+	$(EMUOBJ)/sn76489.o \
 	$(EMUOBJ)/262intf.o \
 	$(EMUOBJ)/2151intf.o \
 	$(EMUOBJ)/2610intf.o \
@@ -234,7 +241,6 @@ EMUOBJS = \
 	$(EMUOBJ)/scd_pcm.o \
 	$(EMUOBJ)/scsp.o \
 	$(EMUOBJ)/scspdsp.o \
-	$(EMUOBJ)/sn76489.o \
 	$(EMUOBJ)/sn76496.o \
 	$(EMUOBJ)/sn764intf.o \
 	$(EMUOBJ)/upd7759.o \

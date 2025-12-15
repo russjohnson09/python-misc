@@ -1,4 +1,4 @@
- git clean -f -- ./libs/sound/vgmplay/
+ git clean -dxf -- ./libs/sound/vgmplay/
 
 
  Removing libs/sound/vgmplay/VGMPlay/obj/
