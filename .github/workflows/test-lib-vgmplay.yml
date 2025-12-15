@@ -28,7 +28,6 @@ jobs:
   test:
     env:
       MAX_TEST_LOOPS: "10"
-    name: python
     runs-on: ubuntu-24.04
 
     steps:
@@ -44,5 +43,5 @@ jobs:
       - name: Run build
         run: make
       
-      # - name: Run script
-      #   run: make
+      - name: Run script
+        run:  ./vgm2wav ../nakama.vgm ../../../../assets/shining_force_nakama.wav

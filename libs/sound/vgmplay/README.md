@@ -1,10 +1,11 @@
  git clean -dxf -- ./libs/sound/vgmplay/
-  make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
+make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 
 
 #  wsl
 
  make
+ ./vgm2wav ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 
 
  Removing libs/sound/vgmplay/VGMPlay/obj/
