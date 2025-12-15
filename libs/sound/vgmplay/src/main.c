@@ -16,6 +16,22 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+//libs\sound\vgmplay\src\vgmplay\VGMPlay\chips\262intf.c
+// C:\Users\russj\AppData\Local\uv\cache\sdists-v9\.tmpua0Gfk\vgmplay-0.1.0\src\main.c(20,10): 
+// error C1083: Cannot open include file: 'VGMPlay/chips/262intf.h': No such file or directory [C:\Users\russj\AppData\Local\uv\cache\sdists-v9\.tmpua0Gfk\vgmplay-0.1.0\build\cp313-cp313-win_amd64\_module.vcxproj]
+
+// #include "vgmplay/VGMPlay/chips/262intf.h"  
+// #include "vgmplay/VGMPlay/chips/262intf.h"  
+// #include "vgmplay/VGMPlay/vgm2wav.c"
+
+// C:\Users\russj\AppData\Local\uv\cache\sdists-v9\.tmpdRmhRr\vgmplay-0.1.0\src\vgmplay\VGMPlay\chips\opl.h(45,17): error C2061: syntax error: identifier 'Bitu' [C:\Users\russj\AppData\Local\uv\cache\sdists-v9\.tmpdRmhRr\vgmplay-0.1.0\build\cp313-cp313-win_amd64\_module.vcxproj]
+
+// libs\sound\vgmplay-legacy\VGMPlay\chips\opl.h
+// This parts failing and I'm not sure why
+typedef UINT32		Bitu;
+typedef uint32_t	Bit32u;
+
+
 float square(float x) { return x * x; }
 
 static PyObject *square_wrapper(PyObject *self, PyObject *args) {

@@ -1,3 +1,7 @@
+
+#  make WINDOWS=1
+
+
 ########################
 #
 # VGMPlay Makefile
