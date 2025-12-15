@@ -254,13 +254,13 @@ EMUOBJS = \
 # VGMPLAY_OBJS = \
 # 	$(OBJ)/VGMPlayUI.o
 
-ifeq ($(USE_DBUS), 1)
-	VGMPLAY_OBJS += $(OBJ)/dbus.o
-else ifeq ($(WINDOWS), 1)
-	VGMPLAY_OBJS += $(OBJ)/mmkeys_Win.o $(OBJ)/dbus_stub.o
-else
-	VGMPLAY_OBJS += $(OBJ)/mmkeys_stub.o $(OBJ)/dbus_stub.o
-endif
+# ifeq ($(USE_DBUS), 1)
+# 	VGMPLAY_OBJS += $(OBJ)/dbus.o
+# else ifeq ($(WINDOWS), 1)
+# 	VGMPLAY_OBJS += $(OBJ)/mmkeys_Win.o $(OBJ)/dbus_stub.o
+# else
+# 	VGMPLAY_OBJS += $(OBJ)/mmkeys_stub.o $(OBJ)/dbus_stub.o
+# endif
 
 # VGM2PCM_OBJS = \
 # 	$(OBJ)/vgm2pcm.o
@@ -299,9 +299,9 @@ $(OBJ)/%.o:	$(SRC)/%.c
 # 	mkdir -m 755 -p $(DESTDIR)$(PREFIX)/share/vgmplay
 # 	install -m 644 VGMPlay.ini $(DESTDIR)$(PREFIX)/share/vgmplay/vgmplay.ini
 ifneq ($(WINDOWS), 1)
-ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
-	setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
-endif
+	ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
+		setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
+	endif
 endif
 
 # install ROMs
