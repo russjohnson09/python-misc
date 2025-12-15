@@ -70,7 +70,9 @@ INLINE int fputBE16(UINT16 Value, FILE* hFile)
 	return ResVal;
 }
 
+//  make WINDOWS=1 && ./vgm2pcm.exe ../nakama.vgm ../nakama.pcm
 int main(int argc, char *argv[]) {
+	// 
 	UINT8 result;
 	WAVE_16BS *sampleBuffer;
 	UINT32 bufferedLength;
