@@ -14,11 +14,6 @@ ifndef WINDOWS
 WINDOWS = 0
 endif
 
-# set to 1 if you build on Mac OSX
-ifndef MACOSX
-MACOSX = 0
-endif
-
 ifeq ($(WINDOWS), 1)
 # no libAO for Windows
 USE_LIBAO = 0
@@ -40,7 +35,9 @@ endif
 
 # set to 1 for debug builds
 ifndef DEBUG
+# TOO MANY WARNINGS WHEN ON
 DEBUG = 0
+# DEBUG = 1
 endif
 
 # set to 1 for swprintf fix on older MinGW versions
@@ -156,6 +153,9 @@ OBJ = obj
 EMUSRC = $(SRC)/chips
 EMUOBJ = $(OBJ)/chips
 
+
+
+
 OBJDIRS = \
 	$(OBJ) \
 	$(EMUOBJ)
@@ -262,23 +262,24 @@ VGM2WAV_OBJS = \
 EXTRA_OBJS = $(VGMPLAY_OBJS) $(VGM2PCM_OBJS) $(VGM2WAV_OBJS)
 
 
-all:	vgmplay vgm2pcm vgm2wav
+# vgmplay vgm2pcm 
+all:	vgm2wav
 
-vgmplay:	$(EMUOBJS) $(MAINOBJS) $(VGMPLAY_OBJS)
-ifneq ($(WINDOWS), 1)
-ifneq ($(MACOSX), 1)
-	@echo Generating xdg desktop entry
-	@sed "s/@BIN_PATH@/$(subst /,\/,$(DESTDIR)$(PREFIX)/bin/)/" xdg/vgmplay.desktop.in > xdg/vgmplay.desktop
-endif
-endif
-	@echo Linking vgmplay ...
-	@$(CC) $(VGMPLAY_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgmplay
-	@echo Done.
+# vgmplay:	$(EMUOBJS) $(MAINOBJS) $(VGMPLAY_OBJS)
+# ifneq ($(WINDOWS), 1)
+# ifneq ($(MACOSX), 1)
+# 	@echo Generating xdg desktop entry
+# 	@sed "s/@BIN_PATH@/$(subst /,\/,$(DESTDIR)$(PREFIX)/bin/)/" xdg/vgmplay.desktop.in > xdg/vgmplay.desktop
+# endif
+# endif
+# 	@echo Linking vgmplay ...
+# 	@$(CC) $(VGMPLAY_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgmplay
+# 	@echo Done.
 
-vgm2pcm:	$(EMUOBJS) $(MAINOBJS) $(VGM2PCM_OBJS)
-	@echo Linking vgm2pcm ...
-	@$(CC) $(VGM2PCM_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgm2pcm
-	@echo Done.
+# vgm2pcm:	$(EMUOBJS) $(MAINOBJS) $(VGM2PCM_OBJS)
+# 	@echo Linking vgm2pcm ...
+# 	@$(CC) $(VGM2PCM_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgm2pcm
+# 	@echo Done.
 
 vgm2wav:	$(EMUOBJS) $(MAINOBJS) $(VGM2WAV_OBJS)
 	@echo Linking vgm2wav ...
@@ -297,18 +298,9 @@ $(OBJ)/%.o:	$(SRC)/%.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(MAINFLAGS) -c $< -o $@
 
-clean:
-	@rm -f xdg/vgmplay.desktop
-	@echo Deleting object files ...
-	@rm -f $(MAINOBJS) $(EMUOBJS) $(EXTRA_OBJS)
-	@echo Deleting executable files ...
-	@rm -f vgmplay vgm2pcm vgm2wav
-	@echo Done.
-
 # Thanks to ZekeSulastin and nextvolume for the install and uninstall routines.
 install:	all
 	install -m 755 vgmplay $(DESTDIR)$(PREFIX)/bin/vgmplay
-	install -m 755 vgm2pcm $(DESTDIR)$(PREFIX)/bin/vgm2pcm
 	install -m 755 vgm2wav $(DESTDIR)$(PREFIX)/bin/vgm2wav
 	mkdir -m 755 -p $(DESTDIR)$(MANPREFIX)/man1
 	install -m 644 vgmplay.1 $(DESTDIR)$(MANPREFIX)/man1/vgmplay.1
@@ -336,13 +328,5 @@ rom_install:
 # Install the "vgm-player" wrapper
 play_install:	install
 	install -m 755 vgm-player $(DESTDIR)$(PREFIX)/bin/vgm-player
-
-uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/vgmplay
-	rm -f $(DESTDIR)$(PREFIX)/bin/vgm2pcm
-	rm -f $(DESTDIR)$(PREFIX)/bin/vgm2wav
-	rm -f $(DESTDIR)$(PREFIX)/bin/vgm-player
-	rm -f $(DESTDIR)$(MANPREFIX)/man1/vgmplay.1
-	rm -rf $(DESTDIR)$(PREFIX)/share/vgmplay
 
 .PHONY: all clean install uninstall
