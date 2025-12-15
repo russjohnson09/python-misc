@@ -45,3 +45,6 @@ jobs:
       
       - name: Run script
         run:  ./vgm2wav ../nakama.vgm ../../../../assets/shining_force_nakama.wav
+
+      - name: tests python
+        run: cd .. && uv run pytest -s
