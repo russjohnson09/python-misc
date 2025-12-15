@@ -16,6 +16,10 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
+
+#include <stdint.h>
+
+
 //libs\sound\vgmplay\src\vgmplay\VGMPlay\chips\262intf.c
 // C:\Users\russj\AppData\Local\uv\cache\sdists-v9\.tmpua0Gfk\vgmplay-0.1.0\src\main.c(20,10): 
 // error C1083: Cannot open include file: 'VGMPlay/chips/262intf.h': No such file or directory [C:\Users\russj\AppData\Local\uv\cache\sdists-v9\.tmpua0Gfk\vgmplay-0.1.0\build\cp313-cp313-win_amd64\_module.vcxproj]
@@ -34,7 +38,15 @@
 //  git clean -dxf -- .
 // uv run pytest -s
 // wsl only is having this issue of this not being defined.
-// typedef UINT32		Bitu; // rm .venv is necessary
+
+// libs\sound\vgmplay\src\vgmplay\VGMPlay\chips\mamedef.h
+
+// typedef unsigned int						UINT32;
+// typedef signed int							INT32;
+typedef uint32_t	UINT32;
+
+
+typedef UINT32		Bitu; // rm .venv is necessary
 typedef uint32_t	Bit32u;
 
 
