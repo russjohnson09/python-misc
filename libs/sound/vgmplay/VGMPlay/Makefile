@@ -290,14 +290,8 @@ $(OBJ)/%.o:	$(SRC)/%.c
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(MAINFLAGS) -c $< -o $@
 
-# Thanks to ZekeSulastin and nextvolume for the install and uninstall routines.
-# install:	all
-# 	install -m 755 vgmplay $(DESTDIR)$(PREFIX)/bin/vgmplay
-# 	install -m 755 vgm2wav $(DESTDIR)$(PREFIX)/bin/vgm2wav
-# 	mkdir -m 755 -p $(DESTDIR)$(MANPREFIX)/man1
-# 	install -m 644 vgmplay.1 $(DESTDIR)$(MANPREFIX)/man1/vgmplay.1
-# 	mkdir -m 755 -p $(DESTDIR)$(PREFIX)/share/vgmplay
-# 	install -m 644 VGMPlay.ini $(DESTDIR)$(PREFIX)/share/vgmplay/vgmplay.ini
+
+
 ifneq ($(WINDOWS), 1)
 	ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
 		setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
