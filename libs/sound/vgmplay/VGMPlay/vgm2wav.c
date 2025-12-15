@@ -72,7 +72,7 @@ void usage(const char *name) {
 // msys
 // cd /c/Users/russj/dev/python-misc/libs/sound/vgmplay/VGMPlay
 // make WINDOWS=1 && ./vgm2wav.exe ../02\ Game\ Start\ Music.vgz ../../../../assets/galaga_start.wav
-// make WINDOWS=1 && ./vgm2wav.exe ../02\ Game\ Start\ Music.vgz ../../../../assets/galaga_start.wav
+// make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 
 int main(int argc, char *argv[]) {
 	WAVE_16BS *sampleBuffer;
