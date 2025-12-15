@@ -111,9 +111,9 @@ endif
 # debug CFLAGS has more warnings
 # ifeq ($(DEBUG), 0)
 # -- General Compile Flags --
-CFLAGS := -O3 -g0 -Wno-unused-variable -Wno-unused-value -Wno-unused-but-set-variable $(CFLAGS)
+# CFLAGS := -O3 -g0 -Wno-unused-variable -Wno-unused-value -Wno-unused-but-set-variable $(CFLAGS)
 # else
-# CFLAGS := -g -Wall $(CFLAGS)
+CFLAGS := -g -Wall $(CFLAGS)
 # endif
 
 
@@ -288,11 +288,12 @@ $(OBJ)/%.o:	$(SRC)/%.c
 	@$(CC) $(CFLAGS) $(MAINFLAGS) -c $< -o $@
 
 
-
+# https://stackoverflow.com/questions/21226905/syntax-error-word-unexpected-expecting
+# I wanted to indent the ifeq nested but that messes things up
 ifneq ($(WINDOWS), 1)
-	ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
-		setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
-	endif
+ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
+	setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
+endif
 endif
 
 # install ROMs
