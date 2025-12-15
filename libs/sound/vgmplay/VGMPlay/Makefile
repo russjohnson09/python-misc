@@ -159,6 +159,7 @@ EMUSRC = $(SRC)/chips
 EMUOBJ = $(OBJ)/chips
 
 
+# 	$(OBJ)/Stream.o \
 
 
 OBJDIRS = \
@@ -167,7 +168,6 @@ OBJDIRS = \
 MAINOBJS = \
 	$(OBJ)/VGMPlay.o \
 	$(OBJ)/VGMPlay_AddFmts.o \
-	$(OBJ)/Stream.o \
 	$(OBJ)/ChipMapper.o
 ifeq ($(WINDOWS), 1)
 ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
