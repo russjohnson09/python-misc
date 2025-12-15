@@ -1,9 +1,14 @@
  git clean -dxf -- ./libs/sound/vgmplay/
+  make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
+
+
+#  wsl
+
+ make
 
 
  Removing libs/sound/vgmplay/VGMPlay/obj/
  git clean -dxf -- ./libs/sound/vgmplay/
-  make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 
 
 In file included from chips/opl.c:34,

@@ -39,7 +39,10 @@ jobs:
 
       - name: Install
       # no  --locked on lib package
-        run: sudo apt-get install make -y
+        run: sudo apt-get install make gcc zlib1g-dev libao-dev libdbus-1-dev  -y
 
       - name: Run build
         run: make
+      
+      # - name: Run script
+      #   run: make
