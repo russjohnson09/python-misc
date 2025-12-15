@@ -35,7 +35,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "lib-add-c", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=libs%2Flib-add-c&branch=feat%2Ftest-add" }]
+requires-dist = [{ name = "lib-add-c", editable = "../lib-add-c" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -46,7 +46,7 @@ dev = [
 [[package]]
 name = "lib-add-c"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=libs%2Flib-add-c&branch=feat%2Ftest-add#8bf22b994e17661fa1808f2ffca7bb28fb114883" }
+source = { editable = "../lib-add-c" }
 
 [[package]]
 name = "packaging"
