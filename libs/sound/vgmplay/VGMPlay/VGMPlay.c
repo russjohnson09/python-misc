@@ -93,9 +93,6 @@ int clock_gettime(int clk_id, struct timespec *t)
 
 #include "VGMPlay.h"
 #include "VGMPlay_Intf.h"
-#ifdef CONSOLE_MODE
-#include "Stream.h"
-#endif
 
 #include "chips/ChipIncl.h"
 

@@ -159,9 +159,6 @@ EMUSRC = $(SRC)/chips
 EMUOBJ = $(OBJ)/chips
 
 
-# 	$(OBJ)/Stream.o \
-
-
 OBJDIRS = \
 	$(OBJ) \
 	$(EMUOBJ)

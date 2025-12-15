@@ -1,5 +1,9 @@
 // VGMPlay_Intf.h: VGMPlay Interface Header File
 //
+// VGMPlay_Intf.h:44:49: error: unknown type name 'VGM_HEADER'
+//    44 | UINT32 GetVGMFileInfoW(const wchar_t* FileName, VGM_HEADER* RetVGMHead, GD3_TAG* RetGD3Tag);
+    //   |                                       
+// #include "VGMFile.h"
 
 //#define NO_WCHAR_FILENAMES
 #ifndef WIN32
