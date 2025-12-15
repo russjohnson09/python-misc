@@ -1,3 +1,26 @@
+/*
+ *  This file is part of VGMPlay <https://github.com/vgmrips/vgmplay>
+ *
+ *  (c)2015 libertyernie <maybeway36@gmail.com>
+ *  Based on vgm2pcm.c:
+ *    (c)2015 Francis Gagné <fragag1@gmail.com>
+ *    (c)2015 Valley Bell
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,12 +90,6 @@ void usage(const char *name) {
 	fputs("Options not supported in this build (compiled without getopt.)\n", stderr);
 #endif
 }
-
-
-// msys
-// cd /c/Users/russj/dev/python-misc/libs/sound/vgmplay/VGMPlay
-// make WINDOWS=1 && ./vgm2wav.exe ../02\ Game\ Start\ Music.vgz ../../../../assets/galaga_start.wav
-// make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 
 int main(int argc, char *argv[]) {
 	WAVE_16BS *sampleBuffer;
