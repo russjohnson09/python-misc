@@ -55,7 +55,8 @@ endif
 
 # set to 0 to compile without dbus support on linux
 ifndef USE_DBUS
-USE_DBUS = 1
+# USE_DBUS = 1
+USE_DBUS = 0
 endif
 
 ifeq ($(WINDOWS), 1)

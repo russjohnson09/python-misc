@@ -213,31 +213,6 @@ UINT8 SaveFile(UINT32 FileLen, const void* TempData)
 	return 0x00;
 }
 
-UINT8 SoundLogging(UINT8 Mode)
-{
-	UINT8 RetVal;
-	
-	RetVal = (UINT8)SoundLog;
-	switch(Mode)
-	{
-	case 0x00:
-		SoundLog = false;
-		break;
-	case 0x01:
-		SoundLog = true;
-		if (WaveOutOpen && hFile == NULL)
-			SaveFile(0x00000000, NULL);
-		break;
-	case 0xFF:
-		break;
-	default:
-		RetVal = 0xA0;
-		break;
-	}
-	
-	return RetVal;
-}
-
 UINT8 StartStream(UINT8 DeviceID)
 {
 	UINT32 RetVal;

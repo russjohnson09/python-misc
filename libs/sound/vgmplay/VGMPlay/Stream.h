@@ -19,8 +19,10 @@
 //	Linux:		BUFFERSIZE = 1 << BUFSIZELD (1 << 11 = 2048)
 //				1 Audio-Buffer = 11.6 msec
 
-UINT8 SaveFile(UINT32 FileLen, const void* TempData);
-UINT8 SoundLogging(UINT8 Mode);
-UINT8 StartStream(UINT8 DeviceID);
-UINT8 StopStream(void);
-void PauseStream(bool PauseOn);
+
+// UINT8 SaveFile(UINT32 FileLen, const void* TempData);
+// UINT8 StartStream(UINT8 DeviceID);
+
+// UINT8 StopStream(void);
+
+// void PauseStream(bool PauseOn);

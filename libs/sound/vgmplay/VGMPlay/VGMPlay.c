@@ -1055,7 +1055,7 @@ void PlayVGM(void)
 			return;
 		}
 #ifdef CONSOLE_MODE
-		PauseStream(true);
+		// PauseStream(true);
 #endif
 		break;
 	case 0x02:	// like Mode 0x00, but Hardware is also controlled (not synced)
