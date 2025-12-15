@@ -1,3 +1,9 @@
+TODO lib-add-c
+
+c to python wrapper.
+
+If .wav doesn't exist make a call to create
+
 
 In file included from chips/opl.c:34,
                  from chips/adlibemu_opl2.c:5:
