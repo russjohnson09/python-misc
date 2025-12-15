@@ -14,9 +14,7 @@
 
 
 #define EC_MAME		0x00	// SN76496 core from MAME
-#ifdef ENABLE_ALL_CORES
 #define EC_MAXIM	0x01	// SN76489 core by Maxim (from in_vgm)
-#endif
 
 /* for stream system */
 typedef struct _sn764xx_state sn764xx_state;
@@ -39,11 +37,9 @@ void sn764xx_stream_update(UINT8 ChipID, stream_sample_t **outputs, int samples)
 	case EC_MAME:
 		SN76496Update(info->chip, outputs, samples);
 		break;
-#ifdef ENABLE_ALL_CORES
 	case EC_MAXIM:
 		SN76489_Update((SN76489_Context*)info->chip, outputs, samples);
 		break;
-#endif
 	}
 }
 
@@ -65,7 +61,6 @@ int device_start_sn764xx(UINT8 ChipID, int clock, int shiftregwidth, int noiseta
 							negate, stereo, clockdivider, freq0);
 		sn76496_freq_limiter(clock & 0x3FFFFFFF, clockdivider, SampleRate);
 		break;
-#ifdef ENABLE_ALL_CORES
 	case EC_MAXIM:
 		rate = SampleRate;
 		info->chip = SN76489_Init(clock, rate);
@@ -73,7 +68,6 @@ int device_start_sn764xx(UINT8 ChipID, int clock, int shiftregwidth, int noiseta
 			return 0;
 		SN76489_Config((SN76489_Context*)info->chip, noisetaps, shiftregwidth, 0);
 		break;
-#endif
 	}
  
 	return rate;
@@ -87,11 +81,9 @@ void device_stop_sn764xx(UINT8 ChipID)
 	case EC_MAME:
 		sn76496_shutdown(info->chip);
 		break;
-#ifdef ENABLE_ALL_CORES
 	case EC_MAXIM:
 		SN76489_Shutdown((SN76489_Context*)info->chip);
 		break;
-#endif
 	}
 }
 
@@ -103,11 +95,9 @@ void device_reset_sn764xx(UINT8 ChipID)
 	case EC_MAME:
 		sn76496_reset(info->chip);
 		break;
-#ifdef ENABLE_ALL_CORES
 	case EC_MAXIM:
 		SN76489_Reset((SN76489_Context*)info->chip);
 		break;
-#endif
 	}
 }
 
@@ -128,7 +118,6 @@ void sn764xx_w(UINT8 ChipID, offs_t offset, UINT8 data)
 			break;
 		}
 		break;
-#ifdef ENABLE_ALL_CORES
 	case EC_MAXIM:
 		switch(offset)
 		{
@@ -140,7 +129,6 @@ void sn764xx_w(UINT8 ChipID, offs_t offset, UINT8 data)
 			break;
 		}
 		break;
-#endif
 	}
 }
 
@@ -163,11 +151,9 @@ void sn764xx_set_mute_mask(UINT8 ChipID, UINT32 MuteMask)
 	case EC_MAME:
 		sn76496_set_mutemask(info->chip, MuteMask);
 		break;
-#ifdef ENABLE_ALL_CORES
 	case EC_MAXIM:
 		SN76489_SetMute(info->chip, ~MuteMask & 0x0F);
 		break;
-#endif
 	}
 	
 	return;
