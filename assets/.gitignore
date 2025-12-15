@@ -59,3 +59,10 @@
 
 # https://www.spriters-resource.com/snes/tetrisattack/asset/68548/
 !tetris_attack_blocks.png
+
+
+
+# msys
+# russj@beam UCRT64 /c/Users/russj/dev/python-misc/libs/sound/vgmplay-legacy/VGMPlay
+# $ make WINDOWS=1 && ./vgmplay.exe ../02\ Game\ Start\ Music.vgz
+#  make WINDOWS=1 && ./vgm2wav.exe ../02\ Game\ Start\ Music.vgz ../../../../assets/galaga_start.wav
