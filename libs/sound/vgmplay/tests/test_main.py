@@ -9,4 +9,6 @@ def test_main():
 
     print(vgmplay)
 
+    assert vgmplay.square(3) == 9
+
     # assert vgmplay.hello_from_bin() == 'Hello from vgmplay!'
