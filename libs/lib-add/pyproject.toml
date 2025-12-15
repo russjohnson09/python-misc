@@ -7,7 +7,9 @@ authors = [
     { email = "russjohnson09@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "lib-add-c"
+]
 
 [dependency-groups]
 dev = [
@@ -17,14 +19,12 @@ dev = [
 
 
 [build-system]
-#requires = ["uv_build>=0.9.9,<0.10.0"]
-#build-backend = "uv_build"
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["uv_build>=0.9.9,<0.10.0"]
+build-backend = "uv_build"
 
-[tool.setuptools]
-ext-modules = [
-  #{name = "mylib.foo", sources = ["foo.c"]}
-  {name = "add", sources = ["add.cpp"]}
-]
 
+#[tool.uv.sources]
+#lib-add-c = { path = "../lib-add-c", editable = true }
+
+[tool.uv.sources]
+lib-add-c = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites", branch="feat/test-add" }

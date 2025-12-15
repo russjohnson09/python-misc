@@ -24,6 +24,9 @@ wheels = [
 name = "lib-add"
 version = "0.1.0"
 source = { editable = "." }
+dependencies = [
+    { name = "lib-add-c" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -32,12 +35,18 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "lib-add-c", editable = "../lib-add-c" }]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "setuptools", specifier = ">=80.9.0" },
 ]
+
+[[package]]
+name = "lib-add-c"
+version = "0.1.0"
+source = { editable = "../lib-add-c" }
 
 [[package]]
 name = "packaging"
