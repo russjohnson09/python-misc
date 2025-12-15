@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize, reopened, closed]
     # libs\sound\vgmplay\VGMPlay\VGMPlay.c
     paths:
-      - 'libs/sound/vgmplay/VGMPlay/**'
+      - 'libs/sound/vgmplay/**'
 
 # compiler:
 #   - gcc
