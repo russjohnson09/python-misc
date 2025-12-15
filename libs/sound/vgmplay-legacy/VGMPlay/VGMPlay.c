@@ -425,8 +425,13 @@ UINT16 Last95Drum;	// for optvgm debugging
 UINT16 Last95Max;	// for optvgm debugging
 UINT32 Last95Freq;	// for optvgm debugging
 
+//  make WINDOWS=1 && ./vgmplay.exe ../nakama.vgm
 void VGMPlay_Init(void)
 {
+	printf("VGMPlay_Init\n");
+	printf("VGMPlay_Init");
+	printf("VGMPlay_Init");
+	printf("VGMPlay_Init");
 	UINT8 CurChip;
 	UINT8 CurCSet;
 	UINT8 CurChn;
@@ -634,6 +639,9 @@ void VGMPlay_Deinit(void)
 // Note: Caller must free the returned string.
 char* FindFile(const char* FileName)
 {
+	printf("FindFile\n");
+	printf("FindFile\n");
+	printf("FindFile\n");
 	char* FullName;
 	char** CurPath;
 	UINT32 NameLen;
@@ -871,6 +879,10 @@ static UINT32 gcd(UINT32 x, UINT32 y)
 
 void PlayVGM(void)
 {
+	printf("PlayVGM\n");
+	printf("PlayVGM\n");
+	printf("PlayVGM\n");
+	printf("PlayVGM\n");
 	UINT8 CurChip;
 	UINT8 FMVal;
 	INT32 TempSLng;
@@ -1055,7 +1067,10 @@ void PlayVGM(void)
 	Last95Max = 0xFFFF;
 	IsVGMInit = true;
 	Interpreting = false;
+
+	printf("PlayVGM InterpretFile 0\n");
 	InterpretFile(0);
+
 	IsVGMInit = false;
 	
 	PauseThread = false;
@@ -1160,6 +1175,10 @@ void PauseVGM(bool Pause)
 
 void SeekVGM(bool Relative, INT32 PlayBkSamples)
 {
+	printf("SeekVGM\n");
+	printf("SeekVGM\n");
+	printf("SeekVGM\n");
+	printf("SeekVGM\n");
 	INT32 Samples;
 	UINT32 LoopSmpls;
 	
@@ -1321,6 +1340,12 @@ static UINT32 GetGZFileLength_Internal(FILE* hFile)
 
 bool OpenVGMFile(const char* FileName)
 {
+	printf("OpenVGMFile\n");
+	printf("OpenVGMFile\n");
+	printf("OpenVGMFile\n");
+	printf("OpenVGMFile\n");
+
+
 	gzFile hFile;
 	UINT32 FileSize;
 	bool RetVal;
@@ -1390,7 +1415,11 @@ static bool OpenVGMFile_Internal(gzFile hFile, UINT32 FileSize)
 	
 	gzseek(hFile, 0x00, SEEK_SET);
 	//gzrewind(hFile);
+
+	printf("OpenVGMFile_Internal header\n");
 	ReadVGMHeader(hFile, &VGMHead);
+
+
 	if (VGMHead.fccVGM != FCC_VGM)
 	{
 		fprintf(stderr, "VGM signature matched on the first read, but not on the second one!\n");
@@ -1429,6 +1458,9 @@ static bool OpenVGMFile_Internal(gzFile hFile, UINT32 FileSize)
 		return false;
 	//gzseek(hFile, 0x00, SEEK_SET);
 	gzrewind(hFile);
+
+	printf("OpenVGMFile_Internal read data\n");
+
 	gzread(hFile, VGMData, VGMDataLen);
 	
 	// Read Extra Header Data
@@ -1449,6 +1481,8 @@ static bool OpenVGMFile_Internal(gzFile hFile, UINT32 FileSize)
 		// Read all relative offsets of this header and make them absolute.
 		for (; CurPos < HdrLimit; CurPos += 0x04, TempPtr ++)
 		{
+			printf("ReadLE32\n");
+
 			*TempPtr = ReadLE32(&VGMData[CurPos]);
 			if (*TempPtr)
 				*TempPtr += CurPos;
@@ -4160,6 +4194,8 @@ static bool SetMuteControl(bool mute)
 
 static void InterpretFile(UINT32 SampleCount)
 {
+	// main loop
+	// printf("InterpretFile\n");
 	UINT32 TempLng;
 	UINT8 CurChip;
 	
@@ -4722,6 +4758,7 @@ static void ReadPCMTable(UINT32 DataSize, const UINT8* Data)
 #define CHIP_CHECK(name)	(ChipAudio[CurChip].name.ChipType != 0xFF)
 static void InterpretVGM(UINT32 SampleCount)
 {
+	// printf("InterpretVGM\n"); // main loop for the vgm
 	INT32 SmplPlayed;
 	UINT8 Command;
 	UINT8 TempByt;
@@ -6160,6 +6197,9 @@ static INT32 RecalcFadeVolume(void)
 
 UINT32 FillBuffer(WAVE_16BS* Buffer, UINT32 BufferSize)
 {
+	// tight loop but not as tight as interpret file
+	printf("FillBuffer\n");
+
 	UINT32 CurSmpl;
 	WAVE_32BS TempBuf;
 	INT32 CurMstVol;

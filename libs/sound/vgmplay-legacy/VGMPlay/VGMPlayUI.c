@@ -415,6 +415,10 @@ int main(int argc, char* argv[])
 	if (argc <= argbase)
 	{
 #ifdef WIN32
+		printf("WIN32\n");
+		printf("WIN32\n");
+		printf("WIN32\n");
+		printf("WIN32\n");
 		INT32 OldCP;
 		
 		OldCP = GetConsoleCP();
@@ -456,6 +460,12 @@ int main(int argc, char* argv[])
 		//	Debug build:	Dynamite D³x [tag display wrong]
 		//	Release build:	Dynamite D³x [tag display wrong]
 #else
+		printf("not WIN32\n");
+		printf("not WIN32\n");
+		printf("not WIN32\n");
+		printf("not WIN32\n");
+		printf("not WIN32\n");
+
 		fflush(stdout);
 		while(1)
 		{
@@ -491,6 +501,10 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
+		printf("argc <= argbase not true\n");
+		printf("argc <= argbase not true\n");
+		printf("argc <= argbase not true\n");
+
 		// The argument should already use the ANSI codepage.
 		strcpy(VgmFileName, argv[argbase]);
 		DispFileName = GetLastDirSeparator(VgmFileName);
@@ -498,48 +512,16 @@ int main(int argc, char* argv[])
 			DispFileName++;
 		else
 			DispFileName = VgmFileName;
+
+		printf("display name\n:");
 		printf("%s\n", DispFileName);
 	}
 	if (! strlen(VgmFileName))
 		goto ExitProgram;
 	StandardizeDirSeparators(VgmFileName);
+
 	
-#if defined(XMAS_EXTRA) || defined(WS_DEMO)
-	XMasEnable = XMas_Extra(VgmFileName, 0x00);
-#endif
-	
-#if 0
-	{	// Print hex characters of file name (for vgm-player script debugging)
-		const char* CurChr;
-		
-#ifdef WIN32
-		printf("Input CP: %d, Output CP: %d\n", GetConsoleCP(), GetConsoleOutputCP());
-#endif
-		printf("VgmFileName: ");
-		
-		CurChr = VgmFileName;
-		while(*CurChr != '\0')
-		{
-			printf("%02X ", (UINT8)*CurChr);
-			CurChr ++;
-		}
-		printf("%02X\n", (UINT8)*CurChr);
-		_getch();
-	}
-#endif
-#if 0
-	{	// strip spaces and \n (fixed bugs with vgm-player script with un-7z)
-		char* CurChr;
-		
-		// trim \n and spaces off
-		CurChr = strchr(VgmFileName, '\n');
-		if (CurChr != NULL)
-			*CurChr = '\0';
-		CurChr = VgmFileName + strlen(VgmFileName) - 1;
-		while(CurChr > VgmFileName && *CurChr == ' ')
-			*(CurChr --) = '\0';
-	}
-#endif
+
 	
 	FirstInit = true;
 	StreamStarted = false;
@@ -2713,7 +2695,7 @@ static void PlayVGM_UI(void)
 	// make WINDOWS=1
 	//  ./vgmplay.exe ../nakama.vgm
 	// TODO port the nakama.vgm reader to python
-	
+
 	printf("\nPlaying finished.\n");
 	printf("\nPlaying finished.\n");
 	
