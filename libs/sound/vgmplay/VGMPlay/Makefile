@@ -295,26 +295,18 @@ $(OBJ)/%.o:	$(SRC)/%.c
 # 	mkdir -m 755 -p $(DESTDIR)$(PREFIX)/share/vgmplay
 # 	install -m 644 VGMPlay.ini $(DESTDIR)$(PREFIX)/share/vgmplay/vgmplay.ini
 ifneq ($(WINDOWS), 1)
-ifneq ($(MACOSX), 1)
-	xdg-icon-resource install --novendor --size 128 xdg/icons/vgmplay-128.png vgmplay
-	xdg-icon-resource install --novendor --size 64 xdg/icons/vgmplay-64.png vgmplay
-	xdg-icon-resource install --novendor --size 32 xdg/icons/vgmplay-32.png vgmplay
-	xdg-icon-resource install --novendor --size 16 xdg/icons/vgmplay-16.png vgmplay
-	xdg-mime install --novendor xdg/vgmplay-mime.xml
-	xdg-desktop-menu install --novendor xdg/vgmplay.desktop
 ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
 	setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
 endif
 endif
-endif
 
 # install ROMs
-rom_install:
-	install -m 644 yrw801.rom $(DESTDIR)$(PREFIX)/share/vgmplay/yrw801.rom
+# rom_install:
+# 	install -m 644 yrw801.rom $(DESTDIR)$(PREFIX)/share/vgmplay/yrw801.rom
 
 
 # Install the "vgm-player" wrapper
-play_install:	install
-	install -m 755 vgm-player $(DESTDIR)$(PREFIX)/bin/vgm-player
+# play_install:	install
+# 	install -m 755 vgm-player $(DESTDIR)$(PREFIX)/bin/vgm-player
 
-.PHONY: all clean install uninstall
+# .PHONY: all clean install uninstall
