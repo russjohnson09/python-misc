@@ -39,7 +39,7 @@ jobs:
 
       - name: Install
       # no  --locked on lib package
-        run: apt-get install make -y
+        run: sudo apt-get install make -y
 
       - name: Run build
         run: make
