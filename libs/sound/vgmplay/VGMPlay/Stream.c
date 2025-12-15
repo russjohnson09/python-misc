@@ -402,30 +402,6 @@ UINT8 StopStream(void)
 	return 0x00;
 }
 
-void PauseStream(bool PauseOn)
-{
-	UINT32 RetVal;
-	
-	if (! WaveOutOpen)
-		return;	// Thread is not active
-	
-#ifdef WIN32
-	switch(PauseOn)
-	{
-	case true:
-		RetVal = waveOutPause(hWaveOut);
-		break;
-	case false:
-		RetVal = waveOutRestart(hWaveOut);
-		break;
-	}
-	StreamPause = PauseOn;
-#else
-	PauseThread = PauseOn;
-#endif
-	
-	return;
-}
 
 //UINT32 FillBuffer(WAVE_16BS* Buffer, UINT32 BufferSize)
 // moved to VGMPlay.c

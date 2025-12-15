@@ -1147,7 +1147,7 @@ void PauseVGM(bool Pause)
 		{
 		case 0x00:
 #ifdef CONSOLE_MODE
-			PauseStream(Pause);
+			// PauseStream(Pause);
 #endif
 			break;
 		case 0x01:
@@ -1156,7 +1156,7 @@ void PauseVGM(bool Pause)
 			break;
 		case 0x02:
 #ifdef CONSOLE_MODE
-			PauseStream(Pause);
+			// PauseStream(Pause);
 #endif
 			SetMuteControl(Pause);
 			break;
