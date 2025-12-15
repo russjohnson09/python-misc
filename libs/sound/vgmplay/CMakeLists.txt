@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
+# https://github.com/scikit-build/scikit-build-core/blob/main/tests/packages/simplest_c/CMakeLists.txt
+
 # cpp
 # project(${SKBUILD_PROJECT_NAME} LANGUAGES CXX)
 

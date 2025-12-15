@@ -1,13 +1,39 @@
-#include <pybind11/pybind11.h>
+// #include <pybind11/pybind11.h>
 
-std::string hello_from_bin() { return "Hello from vgmplay!"; }
+// std::string hello_from_bin() { return "Hello from vgmplay!"; }
 
-namespace py = pybind11;
+// namespace py = pybind11;
 
-PYBIND11_MODULE(_core, m) {
-  m.doc() = "pybind11 hello module";
+// PYBIND11_MODULE(_core, m) {
+//   m.doc() = "pybind11 hello module";
 
-  m.def("hello_from_bin", &hello_from_bin, R"pbdoc(
-      A function that returns a Hello string.
-  )pbdoc");
+//   m.def("hello_from_bin", &hello_from_bin, R"pbdoc(
+//       A function that returns a Hello string.
+//   )pbdoc");
+// }
+
+
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
+
+float square(float x) { return x * x; }
+
+static PyObject *square_wrapper(PyObject *self, PyObject *args) {
+  float input, result;
+  if (!PyArg_ParseTuple(args, "f", &input)) {
+    return NULL;
+  }
+  result = square(input);
+  return PyFloat_FromDouble(result);
+}
+
+static PyMethodDef pysimple_methods[] = {
+    {"square", square_wrapper, METH_VARARGS, "Square function"},
+    {NULL, NULL, 0, NULL}};
+
+static struct PyModuleDef pysimple_module = {PyModuleDef_HEAD_INIT, "_module",
+                                             NULL, -1, pysimple_methods};
+
+PyMODINIT_FUNC PyInit__module(void) {
+  return PyModule_Create(&pysimple_module);
 }
