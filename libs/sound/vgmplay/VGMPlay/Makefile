@@ -184,7 +184,7 @@ endif
 # libs\sound\vgmplay\VGMPlay\chips\sn764intf.c
 # 	$(EMUOBJ)/sn76489.o \
 
-
+# TODO reduce the supported chips
 EMUOBJS = \
 	$(EMUOBJ)/sn76489.o \
 	$(EMUOBJ)/262intf.o \
@@ -263,19 +263,6 @@ EMUOBJS = \
 
 
 
-# VGMPLAY_OBJS = \
-# 	$(OBJ)/VGMPlayUI.o
-
-# ifeq ($(USE_DBUS), 1)
-# 	VGMPLAY_OBJS += $(OBJ)/dbus.o
-# else ifeq ($(WINDOWS), 1)
-# 	VGMPLAY_OBJS += $(OBJ)/mmkeys_Win.o $(OBJ)/dbus_stub.o
-# else
-# 	VGMPLAY_OBJS += $(OBJ)/mmkeys_stub.o $(OBJ)/dbus_stub.o
-# endif
-
-# VGM2PCM_OBJS = \
-# 	$(OBJ)/vgm2pcm.o
 VGM2WAV_OBJS = \
 	$(OBJ)/vgm2wav.o
 
