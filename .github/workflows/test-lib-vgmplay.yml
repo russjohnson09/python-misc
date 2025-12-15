@@ -1,0 +1,45 @@
+
+# https://graphite.com/guides/github-actions-on-pull-requests
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    # libs\sound\vgmplay\VGMPlay\VGMPlay.c
+    paths:
+      - 'libs/sound/vgmplay/VGMPlay/**'
+
+# compiler:
+#   - gcc
+
+# addons:
+#   apt:
+#     packages:
+#       - make 
+#       - gcc 
+#       - zlib1g-dev 
+#       - libao-dev
+#       - libdbus-1-dev
+defaults:
+  run:
+    shell: bash
+    working-directory: ./libs/sound/vgmplay/VGMPlay
+
+# https://github.com/libsdl-org/SDL/issues/10947
+jobs:
+  test:
+    env:
+      MAX_TEST_LOOPS: "10"
+    name: python
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install
+      # no  --locked on lib package
+        run: apt-get install make -y
+
+      - name: Run build
+        run: make
