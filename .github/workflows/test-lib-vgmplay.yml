@@ -45,7 +45,7 @@ jobs:
         run: cd src/vgmplay/VGMPlay && make
       
       - name: Run script
-        run:  ./src/vgmplay/VGMPlay/vgm2wav ../nakama.vgm ../../../assets/shining_force_nakama.wav
+        run:  ./src/vgmplay/VGMPlay/vgm2wav ./tests/nakama.vgm ../../../assets/shining_force_nakama.wav
 
       - name: tests python
         run: uv run pytest -s
