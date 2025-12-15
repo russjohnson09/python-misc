@@ -262,24 +262,7 @@ VGM2WAV_OBJS = \
 EXTRA_OBJS = $(VGMPLAY_OBJS) $(VGM2PCM_OBJS) $(VGM2WAV_OBJS)
 
 
-# vgmplay vgm2pcm 
-all:	vgm2wav
-
-# vgmplay:	$(EMUOBJS) $(MAINOBJS) $(VGMPLAY_OBJS)
-# ifneq ($(WINDOWS), 1)
-# ifneq ($(MACOSX), 1)
-# 	@echo Generating xdg desktop entry
-# 	@sed "s/@BIN_PATH@/$(subst /,\/,$(DESTDIR)$(PREFIX)/bin/)/" xdg/vgmplay.desktop.in > xdg/vgmplay.desktop
-# endif
-# endif
-# 	@echo Linking vgmplay ...
-# 	@$(CC) $(VGMPLAY_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgmplay
-# 	@echo Done.
-
-# vgm2pcm:	$(EMUOBJS) $(MAINOBJS) $(VGM2PCM_OBJS)
-# 	@echo Linking vgm2pcm ...
-# 	@$(CC) $(VGM2PCM_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgm2pcm
-# 	@echo Done.
+all: vgm2wav
 
 vgm2wav:	$(EMUOBJS) $(MAINOBJS) $(VGM2WAV_OBJS)
 	@echo Linking vgm2wav ...
@@ -299,13 +282,13 @@ $(OBJ)/%.o:	$(SRC)/%.c
 	@$(CC) $(CFLAGS) $(MAINFLAGS) -c $< -o $@
 
 # Thanks to ZekeSulastin and nextvolume for the install and uninstall routines.
-install:	all
-	install -m 755 vgmplay $(DESTDIR)$(PREFIX)/bin/vgmplay
-	install -m 755 vgm2wav $(DESTDIR)$(PREFIX)/bin/vgm2wav
-	mkdir -m 755 -p $(DESTDIR)$(MANPREFIX)/man1
-	install -m 644 vgmplay.1 $(DESTDIR)$(MANPREFIX)/man1/vgmplay.1
-	mkdir -m 755 -p $(DESTDIR)$(PREFIX)/share/vgmplay
-	install -m 644 VGMPlay.ini $(DESTDIR)$(PREFIX)/share/vgmplay/vgmplay.ini
+# install:	all
+# 	install -m 755 vgmplay $(DESTDIR)$(PREFIX)/bin/vgmplay
+# 	install -m 755 vgm2wav $(DESTDIR)$(PREFIX)/bin/vgm2wav
+# 	mkdir -m 755 -p $(DESTDIR)$(MANPREFIX)/man1
+# 	install -m 644 vgmplay.1 $(DESTDIR)$(MANPREFIX)/man1/vgmplay.1
+# 	mkdir -m 755 -p $(DESTDIR)$(PREFIX)/share/vgmplay
+# 	install -m 644 VGMPlay.ini $(DESTDIR)$(PREFIX)/share/vgmplay/vgmplay.ini
 ifneq ($(WINDOWS), 1)
 ifneq ($(MACOSX), 1)
 	xdg-icon-resource install --novendor --size 128 xdg/icons/vgmplay-128.png vgmplay
