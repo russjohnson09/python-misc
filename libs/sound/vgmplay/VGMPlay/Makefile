@@ -173,13 +173,19 @@ ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
 MAINOBJS += $(OBJ)/pt_ioctl.o
 endif
 endif
+
+# libs\sound\vgmplay\VGMPlay\chips\fm.h
+# #define BUILD_YM2610  0
+
+
+
 EMUOBJS = \
 	$(EMUOBJ)/262intf.o \
 	$(EMUOBJ)/2151intf.o \
+	$(EMUOBJ)/2610intf.o \
 	$(EMUOBJ)/2203intf.o \
 	$(EMUOBJ)/2413intf.o \
 	$(EMUOBJ)/2608intf.o \
-	$(EMUOBJ)/2610intf.o \
 	$(EMUOBJ)/2612intf.o \
 	$(EMUOBJ)/3526intf.o \
 	$(EMUOBJ)/3812intf.o \

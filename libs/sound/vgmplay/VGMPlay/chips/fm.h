@@ -16,8 +16,10 @@
 */
 #define BUILD_YM2203  1
 #define BUILD_YM2608  1
+
 #define BUILD_YM2610  1
 #define BUILD_YM2610B 1
+
 #define BUILD_YM2612  1
 #define BUILD_YM3438  1
 
