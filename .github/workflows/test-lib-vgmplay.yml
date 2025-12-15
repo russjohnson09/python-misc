@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize, reopened, closed]
     # libs\sound\vgmplay\VGMPlay\VGMPlay.c
     paths:
-      - 'libs/sound/vgmplay/VGMPlay/**'
+      - 'libs/sound/vgmplay/**'
 
 # compiler:
 #   - gcc
@@ -21,7 +21,7 @@ on:
 defaults:
   run:
     shell: bash
-    working-directory: ./libs/sound/vgmplay/VGMPlay
+    working-directory: ./libs/sound/vgmplay
 
 # https://github.com/libsdl-org/SDL/issues/10947
 jobs:
@@ -40,8 +40,12 @@ jobs:
       # no  --locked on lib package
         run: sudo apt-get install make gcc zlib1g-dev libao-dev libdbus-1-dev  -y
 
+      # libs\sound\vgmplay\src\vgmplay\VGMPlay
       - name: Run build
-        run: make
+        run: cd src/vgmplay/VGMPlay && make
       
       - name: Run script
-        run:  ./vgm2wav ../nakama.vgm ../../../../assets/shining_force_nakama.wav
+        run:  ./src/vgmplay/VGMPlay/vgm2wav ./tests/nakama.vgm ../../../assets/shining_force_nakama.wav
+
+      - name: tests python
+        run: uv run pytest -s

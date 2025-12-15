@@ -1,3 +1,8 @@
+uv init --build-backend scikit-build-core .
+
+
+
+
  git clean -dxf -- ./libs/sound/vgmplay/
 make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 
