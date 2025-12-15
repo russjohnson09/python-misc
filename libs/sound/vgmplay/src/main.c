@@ -28,7 +28,13 @@
 
 // libs\sound\vgmplay-legacy\VGMPlay\chips\opl.h
 // This parts failing and I'm not sure why
-typedef UINT32		Bitu;
+
+      // error: unknown type name ‘UINT32’
+      //    31 | typedef UINT32          Bitu;
+//  git clean -dxf -- .
+// uv run pytest -s
+// wsl only is having this issue of this not being defined.
+// typedef UINT32		Bitu; // rm .venv is necessary
 typedef uint32_t	Bit32u;
 
 
