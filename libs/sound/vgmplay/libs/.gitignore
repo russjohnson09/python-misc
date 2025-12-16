@@ -1,0 +1,20 @@
+
+
+# created by CMakeLists.txt
+# cmake .
+CMakeFiles
+cmake_install.cmake
+Makefile
+
+# created by
+# make
+vgm2wav
+
+
+# add_library(vgmlib SHARED
+#     vgmlib.c
+# )
+libvgm.so
+
+
+# ./vgm2wav ../../tests/nakama.vgm ../../tests/nakama.wav

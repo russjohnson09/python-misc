@@ -30,3 +30,20 @@ Desktop.ini
 
 
 # https://vgmrips.net/packs/pack/galaga-nes
+
+CMakeCache.txt
+CMakeFiles
+# sudo apt  install cmake
+# cmake .
+
+tests/*.wav
+
+
+
+# CMake Error at /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+#   Could NOT find Python (missing: Python_EXECUTABLE Python_INCLUDE_DIRS
+#   Interpreter Development.Module)
+# Call Stack (most recent call first):
+#   /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:600 (_FPHSA_FAILURE_MESSAGE)
+#   /usr/share/cmake-3.28/Modules/FindPython.cmake:616 (find_package_handle_standard_args)
+#   CMakeLists.txt:23 (find_package)

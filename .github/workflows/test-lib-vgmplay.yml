@@ -42,10 +42,10 @@ jobs:
 
       # libs\sound\vgmplay\src\vgmplay\VGMPlay
       - name: Run build
-        run: cd src/vgmplay/VGMPlay && make
+        run: cd libs/VGMPlay && make
       
       - name: Run script
-        run:  ./src/vgmplay/VGMPlay/vgm2wav ./tests/nakama.vgm ../../../assets/shining_force_nakama.wav
+        run:  ./libs/VGMPlay/vgm2wav ./tests/nakama.vgm  ./tests/nakama.wav
 
       - name: tests python
         run: uv run pytest -s

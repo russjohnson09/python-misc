@@ -1,3 +1,4 @@
+#include "mamedef.h"
 /*
  *  Copyright (C) 2002-2010  The DOSBox Team
  *  OPL2/OPL3 emulation library

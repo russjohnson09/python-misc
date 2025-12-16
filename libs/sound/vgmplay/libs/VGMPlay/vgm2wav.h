@@ -1,0 +1,1 @@
+int vgm2wav(char*, char*);

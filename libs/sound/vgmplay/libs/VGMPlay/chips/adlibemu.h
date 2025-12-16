@@ -18,3 +18,5 @@ UINT32 ADLIBEMU(reg_read)(void *chip, UINT32 port);
 void ADLIBEMU(write_index)(void *chip, UINT32 port, UINT8 val);
 
 void ADLIBEMU(set_mute_mask)(void *chip, UINT32 MuteMask);
+
+// 123
