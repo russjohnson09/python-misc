@@ -170,6 +170,12 @@ include(CMakePrintHelpers)
 message(SRC_FILES="${SRC_FILES}")
 cmake_print_variables(SRC_FILES)
 
+# OUTPUT=""
+message(OUTPUT="${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+
+# OUTPUT2="/home/devcontainers/.cache/uv/sdists-v9/.tmpmhYmzD/vgmplay-0.1.0/build/cp313-cp313-linux_x86_64"
+message(OUTPUT2="${CMAKE_BINARY_DIR}")
+
 add_library(vgm SHARED
     # vgmlib.c
     ${SRC_FILES}
@@ -182,10 +188,10 @@ target_link_libraries(vgm z)
 
 # vgm2wav.c:(.text.startup+0x18): undefined reference to `VGMPlay_Init'
 add_executable(
-    vgm2wav ${PROJECT_SOURCE_DIR}/libs/VGMPlay/vgm2wav.c
+    vgm4444wav ${PROJECT_SOURCE_DIR}/libs/VGMPlay/vgm2wav.c
 )
 # vgm2wav.c:(.text.startup+0x18): undefined reference to `VGMPlay_Init'
-target_link_libraries( vgm2wav PRIVATE vgm )
+target_link_libraries( vgm4444wav PRIVATE vgm )
 
 
 
