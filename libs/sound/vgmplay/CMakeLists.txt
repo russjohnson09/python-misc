@@ -168,11 +168,76 @@ ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/ym2413_opl.c
 
 
 # )
-
 include(CMakePrintHelpers)
+
+# if (WIN32)
+#     message(WINDOWS)
+#     message(WINDOWS)
+#     message(WINDOWS)
+#     message(WINDOWS)
+#     message(WINDOWS)
+
+#     set(WIN32 TRUE)
+# endif (WIN32)
+
+if(LINUX) 
+    message(STATUS ">>> Linux")
+    message(STATUS ">>> Linux")
+    message(STATUS ">>> Linux")
+    message(STATUS ">>> Linux")
+    # linux stuff here
+
+    # find_package(z REQUIRED)
+
+        # CMake to find a package configuration file provided by "z", but CMake did
+else()
+# https://stackoverflow.com/questions/9160335/os-specific-instructions-in-cmake-how-to
+    message(STATUS ">>> Not Linux")
+    message(STATUS ">>> Not Linux")
+    message(STATUS ">>> Not Linux")
+    message(STATUS ">>> Not Linux")
+    message(STATUS ">>> Not Linux")
+    message(STATUS ">>> Not Linux")
+    # stuff that should happen not on Linux 
+    # set(WIN32 TRUE)
+
+    # https://stackoverflow.com/questions/46398035/in-cmake-how-do-you-change-default-compiler-flags-for-a-build-type-on-a-per-use
+    # SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} $ENV{MY_CXXFLAGS}")
+    # https://cmake.org/cmake/help/latest/variable/CMAKE_LANG_FLAGS.html
+
+    #       cl : command line  warning D9002: ignoring unknown option '-lwinmm' [C:\Users\russj\dev\python-misc\libs\sound\vgmplay\build\cp313-cp313-win_amd64\vgm.vcxproj]
+    # SET (CMAKE_C_FLAGS "-DWIN32 -lkernel32 -lwinmm")
+
+    #       C:\Users\russj\dev\python-misc\libs\sound\vgmplay\libs\VGMPlay\VGMPlay.c(85,10): error C1083: Cannot open include file: 'zlib.h': No such file or directory
+    # https://stackoverflow.com/questions/29505121/cmake-zlib-build-on-windows
+    
+    
+    # SET (CMAKE_C_FLAGS "-DWIN32")
+
+    # LDFLAGS += -lkernel32 -lwinmm
+
+    # https://stackoverflow.com/questions/49289364/how-do-i-use-zlib-within-windows-using-cmake-and-mingw
+    #         Could NOT find ZLIB (missing: ZLIB_LIBRARY ZLIB_INCLUDE_DIR)
+    # find_package(ZLIB REQUIRED)
+
+    # set(ZLIB_INCLUDE_DIR "C:/MinGW/bin")
+    # https://packages.msys2.org/packages/zlib?variant=x86_64
+    # pacman -S zlib
+
+    #  /c/Users/russj/.local/bin/uv run pytest -s
+
+    # find_package(z REQUIRED)
+
+    # find_package(z REQUIRED) # ubuntu wasn't able to find this either
+
+    # find_package(ZLIB REQUIRED)
+
+
+endif()
+
 # list(REMOVE_ITEM SRC_FILES REMOVE_FILES)
-message(SRC_FILES="${SRC_FILES}")
-cmake_print_variables(SRC_FILES)
+# message(SRC_FILES="${SRC_FILES}")
+# cmake_print_variables(SRC_FILES)
 
 # OUTPUT=""
 message(OUTPUT="${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")

@@ -87,7 +87,7 @@ int vgm2wav(char *vgm_filepath, char *out_filepath) {
 
 	outputFile = fopen(out_filepath, "wb");
 	if (outputFile == NULL) {
-		fprintf(stderr, "vgm2wav: error: failed to open wav_file (%s)\n", outputFile);
+		fprintf(stderr, "vgm2wav: error: failed to open wav_file (%s)\n", out_filepath);
 		return 1;
 	}
 
@@ -141,7 +141,7 @@ int vgm2wav(char *vgm_filepath, char *out_filepath) {
 
 	sampleBuffer = (WAVE_16BS*)malloc(SAMPLESIZE * SampleRate);
 	if (sampleBuffer == NULL) {
-		fprintf(stderr, "vgm2wav: error: failed to allocate %lu bytes of memory\n", SAMPLESIZE * SampleRate);
+		// fprintf(stderr, "vgm2wav: error: failed to allocate %lu bytes of memory\n", SAMPLESIZE * SampleRate);
 		return 1;
 	}
 
