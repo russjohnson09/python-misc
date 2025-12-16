@@ -10,6 +10,8 @@
 # ./vgm2wav.exe ../../tests/nakama.vgm ../../tests/nakama.wav
 
 
+# libs\sound\vgmplay\libs\VGMPlay\chips\adlibemu_opl2.c
+
 ########################
 #
 # VGMPlay Makefile
