@@ -34,22 +34,6 @@ file(GLOB SRC_FILES CONFIGURE_DEPENDS
     ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/adlibemu_opl2.c
     ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/adlibemu_opl3.c
 
-    "${PROJECT_SOURCE_DIR}/libs/wrapper.c"
-)
-
-file(GLOB_RECURSE REMOVE_FILES CONFIGURE_DEPENDS
-    # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/chips/*.c"
-
-    "${PROJECT_SOURCE_DIR}/libs/VGMPlay/VGMPlay.c"
-    "${PROJECT_SOURCE_DIR}/libs/VGMPlay/*.c"
-    # "${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/*.c"
-
-    ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/adlibemu_opl2.c
-    ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/adlibemu_opl3.c
-
-    "${PROJECT_SOURCE_DIR}/libs/wrapper.c"
-
-
 
 
  ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/sn76489.c 
@@ -168,14 +152,47 @@ ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/ym2413hd.c
 ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/ym2413_opl.c
 )
 
+# file(GLOB_RECURSE REMOVE_FILES CONFIGURE_DEPENDS
+#     # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/chips/*.c"
+
+#     "${PROJECT_SOURCE_DIR}/libs/VGMPlay/VGMPlay.c"
+#     "${PROJECT_SOURCE_DIR}/libs/VGMPlay/*.c"
+#     # "${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/*.c"
+
+#     ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/adlibemu_opl2.c
+#     ${PROJECT_SOURCE_DIR}/libs/VGMPlay/chips/adlibemu_opl3.c
+
+
+# )
+
 include(CMakePrintHelpers)
 # list(REMOVE_ITEM SRC_FILES REMOVE_FILES)
 message(SRC_FILES="${SRC_FILES}")
 cmake_print_variables(SRC_FILES)
 
+add_library(vgm SHARED
+    # vgmlib.c
+    ${SRC_FILES}
+    # VGMPlay/chips/adlibemu_opl3.c
+    # VGMPlay/chips/262intf.c
+)
+target_link_libraries(vgm m)
+target_link_libraries(vgm z)
+
+
+# vgm2wav.c:(.text.startup+0x18): undefined reference to `VGMPlay_Init'
+add_executable(
+    vgm2wav ${PROJECT_SOURCE_DIR}/libs/VGMPlay/vgm2wav.c
+)
+# vgm2wav.c:(.text.startup+0x18): undefined reference to `VGMPlay_Init'
+target_link_libraries( vgm2wav PRIVATE vgm )
+
+
 
 Python_add_library(_module MODULE 
-${SRC_FILES}
+    ${SRC_FILES}
+    "${PROJECT_SOURCE_DIR}/libs/wrapper.c"
+
 WITH_SOABI)
 
 install(TARGETS _module DESTINATION ${SKBUILD_PROJECT_NAME})

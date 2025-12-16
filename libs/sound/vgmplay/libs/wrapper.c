@@ -15,9 +15,12 @@
 
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
-
-
 #include <stdint.h>
+
+// /home/devcontainers/.cache/uv/sdists-v9/.tmpm5Z008/vgmplay-0.1.0/libs/./VGMPlay/VGMFile.h:5:9: error: unknown type name ‘UINT32’
+// #include "./VGMPlay/VGMPlay.h"
+// #include "./VGMPlay/VGMFile.h"
+#include "./VGMPlay/vgm2wav.h"
 
 
 //libs\sound\vgmplay\src\vgmplay\VGMPlay\chips\262intf.c
