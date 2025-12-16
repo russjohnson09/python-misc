@@ -9,6 +9,8 @@
 
 #include <fcntl.h>
 
+#include "./vgm2wav.h"
+
 #ifndef _MSC_VER
 // This turns command line options on (using getopt.h) unless you are using MSVC / Visual Studio, which doesn't have it.
 #define VGM2WAV_HAS_GETOPT
@@ -57,22 +59,8 @@ INLINE int fputLE32(UINT32 Value, FILE* hFile)
 	return ResVal;
 }
 
-void usage(const char *name) {
-	fprintf(stderr, "usage: %s [options] vgm_file wav_file\n"
-		"wav_file can be - for standard output.\n", name);
-// #ifdef VGM2WAV_HAS_GETOPT
-// 	fputs("\n"
-// 		"Options:\n"
-// 		"--loop-count {number}\n"
-// 		"--fade-ms {number}\n"
-// 		"--no-smpl-chunk\n"
-// 		"\n", stderr);
-// #else
-// 	fputs("Options not supported in this build (compiled without getopt.)\n", stderr);
-// #endif
-}
 
-int main(int argc, char *argv[]) {
+int vgm2wav(char *vgm_filepath, char *out_filepath) {
 	WAVE_16BS *sampleBuffer;
 	UINT32 bufferedLength;
 	FILE *outputFile;
@@ -91,27 +79,16 @@ int main(int argc, char *argv[]) {
 
 	int c;
 
-	if (argc < 3) {
-		usage(argv[0]);
+	if (!OpenVGMFile(vgm_filepath)) {
+		fprintf(stderr, "vgm2wav: error: failed to open vgm_file (%s)\n", vgm_filepath);
 		return 1;
 	}
 
-	if (!OpenVGMFile(argv[1])) {
-		fprintf(stderr, "vgm2wav: error: failed to open vgm_file (%s)\n", argv[1]);
-		return 1;
-	}
 
-	if (argv[2][0] == '-' && argv[2][1] == '\0') {
-#ifdef O_BINARY
-		setmode(fileno(stdout), O_BINARY);
-#endif
-		outputFile = stdout;
-	} else {
-		outputFile = fopen(argv[2], "wb");
-		if (outputFile == NULL) {
-			fprintf(stderr, "vgm2wav: error: failed to open wav_file (%s)\n", argv[2]);
-			return 1;
-		}
+	outputFile = fopen(out_filepath, "wb");
+	if (outputFile == NULL) {
+		fprintf(stderr, "vgm2wav: error: failed to open wav_file (%s)\n", outputFile);
+		return 1;
 	}
 
 	if (WriteSmplChunk && VGMHead.lngLoopSamples == 0) {
@@ -206,4 +183,18 @@ int main(int argc, char *argv[]) {
 	}
 
 	return 0;
+}
+
+int main(int argc, char *argv[]) {
+	char *vgm_filepath = argv[1];
+	char *out_filepath = argv[2];
+
+	// vgm_file:../../tests/nakama.vgmOpenVGMFile
+	printf("\n\nvgm_file:");
+	printf(vgm_filepath);
+
+	return vgm2wav(vgm_filepath, out_filepath);
+
+	// return vgm2wav(vgm_filepath, "../../tests/nakama-2.wav");
+
 }

@@ -1,1 +1,1 @@
-int main(int argc, char *argv[]);
+int vgm2wav(char*, char*);
