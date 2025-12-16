@@ -15,3 +15,6 @@ vgm2wav
 #     vgmlib.c
 # )
 libvgm.so
+
+
+# ./vgm2wav ../../tests/nakama.vgm ../../tests/nakama.wav

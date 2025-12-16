@@ -36,6 +36,8 @@ CMakeFiles
 # sudo apt  install cmake
 # cmake .
 
+tests/*.wav
+
 
 
 # CMake Error at /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake:230 (message):

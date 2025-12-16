@@ -2,6 +2,8 @@
 # make
 # make WINDOWS=1
 # ./vgm2wav
+# ./vgm2wav ../../tests/nakama.vgm ../../tests/nakama.wav
+#  ./vgm2wav ../../tests/02\ Game\ Start\ Music.vgz ../../tests/galaga.wav
 
 
 ########################
