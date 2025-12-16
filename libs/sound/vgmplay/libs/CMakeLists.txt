@@ -5,12 +5,20 @@ cmake_minimum_required(VERSION 3.15)
 project(vgmplay VERSION 0.1.0 LANGUAGES C CXX)
 
 
+# https://stackoverflow.com/questions/5005363/undefined-reference-to-sin
 
 # https://stackoverflow.com/questions/17511496/how-to-create-a-shared-library-with-cmake
 # libmylib.so
 add_library(vgm SHARED
     vgmlib.c
+    VGMPlay/chips/adlibemu_opl3.c
+    VGMPlay/chips/262intf.c
 )
+
+# libm (math library) and libz (zlib)
+# LDFLAGS := -lm -lz $(LDFLAGS)
+find_library(MATH_LIBRARY m)
+target_link_libraries(vgm m)
 
 # https://discourse.cmake.org/t/creating-shared-libraries-and-an-executable/2846
 
