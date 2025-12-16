@@ -5,6 +5,12 @@ cmake_minimum_required(VERSION 3.15)
 project(vgmplay VERSION 0.1.0 LANGUAGES C CXX)
 
 
+
+# libmylib.so
+add_library(vgm SHARED
+    vgmlib.c
+)
+
 # make WINDOWS=1 && ./vgm2wav.exe ../nakama.vgm ../../../../assets/shining_force_nakama.wav
 add_executable(
     vgm2wav main.c

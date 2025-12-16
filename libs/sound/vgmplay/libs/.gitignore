@@ -10,3 +10,8 @@ Makefile
 # make
 vgm2wav
 
+
+# add_library(vgmlib SHARED
+#     vgmlib.c
+# )
+libvgm.so
