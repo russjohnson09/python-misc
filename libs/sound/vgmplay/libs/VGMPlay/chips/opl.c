@@ -33,7 +33,7 @@
 //#include "dosbox.h"
 #include "../stdbool.h"
 #include "opl.h"
-
+#include "adlibemu.h"
 
 //static fltype recipsamp;	// inverse of sampling rate		// moved to OPL_DATA
 static Bit16s wavtable[WAVEPREC*3];	// wave form table

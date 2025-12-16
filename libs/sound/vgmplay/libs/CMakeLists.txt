@@ -5,14 +5,27 @@ cmake_minimum_required(VERSION 3.15)
 project(vgmplay VERSION 0.1.0 LANGUAGES C CXX)
 
 
+
+file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
+    # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/*.c"
+    # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/chips/*.c"
+    # "${PROJECT_SOURCE_DIR}/VGMPlay/chips/adlibemu_opl3.c"
+    vgmlib.c
+    VGMPlay/chips/adlibemu_opl3.c
+    VGMPlay/chips/opl.c
+    # VGMPlay/chips/*.c
+    # "${PROJECT_SOURCE_DIR}/VGMPlay/chips/*.c"
+)
+ 
 # https://stackoverflow.com/questions/5005363/undefined-reference-to-sin
 
 # https://stackoverflow.com/questions/17511496/how-to-create-a-shared-library-with-cmake
 # libmylib.so
 add_library(vgm SHARED
-    vgmlib.c
-    VGMPlay/chips/adlibemu_opl3.c
-    VGMPlay/chips/262intf.c
+    # vgmlib.c
+    ${SRC_FILES}
+    # VGMPlay/chips/adlibemu_opl3.c
+    # VGMPlay/chips/262intf.c
 )
 
 # libm (math library) and libz (zlib)

@@ -1,5 +1,7 @@
-
-#  make WINDOWS=1
+# git clean -dxf -- .
+# make
+# make WINDOWS=1
+# ./vgm2wav
 
 
 ########################
@@ -37,12 +39,6 @@ ifndef USE_LIBAO
 USE_LIBAO = 1
 endif
 
-# set to 1 for debug builds
-ifndef DEBUG
-# TOO MANY WARNINGS WHEN ON
-DEBUG = 0
-# DEBUG = 1
-endif
 
 # set to 1 for swprintf fix on older MinGW versions
 ifndef OLD_SWPRINTF
@@ -112,14 +108,8 @@ MAINFLAGS += -DDISABLE_HW_SUPPORT
 endif
 
 
-# debug CFLAGS has more warnings
-# ifeq ($(DEBUG), 0)
-# -- General Compile Flags --
-# CFLAGS := -O3 -g0 -Wno-unused-variable -Wno-unused-value -Wno-unused-but-set-variable $(CFLAGS)
-# else
-CFLAGS := -g -Wall $(CFLAGS)
-# endif
-
+# CFLAGS := -g -Wall $(CFLAGS)
+CFLAGS := -O3 -g0 -Wno-unused-variable -Wno-unused-value -Wno-unused-but-set-variable $(CFLAGS)
 
 
 # libm (math library) and libz (zlib)
