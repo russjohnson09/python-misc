@@ -25,7 +25,7 @@ find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
     # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/*.c"
     # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/chips/*.c"
-    "${PROJECT_SOURCE_DIR}/src/main.c"
+    "${PROJECT_SOURCE_DIR}/libs/wrapper.c"
 )
 
 

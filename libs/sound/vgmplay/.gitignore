@@ -30,3 +30,7 @@ Desktop.ini
 
 
 # https://vgmrips.net/packs/pack/galaga-nes
+
+
+# sudo apt  install cmake
+# cmake .
