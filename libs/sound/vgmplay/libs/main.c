@@ -11,6 +11,6 @@ int main(int argc, char *argv[]) {
 
 	// printf("goodbye world\n\n");
 
-	hello_world();
+	// hello_world();
 
 }

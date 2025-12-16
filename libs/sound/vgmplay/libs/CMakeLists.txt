@@ -7,12 +7,22 @@ project(vgmplay VERSION 0.1.0 LANGUAGES C CXX)
 
 
 file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
-    # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/*.c"
-    # "${PROJECT_SOURCE_DIR}/src/vgmplay/VGMPlay/chips/*.c"
+    # "VGMPlay/*.c"
+    VGMPlay/VGMPlay.c
+    VGMPlay/VGMFile.c
+    VGMPlay/ChipMapper.c
+    VGMPlay/VGMPlay_AddFmts.c
+    # "VGMPlay/vgm2wav.c"
+    # VGMPlay/chips/*.c
+
+
+    # "VGMPlay/chips/*.c"
     # "${PROJECT_SOURCE_DIR}/VGMPlay/chips/adlibemu_opl3.c"
-    vgmlib.c
+
+    # vgmlib.c
+
     VGMPlay/chips/adlibemu_opl3.c
-    VGMPlay/chips/opl.c
+    # VGMPlay/chips/opl.c
     # VGMPlay/chips/*.c
     # "${PROJECT_SOURCE_DIR}/VGMPlay/chips/*.c"
 )
@@ -30,8 +40,15 @@ add_library(vgm SHARED
 
 # libm (math library) and libz (zlib)
 # LDFLAGS := -lm -lz $(LDFLAGS)
+
+#  windows
+#  -lm -lz -lkernel32 -lwinmm
+# wsl / ubuntu
+# -lm -lz -lrt -lpthread -pthread
 find_library(MATH_LIBRARY m)
+find_library(MATH_LIBRARY z)
 target_link_libraries(vgm m)
+target_link_libraries(vgm z)
 
 # https://discourse.cmake.org/t/creating-shared-libraries-and-an-executable/2846
 

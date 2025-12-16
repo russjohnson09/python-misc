@@ -43,18 +43,8 @@ ifndef OLD_SWPRINTF
 OLD_SWPRINTF = 0
 endif
 
-# Byte Order
-#   0 = undefined (use endian-safe code, might be slightly slower)
-#   1 = Little Endian (Intel) [default]
-#   2 = Big Endian (Motorola)
-# ifndef BYTE_ORDER
-# BYTE_ORDER = 1
-# endif
-
 
 #CC = gcc -std=c23
-
-
 CC = gcc -std=c11
 ifndef PREFIX
 PREFIX = /usr/local
@@ -71,26 +61,9 @@ endif
 ifeq ($(OLD_SWPRINTF), 1)
 MAINFLAGS += -DOLD_SWPRINTF
 endif
-# ifeq ($(USE_LIBAO), 1)
-# MAINFLAGS += -DUSE_LIBAO
-# endif
+
+
 EMUFLAGS := -DENABLE_ALL_CORES
-
-# # -- Byte Order Optimizations --
-# ifeq ($(BYTE_ORDER), 1)
-# # Intel Byte Order
-# MAINFLAGS += -DVGM_LITTLE_ENDIAN
-# EMUFLAGS += -DVGM_LITTLE_ENDIAN
-# else
-# ifeq ($(BYTE_ORDER), 2)
-# # Motorola Byte Order
-# MAINFLAGS += -DVGM_BIG_ENDIAN
-# EMUFLAGS += -DVGM_BIG_ENDIAN
-# else
-# # undefined byte order
-# endif
-# endif
-
 ifeq ($(DISABLE_HWOPL_SUPPORT), 1)
 MAINFLAGS += -DDISABLE_HW_SUPPORT
 endif
@@ -107,6 +80,7 @@ ifeq ($(WINDOWS), 1)
 # for Windows, add kernel32 and winmm (Multimedia APIs)
 LDFLAGS += -lkernel32 -lwinmm
 else	# if UNIX
+
 ifeq ($(MACOSX), 1)
 # You might want to include additional paths using -I/some/path here,
 # in case some libraries (like libao) can't be found.
@@ -238,16 +212,37 @@ EMUOBJS = \
 VGM2WAV_OBJS = \
 	$(OBJ)/vgm2wav.o
 
+#  windows
+#  -lm -lz -lkernel32 -lwinmm
+# wsl / ubuntu
+# -lm -lz -lrt -lpthread -pthread
+
+# gcc -std=c11 obj/vgm2wav.o obj/VGMPlay.o obj/VGMPlay_AddFmts.o obj/ChipMapper.o \
+  obj/chips/sn76489.o \
+  obj/chips/262intf.o obj/chips/2151intf.o obj/chips/2610intf.o obj/chips/2203intf.o obj/chips/2413intf.o \
+  obj/chips/2608intf.o obj/chips/2612intf.o obj/chips/3526intf.o obj/chips/3812intf.o obj/chips/8950intf.o \
+  obj/chips/adlibemu_opl2.o obj/chips/adlibemu_opl3.o obj/chips/ay8910.o obj/chips/ay_intf.o obj/chips/c140.o \
+  obj/chips/c352.o obj/chips/c6280.o obj/chips/c6280intf.o obj/chips/dac_control.o obj/chips/es5503.o obj/chips/es5506.o \
+  obj/chips/emu2149.o obj/chips/emu2413.o obj/chips/fm2612.o obj/chips/fm.o obj/chips/fmopl.o obj/chips/gb.o \
+  obj/chips/iremga20.o obj/chips/k051649.o obj/chips/k053260.o obj/chips/k054539.o obj/chips/multipcm.o obj/chips/nes_apu.o obj/chips/nes_intf.o \
+  obj/chips/np_nes_apu.o obj/chips/np_nes_dmc.o obj/chips/np_nes_fds.o obj/chips/okim6258.o obj/chips/okim6295.o \
+  obj/chips/Ootake_PSG.o obj/chips/opll.o obj/chips/opm.o obj/chips/panning.o obj/chips/pokey.o obj/chips/pwm.o obj/chips/qsound_ctr.o \
+  obj/chips/qsound_mame.o obj/chips/qsound_intf.o obj/chips/rf5c68.o obj/chips/saa1099.o obj/chips/segapcm.o obj/chips/scd_pcm.o obj/chips/scsp.o \
+  obj/chips/scspdsp.o obj/chips/sn76496.o obj/chips/sn764intf.o obj/chips/upd7759.o obj/chips/vsu.o obj/chips/ws_audio.o obj/chips/x1_010.o obj/chips/ym2151.o \
+  obj/chips/ym2413.o obj/chips/ym2612.o obj/chips/ym3438.o obj/chips/ymdeltat.o obj/chips/ymf262.o obj/chips/ymf271.o obj/chips/ymf278b.o obj/chips/ymz280b.o \
+  obj/chips/ay8910_opl.o obj/chips/sn76496_opl.o obj/chips/ym2413hd.o obj/chips/ym2413_opl.o \
+  -lm -lz -lrt -lpthread -pthread
+
 all: vgm2wav
 
 vgm2wav:	$(EMUOBJS) $(MAINOBJS) $(VGM2WAV_OBJS)
-	@echo Linking vgm2wav ...
+	@echo Linking vgm2wav: $(CC) $(VGM2WAV_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) ...
 	@$(CC) $(VGM2WAV_OBJS) $(MAINOBJS) $(EMUOBJS) $(LDFLAGS) -o vgm2wav
 	@echo Done.
 
 # compile the chip-emulator c-files
 $(EMUOBJ)/%.o:	$(EMUSRC)/%.c
-	@echo Compiling chip-emulator files $< ...
+	@echo Compiling chip-emulator files $(LDFLAGS) $< ...
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(EMUFLAGS) -c $< -o $@
 
