@@ -20,7 +20,11 @@ cmake_minimum_required(VERSION 3.15)
 
 project(${SKBUILD_PROJECT_NAME} LANGUAGES C)
 
+# https://stackoverflow.com/questions/79292616/undefined-reference-when-building-with-f2py-and-scikit-build-core
+# https://github.com/ofloveandhate/scikit-build_boost-python
 find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
+# find_package(Python COMPONENTS Interpreter Development.Module NumPy REQUIRED)
+# find_package(Python REQUIRED COMPONENTS Interpreter Development.Module NumPy)
 
 # https://cmake.org/cmake/help/latest/command/file.html
 # file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
@@ -182,23 +186,33 @@ add_library(vgm SHARED
     # VGMPlay/chips/adlibemu_opl3.c
     # VGMPlay/chips/262intf.c
 )
-target_link_libraries(vgm m)
-target_link_libraries(vgm z)
+# target_link_libraries(vgm m)
+# target_link_libraries(vgm z)
 
 
 # vgm2wav.c:(.text.startup+0x18): undefined reference to `VGMPlay_Init'
-add_executable(
-    vgm4444wav ${PROJECT_SOURCE_DIR}/libs/VGMPlay/vgm2wav.c
-)
+# add_executable(
+#     vgm4444wav ${PROJECT_SOURCE_DIR}/libs/VGMPlay/vgm2wav.c
+# )
 # vgm2wav.c:(.text.startup+0x18): undefined reference to `VGMPlay_Init'
-target_link_libraries( vgm4444wav PRIVATE vgm )
+# target_link_libraries( vgm4444wav PRIVATE vgm )
 
 
 
 Python_add_library(_module MODULE 
     ${SRC_FILES}
     "${PROJECT_SOURCE_DIR}/libs/wrapper.c"
-
 WITH_SOABI)
 
+target_link_libraries(_module PRIVATE vgm)
+
+# math
+target_link_libraries(_module PRIVATE m)
+
+# zlib
+# https://scikit-build-core.readthedocs.io/en/latest/guide/cmakelists.html#finding-other-packages
+# https://scikit-build-core.readthedocs.io/en/latest/about/projects.html
+target_link_libraries(_module PRIVATE z)
+
 install(TARGETS _module DESTINATION ${SKBUILD_PROJECT_NAME})
+
