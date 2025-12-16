@@ -43,11 +43,11 @@
 
 // typedef unsigned int						UINT32;
 // typedef signed int							INT32;
-typedef uint32_t	UINT32;
+// typedef uint32_t	UINT32;
 
 
-typedef UINT32		Bitu; // rm .venv is necessary
-typedef uint32_t	Bit32u;
+// typedef UINT32		Bitu; // rm .venv is necessary
+// typedef uint32_t	Bit32u;
 
 
 float square(float x) { return x * x; }
