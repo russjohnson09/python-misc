@@ -1,9 +1,13 @@
 # git clean -dxf -- .
 # make
+
+# cd /c/Users/russj/dev/python-misc/libs/sound/vgmplay/libs/VGMPlay
 # make WINDOWS=1
 # ./vgm2wav
 # ./vgm2wav ../../tests/nakama.vgm ../../tests/nakama.wav
-#  ./vgm2wav ../../tests/02\ Game\ Start\ Music.vgz ../../tests/galaga.wav
+# ./vgm2wav ../../tests/02\ Game\ Start\ Music.vgz ../../tests/galaga.wav
+
+# ./vgm2wav.exe ../../tests/nakama.vgm ../../tests/nakama.wav
 
 
 ########################
@@ -22,25 +26,17 @@ ifndef WINDOWS
 WINDOWS = 0
 endif
 
-ifeq ($(WINDOWS), 1)
-# no libAO for Windows
-USE_LIBAO = 0
-endif
-ifeq ($(MACOSX), 1)
-# Mac OSX requires libAO
-USE_LIBAO = 1
-endif
-
 # disable Hardware OPL Support [enabled by default]
 ifndef DISABLE_HWOPL_SUPPORT
 DISABLE_HWOPL_SUPPORT = 1
 endif
 
 # set to 1 if you want to use libao instead of OSS for sound streaming under Linux [enabled by default]
-ifndef USE_LIBAO
-USE_LIBAO = 1
-endif
+# ifndef USE_LIBAO
+# USE_LIBAO = 1
+# endif
 
+USE_LIBAO = 0
 
 # set to 1 for swprintf fix on older MinGW versions
 ifndef OLD_SWPRINTF
@@ -51,24 +47,14 @@ endif
 #   0 = undefined (use endian-safe code, might be slightly slower)
 #   1 = Little Endian (Intel) [default]
 #   2 = Big Endian (Motorola)
-ifndef BYTE_ORDER
-BYTE_ORDER = 1
-endif
+# ifndef BYTE_ORDER
+# BYTE_ORDER = 1
+# endif
 
-# set to 0 to compile without dbus support on linux
-ifndef USE_DBUS
-# USE_DBUS = 1
-USE_DBUS = 0
-endif
-
-ifeq ($(WINDOWS), 1)
-USE_DBUS = 0
-endif
-ifeq ($(MACOSX), 1)
-USE_DBUS = 0
-endif
 
 #CC = gcc -std=c23
+
+
 CC = gcc -std=c11
 ifndef PREFIX
 PREFIX = /usr/local
@@ -85,25 +71,25 @@ endif
 ifeq ($(OLD_SWPRINTF), 1)
 MAINFLAGS += -DOLD_SWPRINTF
 endif
-ifeq ($(USE_LIBAO), 1)
-MAINFLAGS += -DUSE_LIBAO
-endif
+# ifeq ($(USE_LIBAO), 1)
+# MAINFLAGS += -DUSE_LIBAO
+# endif
 EMUFLAGS := -DENABLE_ALL_CORES
 
-# -- Byte Order Optimizations --
-ifeq ($(BYTE_ORDER), 1)
-# Intel Byte Order
-MAINFLAGS += -DVGM_LITTLE_ENDIAN
-EMUFLAGS += -DVGM_LITTLE_ENDIAN
-else
-ifeq ($(BYTE_ORDER), 2)
-# Motorola Byte Order
-MAINFLAGS += -DVGM_BIG_ENDIAN
-EMUFLAGS += -DVGM_BIG_ENDIAN
-else
-# undefined byte order
-endif
-endif
+# # -- Byte Order Optimizations --
+# ifeq ($(BYTE_ORDER), 1)
+# # Intel Byte Order
+# MAINFLAGS += -DVGM_LITTLE_ENDIAN
+# EMUFLAGS += -DVGM_LITTLE_ENDIAN
+# else
+# ifeq ($(BYTE_ORDER), 2)
+# # Motorola Byte Order
+# MAINFLAGS += -DVGM_BIG_ENDIAN
+# EMUFLAGS += -DVGM_BIG_ENDIAN
+# else
+# # undefined byte order
+# endif
+# endif
 
 ifeq ($(DISABLE_HWOPL_SUPPORT), 1)
 MAINFLAGS += -DDISABLE_HW_SUPPORT
@@ -129,20 +115,13 @@ else
 # for Linux, add librt (clock stuff) and libpthread (threads)
 LDFLAGS += -lrt -lpthread -pthread
 
-#DBus
-ifeq ($(USE_DBUS), 1)
-CFLAGS += $(shell pkg-config --cflags dbus-1) -std=c99
-LDFLAGS += $(shell pkg-config --libs dbus-1)
-MAINFLAGS += -DUSE_DBUS
-endif
-
 endif
 MAINFLAGS += -pthread -DSHARE_PREFIX=\"$(PREFIX)\"
 endif
 
-ifeq ($(USE_LIBAO), 1)
-LDFLAGS += -lao
-endif
+# ifeq ($(USE_LIBAO), 1)
+# LDFLAGS += -lao
+# endif
 
 # add Library Path, if defined
 ifdef LD_LIBRARY_PATH
@@ -256,12 +235,8 @@ EMUOBJS = \
 	$(EMUOBJ)/ym2413_opl.o
 
 
-
 VGM2WAV_OBJS = \
 	$(OBJ)/vgm2wav.o
-
-# EXTRA_OBJS = $(VGMPLAY_OBJS) $(VGM2PCM_OBJS) $(VGM2WAV_OBJS)
-
 
 all: vgm2wav
 
@@ -272,33 +247,13 @@ vgm2wav:	$(EMUOBJS) $(MAINOBJS) $(VGM2WAV_OBJS)
 
 # compile the chip-emulator c-files
 $(EMUOBJ)/%.o:	$(EMUSRC)/%.c
-	@echo Compiling $< ...
+	@echo Compiling chip-emulator files $< ...
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(EMUFLAGS) -c $< -o $@
 
 # cmake can hopefully simplify this part
 # compile the main c-files
 $(OBJ)/%.o:	$(SRC)/%.c
-	@echo Compiling $< ...
+	@echo Compiling main $< ...
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(MAINFLAGS) -c $< -o $@
-
-
-# https://stackoverflow.com/questions/21226905/syntax-error-word-unexpected-expecting
-# I wanted to indent the ifeq nested but that messes things up
-ifneq ($(WINDOWS), 1)
-ifeq ($(DISABLE_HWOPL_SUPPORT), 0)
-	setcap CAP_SYS_RAWIO+ep $(DESTDIR)$(PREFIX)/bin/vgmplay || true
-endif
-endif
-
-# install ROMs
-# rom_install:
-# 	install -m 644 yrw801.rom $(DESTDIR)$(PREFIX)/share/vgmplay/yrw801.rom
-
-
-# Install the "vgm-player" wrapper
-# play_install:	install
-# 	install -m 755 vgm-player $(DESTDIR)$(PREFIX)/bin/vgm-player
-
-# .PHONY: all clean install uninstall
