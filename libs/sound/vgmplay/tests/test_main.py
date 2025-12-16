@@ -31,6 +31,13 @@ def test_main():
     dir = os.path.dirname(__file__)
     print(dir)
 
-    
+    vgm_file = os.path.abspath(os.path.join(dir, 'nakama.vgm'))
+    vgm_wav = os.path.abspath(os.path.join(dir, 'nakama.wav'))
+
+    print(vgm_file, vgm_wav)
+
+
+    vgmplay.vgm2wav(vgm_file, vgm_wav)
+
 
     # assert vgmplay.hello_from_bin() == 'Hello from vgmplay!'
