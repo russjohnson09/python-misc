@@ -12,21 +12,28 @@ FILL = (5, 5, 5)
 class TestHandler():
     screen = None
     is_ci_test = False
+    is_pygame_init = False
     
     def __init__(self, is_ci_test = os.environ.get('IS_CI_TEST', '0') == '1'):
         self.is_ci_test = is_ci_test
         pass
 
     def init_pygame(self):
-        print("pygame init")
 
-        pygame.init()
-        # pygame.mixer.init()
-        # int fonts for display
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
+        if not self.is_pygame_init:
+            print("pygame init")
+            pygame.init()
+            # pygame.mixer.init()
+            # int fonts for display
+            self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE | pygame.SCALED)
+        else:
+            print("pygame init already called. to change screensize call ...")
+        
+        self.is_pygame_init = True
+        self.font = pygame.font.SysFont("Arial" , 18 , bold = False)
         self.clock = pygame.time.Clock()
 
-        self.font = pygame.font.SysFont("Arial" , 18 , bold = False)
+
 
 
         pass
@@ -57,7 +64,10 @@ test_handler = TestHandler()
 
 # for some reason it seems like this wasn't being called.
 # not calling pygame.init can lead to a segmentation fault that is hard to debug
+
+# called between each test
 def pytest_runtest_setup():
+    print("")
     print("pytest_runtest_setup")
     test_handler.init_pygame()
 
