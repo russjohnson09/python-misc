@@ -89,6 +89,23 @@ class Player():
         self._player_group.draw(screen)
         pass
 
+class Bee(BeeSprite):
+
+    velocity = (0.5,0.5)
+
+    def __init__(self, scale = 2, FPS = 120):
+        super().__init__(scale=scale, FPS=FPS)
+
+    def update(self):
+
+        if self.topleft[0] > 300:
+            self.velocity = (-0.5,-0.25)
+        elif self.topleft[0] < 10:
+            self.velocity = (0.5,0.25)
+
+        self.topleft = (self.topleft[0] + self.velocity[0], self.topleft[1] + self.velocity[1])
+
+        super().update()
 
 # namco that one spaceship game had some good parallax scrolling.
 def test_starry_night():
@@ -116,7 +133,7 @@ def test_starry_night():
     enemy_sprite_group = pygame.sprite.Group()
 
 
-    bee_sprite = BeeSprite()
+    bee_sprite = Bee()
     enemy_sprite_group.add(bee_sprite)
 
 

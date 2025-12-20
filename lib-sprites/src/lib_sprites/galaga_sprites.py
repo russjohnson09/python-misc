@@ -220,9 +220,23 @@ class BeeSprite(GalagaSprite):
 
     images = []
 
+    animation = 'idle'
+    ANIMATION_IDLE = 'idle'
 
-    def __init__(self, scale = 2):
+    _animations = {
+        'idle': []
+    }
+
+    FPS = 120
+    
+
+    def __init__(self, scale = 2, FPS = 120):
         super().__init__()
+
+        self.FPS = FPS
+
+        play_speed = 5
+        self.ticks_per_frame = FPS / play_speed
 
         spritesheet = self.spritesheet
 
@@ -236,6 +250,7 @@ class BeeSprite(GalagaSprite):
         self.images = [
             _scale_image(spritesheet.image_at((18 * i, 18 * 5, 18, 18)), scale=scale) for i in range(0,8)
             ]
+        self._animations[self.ANIMATION_IDLE] = [self.images[6], self.images[7]]
         # self.images = self.animations.get(self.animation)
 
         self.image = self.images[0] # current image
@@ -247,6 +262,17 @@ class BeeSprite(GalagaSprite):
     # TODO change animation
     def update(self):
         self.rect.topleft = self.topleft
+        self.tick += 1
+
+        if self.tick % self.ticks_per_frame != 0:
+            return
+        
+        self.frame += 1
+
+        images = self._animations[self.animation]
+        self.frame = self.frame % len(images)
+
+        self.image = images[self.frame]
 
 
 
