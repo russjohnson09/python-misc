@@ -5,7 +5,7 @@ from .connect_four_sprites import ConnectFourBoard, ConnectFourNumbers
 from .blade_sprites import Blade
 from .pong_sprites import PongGhostBall, PongPaddle, PongLargeGhostBall, PongLargePaddle
 
-from .galaga_sprites import Star, StarrySky, GalagaBgSpriteGroup, ShipSprite, BeeSprite
+from .galaga_sprites import Star, StarrySky, GalagaBgSpriteGroup, ShipSprite, BeeSprite, Missle
 
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
@@ -315,4 +315,5 @@ StarrySky,
 GalagaBgSpriteGroup,
 ShipSprite,
 BeeSprite,
+Missle
 ]

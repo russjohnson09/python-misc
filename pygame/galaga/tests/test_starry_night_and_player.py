@@ -1,6 +1,6 @@
 
 
-from lib_sprites import GalagaBgSpriteGroup, ShipSprite, BeeSprite
+from lib_sprites import GalagaBgSpriteGroup, ShipSprite, BeeSprite, Missle as MissleSprite
 from lib_inputs import InputHandler
 import pygame
 import numpy
@@ -38,6 +38,9 @@ class PlayerInput():
 
     def handle_event(self, event):
         self._ih.handle_event(event)
+
+    def fire_just_pressed(self):
+        return self._ih.south_just_pressed
     
     def get_direction(self):
         x = 0
@@ -51,7 +54,7 @@ class PlayerInput():
 
 class Player():
 
-
+    attacks_group: pygame.sprite.Group = None # pygame.sprite.Group()
     speed = 5.0
 
     topleft = (0,0)
@@ -60,6 +63,7 @@ class Player():
     ih
 
     ):
+        self.attacks_group = pygame.sprite.Group()
         self.topleft = (0,0)
         self._input = PlayerInput(ih)
         self._player_sprite = ShipSprite(2)
@@ -68,9 +72,19 @@ class Player():
         self._player_group.add(self._player_sprite)
 
         pass
+
+    def _spawn_attack(self):
+        missle = Missle()
+        missle.topleft = (self.topleft[0] + 6,self.topleft[1])
+        self.attacks_group.add(missle)
     
+       
+
     def handle_event(self, event):
-        return self._input.handle_event(event)
+        self._input.handle_event(event)
+
+        if self._input.fire_just_pressed():
+            self._spawn_attack()
 
     def update_and_draw(self, delta, screen):
         """
@@ -107,6 +121,21 @@ class Bee(BeeSprite):
 
         super().update()
 
+class Missle(MissleSprite):
+
+    velocity = (0,-10)
+
+    def __init__(self, scale = 2, FPS = 120):
+        super().__init__(scale=scale, FPS=FPS)
+
+    def update(self):
+        self.topleft = (self.topleft[0] + self.velocity[0], self.topleft[1] + self.velocity[1])
+        if self.topleft[1] < 0:
+            print("kill missle")
+            # https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite.kill
+            self.kill()
+        super().update()
+
 # namco that one spaceship game had some good parallax scrolling.
 def test_starry_night():
 
@@ -118,12 +147,16 @@ def test_starry_night():
 
     player = Player(ih)
 
+
+
     player.topleft = (10, 480 - 50)
 
 
-    player_attacks_group = pygame.sprite.Group()
+    player_attacks_group = player.attacks_group
 
-
+    missle = Missle()
+    missle.topleft = (50,50)
+    player_attacks_group.add(missle)
 
     clock = pygame_handler.clock
 
@@ -163,6 +196,9 @@ def test_starry_night():
 
         enemy_sprite_group.update()
         enemy_sprite_group.draw(screen)
+
+        player_attacks_group.update()
+        player_attacks_group.draw(screen)
         
         player.update_and_draw(estimated_delta, screen)
 
@@ -175,4 +211,7 @@ def test_starry_night():
         pygame.display.flip()
 
         clock.tick(FPS)
+
+        ih.clear_just_pressed()
+
         i += 1

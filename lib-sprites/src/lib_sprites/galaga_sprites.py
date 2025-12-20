@@ -211,6 +211,56 @@ class GalagaSprite(pygame.sprite.Sprite):
         self.spritesheet = lib_spritesheet.GalagaSpritesheet()
 
 
+#  313 122           self.velocity = (-1,-1)
+class Missle(GalagaSprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+
+
+    tick = 0
+    frame = 0
+
+    images = []
+
+    FPS = 120
+    
+
+    def __init__(self, scale = 2, FPS = 120):
+        super().__init__()
+
+        self.FPS = FPS
+
+        play_speed = 5
+        self.ticks_per_frame = FPS / play_speed
+
+        spritesheet = self.spritesheet
+
+        def _scale_image(img, scale: int):
+            size = img.get_size()
+            return pygame.transform.scale(img, (size[0] * scale, size[1] * scale))
+
+        # self.images = [
+        #     _scale_image(spritesheet.image_at((18 * i, 0, 18, 18)), scale) for i in range(0,7)
+        #     ]
+        self.images = [
+            _scale_image(
+                # 315,129
+                spritesheet.image_at((313, 122 , 3, 8)), 
+                         scale=scale)
+            ]
+        
+
+        self.image = self.images[0] # current image
+
+        self.rect: pygame.Rect = self.image.get_rect()
+
+
+    # TODO change animation
+    def update(self):
+        self.rect.topleft = self.topleft
+
+        pass
+
+
 class BeeSprite(GalagaSprite):
     # https://www.pygame.org/docs/ref/sprite.html
 
