@@ -48,6 +48,27 @@ def _write_instructions_text(instructions, ih, south_just_pressed_count = 0, wes
     test_handler.screen.blit(
         test_handler.font.render(f"just pressed west: {str(west_just_pressed_count)}", 1, pygame.Color("RED"))
         ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"left: {str(ih.left)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"right: {str(ih.right)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"up: {str(ih.up)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"down: {str(ih.down)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+
     pass
 
 def _mock_mouse_input_event(ih, button, down = True):

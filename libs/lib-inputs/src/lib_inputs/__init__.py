@@ -1,11 +1,11 @@
-
+import pygame
 
 class InputHandler():
         # pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
         # pygame.event.set_grab(True)
 
-    joystick = None
+    joystick: pygame.joystick.JoystickType = None
 
     _pygame = None
 
@@ -15,6 +15,11 @@ class InputHandler():
     _west_just_pressed = False
 
     _tick = 0
+
+    left = False
+    right = False
+    up = False
+    down = False
 
     def __init__(self, pygame):
         self._pygame = pygame
@@ -99,13 +104,40 @@ class InputHandler():
             else:
                 print("no joystick registered")
         elif event.type == self._pygame.JOYBUTTONDOWN:
-            print(event)
 
             if self.joystick and self.joystick.get_instance_id() == event.joy:
                 if event.button == 0:
                     self.south = True
                 elif event.button == 2:
                     self.west = True
+        elif event.type == self._pygame.JOYAXISMOTION:
+            print(event)
+
+            if self.joystick and self.joystick.get_instance_id() == event.joy:
+                
+                if event.axis == 0:
+                    if event.value < -0.5:
+                        self.left = True
+                        self.right = False
+                    elif event.value > 0.5:
+                        self.right = True
+                        self.left = False
+                    else:
+                        self.right = self.left = False
+                elif event.axis == 1:
+                    if event.value < -0.5:
+                        self.up = True
+                        self.down = False
+                    elif event.value > 0.5:
+                        self.down = True
+                        self.up = False
+                    else:
+                        self.up = self.down = False
+                # self.joystick.get_axis(0)
+                # if event.button == 0:
+                #     self.south = True
+                # elif event.button == 2:
+                #     self.west = True
         pass
     pass
 

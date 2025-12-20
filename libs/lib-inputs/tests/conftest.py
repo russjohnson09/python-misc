@@ -72,7 +72,7 @@ class TestHandler():
     def do_iteration(self, ih: InputHandler, callback):
         ih.clear_just_pressed()
         for event in pygame.event.get():
-            print("do_iteration", event)
+            # print("do_iteration", event)
             ih.handle_event(event)
 
             if event.type == pygame.QUIT:
