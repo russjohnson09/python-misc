@@ -5,7 +5,7 @@ import pygame
 from unittest.mock import MagicMock
 
 
-def _write_instructions_text(instructions, ih):
+def _write_instructions_text(instructions, ih, south_just_pressed_count = 0, west_just_pressed_count = 0):
     instruction_text = test_handler.font.render(instructions, 1, pygame.Color("RED"))
 
     pos_y = 0
@@ -20,6 +20,14 @@ def _write_instructions_text(instructions, ih):
     test_handler.screen.blit(
         test_handler.font.render(f"south: {str(ih.south)}", 1, pygame.Color("RED"))
         ,(0,pos_y))
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed south: {str(ih.south_just_pressed)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed south: {str(south_just_pressed_count)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
     
     pos_y += 20
     test_handler.screen.blit(
@@ -30,7 +38,16 @@ def _write_instructions_text(instructions, ih):
     test_handler.screen.blit(
         test_handler.font.render(f"west: {str(ih.west)}", 1, pygame.Color("RED"))
         ,(0,pos_y))
-
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed west: {str(ih.west_just_pressed)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed west: {str(west_just_pressed_count)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
     pass
 
 def _mock_mouse_input_event(ih, button, down = True):
@@ -60,13 +77,17 @@ def test_mouse_primary_click():
 
     mouse_pos = (0,0)
 
+    south_just_pressed_count = 0
+    west_just_pressed_count = 0
+
     instructions = "Update"
     def callback():
-        _write_instructions_text(instructions, ih)
+        _write_instructions_text(instructions, ih, south_just_pressed_count, west_just_pressed_count)
         return
 
     # feed the input handler events.
     # It also should have access to things like fetching the mouse position.
+
 
     is_first_loop = True
     while(test_handler.do_iteration(ih, callback)):
@@ -87,6 +108,11 @@ def test_mouse_primary_click():
             break
         # default bindings
         is_first_loop = False
+
+        if ih.south_just_pressed:
+            south_just_pressed += 1
+        if ih.west_just_pressed:
+            west_just_pressed_count += 1
         pass
     is_first_loop = True
 

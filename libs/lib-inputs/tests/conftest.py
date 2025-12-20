@@ -13,6 +13,7 @@ class TestHandler():
     screen = None
     is_ci_test = False
     is_pygame_init = False
+    tick = 0
     
     def __init__(self, is_ci_test = os.environ.get('IS_CI_TEST', '0') == '1'):
         self.is_ci_test = is_ci_test
@@ -39,9 +40,10 @@ class TestHandler():
         pass
 
     def do_iteration(self, ih: InputHandler, callback):
-
+        ih.clear_just_pressed()
         for event in pygame.event.get():
             ih.handle_event(event)
+
             if event.type == pygame.QUIT:
                 return False
             elif event.type == pygame.KEYDOWN:
@@ -55,6 +57,7 @@ class TestHandler():
         pygame.display.flip()
 
         self.clock.tick(60)
+        self.tick += 1
         return True
     pass
 
