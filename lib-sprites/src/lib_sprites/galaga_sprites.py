@@ -219,23 +219,29 @@ class BeeSprite(GalagaSprite):
     frame = 0
 
     images = []
-    
-    # animations = {
-    #     'idle': [],
-    # }
-    def __init__(self):
-        # I should pull in some singleton class for sprite management here.
+
+
+    def __init__(self, scale = 2):
         super().__init__()
 
         spritesheet = self.spritesheet
 
-        self.images = [spritesheet.image_at((18 * i, 18 * 5, 18, 18)) for i in range(0,8)]   
+        def _scale_image(img, scale: int):
+            size = img.get_size()
+            return pygame.transform.scale(img, (size[0] * scale, size[1] * scale))
+
+        # self.images = [
+        #     _scale_image(spritesheet.image_at((18 * i, 0, 18, 18)), scale) for i in range(0,7)
+        #     ]
+        self.images = [
+            _scale_image(spritesheet.image_at((18 * i, 18 * 5, 18, 18)), scale=scale) for i in range(0,8)
+            ]
+        # self.images = self.animations.get(self.animation)
 
         self.image = self.images[0] # current image
-        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
-        self.rect = self.image.get_rect()
+        self.image = self.images[7] # current image
 
-        self.rect.topleft = (0,0)
+        self.rect: pygame.Rect = self.image.get_rect()
 
 
     # TODO change animation
