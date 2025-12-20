@@ -5,7 +5,7 @@ import pygame
 from unittest.mock import MagicMock
 
 
-def _write_instructions_text(instructions, ih):
+def _write_instructions_text(instructions, ih, south_just_pressed_count = 0, west_just_pressed_count = 0):
     instruction_text = test_handler.font.render(instructions, 1, pygame.Color("RED"))
 
     pos_y = 0
@@ -20,6 +20,14 @@ def _write_instructions_text(instructions, ih):
     test_handler.screen.blit(
         test_handler.font.render(f"south: {str(ih.south)}", 1, pygame.Color("RED"))
         ,(0,pos_y))
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed south: {str(ih.south_just_pressed)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed south: {str(south_just_pressed_count)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
     
     pos_y += 20
     test_handler.screen.blit(
@@ -29,6 +37,36 @@ def _write_instructions_text(instructions, ih):
     pos_y += 20
     test_handler.screen.blit(
         test_handler.font.render(f"west: {str(ih.west)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed west: {str(ih.west_just_pressed)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"just pressed west: {str(west_just_pressed_count)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"left: {str(ih.left)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"right: {str(ih.right)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"up: {str(ih.up)}", 1, pygame.Color("RED"))
+        ,(0,pos_y))
+    
+    pos_y += 20
+    test_handler.screen.blit(
+        test_handler.font.render(f"down: {str(ih.down)}", 1, pygame.Color("RED"))
         ,(0,pos_y))
 
     pass
@@ -44,6 +82,17 @@ def _mock_mouse_input_event(ih, button, down = True):
     print("mock input", event.type, event.button)
     ih.handle_event(event)
 
+def _mock_joystick_event(ih, button, down = True):
+    event = MagicMock()
+    event.button = button
+    event.instance_id = ih.joystick.get_instance_id()
+    if down:
+        event.type = pygame.JOYBUTTONDOWN
+    else:
+        event.type = pygame.JOYBUTTONUP
+
+    print("mock input", event.type, event.button)
+    ih.handle_event(event)
 
 # lib-sprites\tests\test_mouse.py
 def test_mouse_primary_click():
@@ -60,13 +109,17 @@ def test_mouse_primary_click():
 
     mouse_pos = (0,0)
 
+    south_just_pressed_count = 0
+    west_just_pressed_count = 0
+
     instructions = "Update"
     def callback():
-        _write_instructions_text(instructions, ih)
+        _write_instructions_text(instructions, ih, south_just_pressed_count, west_just_pressed_count)
         return
 
     # feed the input handler events.
     # It also should have access to things like fetching the mouse position.
+
 
     is_first_loop = True
     while(test_handler.do_iteration(ih, callback)):
@@ -87,6 +140,11 @@ def test_mouse_primary_click():
             break
         # default bindings
         is_first_loop = False
+
+        if ih.south_just_pressed:
+            south_just_pressed += 1
+        if ih.west_just_pressed:
+            west_just_pressed_count += 1
         pass
     is_first_loop = True
 
@@ -177,3 +235,55 @@ def test_mouse_right_click():
 
 
     pass
+
+
+def test_xbox():
+    ih = InputHandler(pygame)
+
+    ih.joystick = test_handler.get_primary_joystick()
+
+    if test_handler.is_ci_test:
+        ih.joystick = MagicMock()
+        ih.joystick.get_instance_id.return_value = 0
+
+    mouse_pos = (0,0)
+
+    instructions = "Update"
+    def callback():
+        _write_instructions_text(instructions, ih)
+        return
+
+    # feed the input handler events.
+    # It also should have access to things like fetching the mouse position.
+
+    is_first_loop = True
+    while(test_handler.do_iteration(ih, callback)):
+        instructions = "Press south button and hold"
+
+        if test_handler.is_ci_test:
+            _mock_joystick_event(ih, 0)
+
+        if ih.south is True:
+            break
+        # default bindings
+        is_first_loop = False
+        pass
+    is_first_loop = True
+
+    while(test_handler.do_iteration(ih, callback)):
+        instructions = "south button release"
+
+        if is_first_loop:
+            # fire event is being pressed
+            assert ih.south is True
+
+        if test_handler.is_ci_test:
+            _mock_joystick_event(ih, 0, False)
+
+        if ih.south is False:
+            break
+        # default bindings
+        is_first_loop = False
+        pass
+
+    assert ih.south is False
