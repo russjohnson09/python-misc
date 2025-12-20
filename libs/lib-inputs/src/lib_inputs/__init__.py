@@ -73,6 +73,21 @@ class InputHandler():
         self._west_just_pressed = False
         pass
 
+    def _handle_keypress(self, key, down = True):
+        if key == pygame.K_a:
+            self.left = down
+        elif key == pygame.K_w:
+            self.up = down
+        elif key == pygame.K_s:
+            self.down = down
+        elif key == pygame.K_d:
+            self.right = down
+        if key == pygame.K_j:
+            self.west = down
+        elif key == pygame.K_k:
+            self.south = down
+        pass
+
     def handle_event(self, event):
         # do_iteration <Event(1540-JoyButtonUp {'joy': 0, 'instance_id': 0, 'button': 0})>
 
@@ -143,7 +158,8 @@ class InputHandler():
                 #     self.south = True
                 # elif event.button == 2:
                 #     self.west = True
-        pass
+        elif event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+            self._handle_keypress(event.key, event.type == pygame.KEYDOWN)
     pass
 
 
