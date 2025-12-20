@@ -1,12 +1,13 @@
 
 
 from lib_sprites import Star, StarrySky, GalagaBgSpriteGroup, ShipSprite
+from lib_inputs import InputHandler
 import pygame
 import numpy
 import os
 
 # from .conftest import get_screen_nes as get_screen
-from .conftest import PygameHandler
+from .conftest import pygame_handler
 FILL = (5, 5, 5)
 FILL = (15, 15, 15)
 
@@ -14,7 +15,6 @@ FPS = int(os.environ.get('FPS', '120'))
 # FPS = int(os.environ.get('FPS', '300'))
 MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 
-pygame_handler = PygameHandler()
 
 
 # Single server. As the server I can see both players but can't control them.
@@ -32,23 +32,19 @@ pygame_handler = PygameHandler()
 
 class PlayerInput():
 
-    _left = False
-    _right = False
-
-    def __init__(self):
+    def __init__(self, ih: InputHandler):
+        self._ih = ih
         pass
 
     def handle_event(self, event):
-        keys = pygame.key.get_pressed()
-        self._left = keys[pygame.K_a] is True
-        self._right = keys[pygame.K_d] is True
-
+        self._ih.handle_event(event)
+    
     def get_direction(self):
         x = 0
         y = 0
-        if self._left:
+        if self._ih.left:
             x = -1
-        elif self._right:
+        elif self._ih.right:
             x = 1
         
         return (x,y)
@@ -61,11 +57,11 @@ class Player():
     topleft = (0,0)
 
     def __init__(self,
-    topleft = (0,0),
+    ih
 
     ):
         self.topleft = (0,0)
-        self._input = PlayerInput()
+        self._input = PlayerInput(ih)
         self._player_sprite = ShipSprite(2)
         self._player_group = pygame.sprite.Group()
 
@@ -97,18 +93,13 @@ class Player():
 # namco that one spaceship game had some good parallax scrolling.
 def test_starry_night():
 
+    ih = InputHandler(pygame)
 
     screen = pygame_handler.get_screen()
 
-    # return
-    # The window / primary screen is just another surface.
-    main_surface = screen.copy()
-    bg_surface1 = screen.copy()
+    ih.joystick = pygame_handler.get_primary_joystick()
 
-
-    player_input = PlayerInput()
-
-    player = Player(FPS)
+    player = Player(ih)
 
     player.topleft = (10, 480 - 50)
 

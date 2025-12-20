@@ -18,10 +18,31 @@ class PygameHandler():
     _fullscreen = False
     _screen = None
     size = (640, 480) # psx resolution
-
+    _joysticks: list[pygame.joystick.JoystickType] = []
+    _primary_joystick: pygame.joystick.JoystickType = None
+    
     _is_init = False
 
     clock = None
+
+    def get_primary_joystick(self):
+        # this fetching of joysticks could probably be handled by some util in lib_inputs as well.
+        if len(self._joysticks) == 0:
+            print('no joystick devices found')
+            return None
+        if not self._primary_joystick:
+            # use the first Xbox 360 Controller or use the first one found
+            for joystick in self._joysticks:
+                # js: pygame.joystick.JoystickType = joystick
+                print(f"{joystick.get_name()} {joystick.get_guid()}")
+                # Xbox 360 Controller 0300b9695e0400008e02000000007200
+                if joystick.get_name() == "Xbox 360 Controller":
+                    self._primary_joystick = joystick
+                    break
+        if not self._primary_joystick:
+            print("no Xbox 360 Controller found defaulting to first in list")
+            self._primary_joystick = self._joysticks[0]
+        return self._primary_joystick
 
     def init_pygame(self):
         if self._is_init:
@@ -31,6 +52,11 @@ class PygameHandler():
         self._is_init = True
         pygame.init()
         pygame.mixer.init()
+        pygame.joystick.init()
+        # [<pygame.joystick.Joystick object at 0x0000021A9D01BEA0>]
+        self._joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
+        print( self._joysticks)
+
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Arial" , 8 , bold = False)
 

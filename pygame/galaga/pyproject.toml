@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "lib-sprites",
+    "lib-inputs",
     "pygame-ce>=2.5.6",
 ]
 
@@ -17,3 +18,5 @@ dev = [
 [tool.uv.sources]
 lib-models = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdirectory = "lib-models",  branch= "main" }
 lib-sprites = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites" }
+lib-inputs = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "libs/lib-inputs" }
+
