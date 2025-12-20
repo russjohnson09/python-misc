@@ -20,8 +20,10 @@ class PygameHandler():
     size = (640, 480) # psx resolution
     _joysticks: list[pygame.joystick.JoystickType] = []
     _primary_joystick: pygame.joystick.JoystickType = None
-    
+
     _is_init = False
+
+    is_ci_test = False
 
     clock = None
 
@@ -60,7 +62,9 @@ class PygameHandler():
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Arial" , 8 , bold = False)
 
-    def __init__(self):
+    def __init__(self, is_ci_test = os.environ.get('IS_CI_TEST')):
+
+        self.is_ci_test = is_ci_test
         pass
 
 

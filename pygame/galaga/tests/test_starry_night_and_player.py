@@ -1,6 +1,6 @@
 
 
-from lib_sprites import Star, StarrySky, GalagaBgSpriteGroup, ShipSprite
+from lib_sprites import GalagaBgSpriteGroup, ShipSprite, BeeSprite
 from lib_inputs import InputHandler
 import pygame
 import numpy
@@ -110,10 +110,15 @@ def test_starry_night():
 
     clock = pygame_handler.clock
 
-
-
-
     bg_sprite_group = GalagaBgSpriteGroup(FPS, screen)
+
+
+    enemy_sprite_group = pygame.sprite.Group()
+
+
+    bee_sprite = BeeSprite()
+    enemy_sprite_group.add(bee_sprite)
+
 
 
     estimated_delta = 60.0 / FPS
@@ -132,16 +137,15 @@ def test_starry_night():
                     return
                 elif event.key == pygame.K_f:
                     screen = pygame_handler.do_fullscreen()
-                    # keys = pygame.key.get_pressed()
-                    # if keys[pygame.K_RETURN] or keys[pygame.K_f]:
-                    #     return
-            # elif event.type == pygame.MOUSEBUTTONUP:
-            #     just_clicked = True
+
+        
         screen.fill((0,0,0,0))
 
         bg_sprite_group.update()
         bg_sprite_group.draw(screen) # instead of drawing to screen draw to subsurface and then position that?
 
+        enemy_sprite_group.update()
+        enemy_sprite_group.draw(screen)
         
         player.update_and_draw(estimated_delta, screen)
 

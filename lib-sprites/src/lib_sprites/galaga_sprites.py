@@ -202,12 +202,46 @@ class GalagaBgSpriteGroup(pygame.sprite.Group):
         self.add(starry_sky_sprite2)
 
 class GalagaSprite(pygame.sprite.Sprite):
+    topleft = (0,0)
 
     def __init__(self):
         super().__init__()
 
         import lib_spritesheet
         self.spritesheet = lib_spritesheet.GalagaSpritesheet()
+
+
+class BeeSprite(GalagaSprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+
+
+    tick = 0
+    frame = 0
+
+    images = []
+    
+    # animations = {
+    #     'idle': [],
+    # }
+    def __init__(self):
+        # I should pull in some singleton class for sprite management here.
+        super().__init__()
+
+        spritesheet = self.spritesheet
+
+        self.images = [spritesheet.image_at((18 * i, 18 * 5, 18, 18)) for i in range(0,8)]   
+
+        self.image = self.images[0] # current image
+        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
+        self.rect = self.image.get_rect()
+
+        self.rect.topleft = (0,0)
+
+
+    # TODO change animation
+    def update(self):
+        self.rect.topleft = self.topleft
+
 
 
 class ShipSprite(GalagaSprite):

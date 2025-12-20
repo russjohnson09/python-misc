@@ -29,7 +29,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "lib-inputs", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=libs%2Flib-inputs" },
-    { name = "lib-sprites", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites" },
+    { name = "lib-sprites", editable = "../../lib-sprites" },
     { name = "pygame-ce", specifier = ">=2.5.6" },
 ]
 
@@ -56,11 +56,24 @@ dependencies = [
 [[package]]
 name = "lib-sprites"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-sprites#84d9424bf1d54075d4036d330f42d3b07472247b" }
+source = { editable = "../../lib-sprites" }
 dependencies = [
     { name = "lib-spritesheet" },
     { name = "numpy" },
     { name = "pygame-ce" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "lib-spritesheet", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=lib-spritesheet" },
+    { name = "numpy", specifier = ">=2.3.5" },
+    { name = "pygame-ce", specifier = "==2.5.6" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "numpy", specifier = ">=2.3.5" },
+    { name = "pytest", specifier = ">=9.0.1" },
 ]
 
 [[package]]
