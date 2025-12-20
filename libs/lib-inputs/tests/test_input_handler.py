@@ -33,6 +33,18 @@ def _write_instructions_text(instructions, ih):
 
     pass
 
+def _mock_mouse_input_event(ih, button, down = True):
+    event = MagicMock()
+    event.button = button
+    if down:
+        event.type = pygame.MOUSEBUTTONDOWN
+    else:
+        event.type = pygame.MOUSEBUTTONUP
+
+    print("mock input", event.type, event.button)
+    ih.handle_event(event)
+
+
 # lib-sprites\tests\test_mouse.py
 def test_mouse_primary_click():
 
@@ -69,10 +81,7 @@ def test_mouse_primary_click():
             assert ih.primary is False
 
         if test_handler.is_ci_test:
-            event = MagicMock()
-            event.type = pygame.MOUSEBUTTONDOWN
-            event.button = 1
-            ih.handle_event(event)
+            _mock_mouse_input_event(ih, 1)
 
         if ih.south is True:
             break
@@ -94,10 +103,7 @@ def test_mouse_primary_click():
             assert ih.primary is True
 
         if test_handler.is_ci_test:
-            event = MagicMock()
-            event.type = pygame.MOUSEBUTTONUP
-            event.button = 1
-            ih.handle_event(event)
+            _mock_mouse_input_event(ih, 1, False)
 
         if ih.south is False:
             break
@@ -138,10 +144,8 @@ def test_mouse_right_click():
             assert ih.west is False
 
         if test_handler.is_ci_test:
-            event = MagicMock()
-            event.type = pygame.MOUSEBUTTONDOWN
-            event.button = 3
-            ih.handle_event(event)
+            _mock_mouse_input_event(ih, 3)
+
         if ih.west is True:
             break
         # default bindings
@@ -161,10 +165,8 @@ def test_mouse_right_click():
             assert ih.west is True
 
         if test_handler.is_ci_test:
-            event = MagicMock()
-            event.type = pygame.MOUSEBUTTONUP
-            event.button = 3
-            ih.handle_event(event)
+            _mock_mouse_input_event(ih, 3, False)
+
         if ih.west is False:
             break
         # default bindings
