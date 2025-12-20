@@ -104,12 +104,17 @@ class InputHandler():
             else:
                 print("no joystick registered")
         elif event.type == self._pygame.JOYBUTTONDOWN:
+            if self.joystick:
+                if  self.joystick.get_instance_id() == event.instance_id:
+                    if event.button == 0:
+                        self.south = True
+                    elif event.button == 2:
+                        self.west = True
+                else:
+                    print("unhandled joystick instance ", event.instance_id, self.joystick.get_instance_id())
 
-            if self.joystick and self.joystick.get_instance_id() == event.joy:
-                if event.button == 0:
-                    self.south = True
-                elif event.button == 2:
-                    self.west = True
+            else:
+                print("no joystick registered")
         elif event.type == self._pygame.JOYAXISMOTION:
             print(event)
 

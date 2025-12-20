@@ -82,6 +82,17 @@ def _mock_mouse_input_event(ih, button, down = True):
     print("mock input", event.type, event.button)
     ih.handle_event(event)
 
+def _mock_joystick_event(ih, button, down = True):
+    event = MagicMock()
+    event.button = button
+    event.instance_id = ih.joystick.get_instance_id()
+    if down:
+        event.type = pygame.JOYBUTTONDOWN
+    else:
+        event.type = pygame.JOYBUTTONUP
+
+    print("mock input", event.type, event.button)
+    ih.handle_event(event)
 
 # lib-sprites\tests\test_mouse.py
 def test_mouse_primary_click():
@@ -231,6 +242,10 @@ def test_xbox():
 
     ih.joystick = test_handler.get_primary_joystick()
 
+    if test_handler.is_ci_test:
+        ih.joystick = MagicMock()
+        ih.joystick.get_instance_id.return_value = 0
+
     mouse_pos = (0,0)
 
     instructions = "Update"
@@ -244,18 +259,11 @@ def test_xbox():
     is_first_loop = True
     while(test_handler.do_iteration(ih, callback)):
         instructions = "Press south button and hold"
-        mouse_pos = ih.get_mouse_pos()
-        assert mouse_pos is not None
-        assert len(mouse_pos) == 2
-
-        if is_first_loop:
-            # fire event is being pressed
-            assert ih.west is False
 
         if test_handler.is_ci_test:
-            _mock_mouse_input_event(ih, 3)
+            _mock_joystick_event(ih, 0)
 
-        if ih.west is True:
+        if ih.south is True:
             break
         # default bindings
         is_first_loop = False
@@ -263,23 +271,19 @@ def test_xbox():
     is_first_loop = True
 
     while(test_handler.do_iteration(ih, callback)):
-        instructions = "Right Click Release"
-
-        mouse_pos = ih.get_mouse_pos()
-        assert mouse_pos is not None
-        assert len(mouse_pos) == 2
+        instructions = "south button release"
 
         if is_first_loop:
             # fire event is being pressed
-            assert ih.west is True
+            assert ih.south is True
 
         if test_handler.is_ci_test:
-            _mock_mouse_input_event(ih, 3, False)
+            _mock_joystick_event(ih, 0, False)
 
-        if ih.west is False:
+        if ih.south is False:
             break
         # default bindings
         is_first_loop = False
         pass
 
-    assert ih.west is False
+    assert ih.south is False
