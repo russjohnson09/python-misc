@@ -1,0 +1,22 @@
+[project]
+name = "lib-inputs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "russjohnson09@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+        "pygame-ce>=2.5.6",
+
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.16,<0.10.0"]
+build-backend = "uv_build"
