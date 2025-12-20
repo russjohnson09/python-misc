@@ -203,3 +203,62 @@ def test_mouse_right_click():
 
 
     pass
+
+
+def test_xbox():
+    ih = InputHandler(pygame)
+
+    ih.joystick = test_handler.get_primary_joystick()
+
+    mouse_pos = (0,0)
+
+    instructions = "Update"
+    def callback():
+        _write_instructions_text(instructions, ih)
+        return
+
+    # feed the input handler events.
+    # It also should have access to things like fetching the mouse position.
+
+    is_first_loop = True
+    while(test_handler.do_iteration(ih, callback)):
+        instructions = "Press south button and hold"
+        mouse_pos = ih.get_mouse_pos()
+        assert mouse_pos is not None
+        assert len(mouse_pos) == 2
+
+        if is_first_loop:
+            # fire event is being pressed
+            assert ih.west is False
+
+        if test_handler.is_ci_test:
+            _mock_mouse_input_event(ih, 3)
+
+        if ih.west is True:
+            break
+        # default bindings
+        is_first_loop = False
+        pass
+    is_first_loop = True
+
+    while(test_handler.do_iteration(ih, callback)):
+        instructions = "Right Click Release"
+
+        mouse_pos = ih.get_mouse_pos()
+        assert mouse_pos is not None
+        assert len(mouse_pos) == 2
+
+        if is_first_loop:
+            # fire event is being pressed
+            assert ih.west is True
+
+        if test_handler.is_ci_test:
+            _mock_mouse_input_event(ih, 3, False)
+
+        if ih.west is False:
+            break
+        # default bindings
+        is_first_loop = False
+        pass
+
+    assert ih.west is False

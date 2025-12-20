@@ -14,10 +14,33 @@ class TestHandler():
     is_ci_test = False
     is_pygame_init = False
     tick = 0
+
+    _primary_joystick: pygame.joystick.JoystickType = None
+
+    _joysticks: list[pygame.joystick.JoystickType] = []
     
     def __init__(self, is_ci_test = os.environ.get('IS_CI_TEST', '0') == '1'):
         self.is_ci_test = is_ci_test
         pass
+
+    def get_primary_joystick(self):
+        if len(self._joysticks) == 0:
+            print('no joystick devices found')
+            return None
+        if not self._primary_joystick:
+            # use the first Xbox 360 Controller or use the first one found
+            for joystick in self._joysticks:
+                # js: pygame.joystick.JoystickType = joystick
+                print(f"{joystick.get_name()} {joystick.get_guid()}")
+                # Xbox 360 Controller 0300b9695e0400008e02000000007200
+                if joystick.get_name() == "Xbox 360 Controller":
+                    self._primary_joystick = joystick
+                    break
+        if not self._primary_joystick:
+            print("no Xbox 360 Controller found defaulting to first in list")
+            self._primary_joystick = self._joysticks[0]
+        return self._primary_joystick
+
 
     def init_pygame(self):
 
@@ -30,9 +53,16 @@ class TestHandler():
         else:
             print("pygame init already called. to change screensize call ...")
         
+        pygame.joystick.init()
+        # [<pygame.joystick.Joystick object at 0x0000021A9D01BEA0>]
+        self._joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
+        print( self._joysticks)
+
+
         self.is_pygame_init = True
         self.font = pygame.font.SysFont("Arial" , 18 , bold = False)
         self.clock = pygame.time.Clock()
+
 
 
 
@@ -42,6 +72,7 @@ class TestHandler():
     def do_iteration(self, ih: InputHandler, callback):
         ih.clear_just_pressed()
         for event in pygame.event.get():
+            print("do_iteration", event)
             ih.handle_event(event)
 
             if event.type == pygame.QUIT:

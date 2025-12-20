@@ -5,6 +5,8 @@ class InputHandler():
 
         # pygame.event.set_grab(True)
 
+    joystick = None
+
     _pygame = None
 
     _south = False
@@ -35,9 +37,21 @@ class InputHandler():
     def west(self):
         return self._west
     
+    @west.setter
+    def west(self, val):
+        self._west_just_pressed = val
+        self._west = val
+    
     @property
     def south(self):
         return self._south
+    
+    @south.setter
+    def south(self, val):
+        self._south_just_pressed = val
+        self._south = val
+
+
     @property
     def primary(self):
         return self.south
@@ -55,7 +69,8 @@ class InputHandler():
         pass
 
     def handle_event(self, event):
-        
+        # do_iteration <Event(1540-JoyButtonUp {'joy': 0, 'instance_id': 0, 'button': 0})>
+
         if event.type == self._pygame.MOUSEBUTTONUP:
             # pos = self.pygame.mouse.get_pos()
             if event.button == 1:
@@ -70,7 +85,27 @@ class InputHandler():
             elif event.button == 3:
                 self._west = True
                 self._west_just_pressed = True
+        elif event.type == self._pygame.JOYBUTTONUP:
 
+            if self.joystick:
+                if  self.joystick.get_instance_id() == event.instance_id:
+                    if event.button == 0:
+                        self.south = False
+                    elif event.button == 2:
+                        self.west = False
+                else:
+                    print("unhandled joystick instance ", event.instance_id, self.joystick.get_instance_id())
+
+            else:
+                print("no joystick registered")
+        elif event.type == self._pygame.JOYBUTTONDOWN:
+            print(event)
+
+            if self.joystick and self.joystick.get_instance_id() == event.joy:
+                if event.button == 0:
+                    self.south = True
+                elif event.button == 2:
+                    self.west = True
         pass
     pass
 
