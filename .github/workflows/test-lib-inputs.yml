@@ -12,11 +12,17 @@ defaults:
     shell: bash
     working-directory: ./libs/lib-inputs
 
-# https://github.com/libsdl-org/SDL/issues/10947
+
 jobs:
   test:
     env:
       IS_CI_TEST: "1"
+      # still set a dummy audio driver to avoid these warnings
+      # https://github.com/libsdl-org/SDL/issues/10947
+      # ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+      # ALSA lib conf.c:5204:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+      SDL_VIDEODRIVER: "dummy"
+      SDL_AUDIODRIVER: "disk"
     name: python
     runs-on: ubuntu-24.04
 
