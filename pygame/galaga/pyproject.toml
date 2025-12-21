@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "lib-sprites",
     "lib-inputs",
+    "lib-sounds",
     "pygame-ce>=2.5.6",
 ]
 
@@ -18,6 +19,10 @@ dev = [
 [tool.uv.sources]
 lib-models = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdirectory = "lib-models",  branch= "main" }
 #lib-sprites = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "lib-sprites" }
-lib-inputs = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "libs/lib-inputs" }
+#lib-inputs = { git = "https://github.com/russjohnson09/python-misc.git", subdirectory = "libs/lib-inputs" }
 
 lib-sprites = { path = "../../lib-sprites/", editable = true }
+lib-sounds = { path = "../../lib-sounds/", editable = true }
+lib-inputs = { path = "../../libs/lib-inputs/", editable = true }
+
+#from lib_sounds import Came, AndSoundBoard

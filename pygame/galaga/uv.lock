@@ -17,6 +17,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "lib-inputs" },
+    { name = "lib-sounds" },
     { name = "lib-sprites" },
     { name = "pygame-ce" },
 ]
@@ -28,7 +29,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "lib-inputs", git = "https://github.com/russjohnson09/python-misc.git?subdirectory=libs%2Flib-inputs" },
+    { name = "lib-inputs", editable = "../../libs/lib-inputs" },
+    { name = "lib-sounds", editable = "../../lib-sounds" },
     { name = "lib-sprites", editable = "../../lib-sprites" },
     { name = "pygame-ce", specifier = ">=2.5.6" },
 ]
@@ -48,10 +50,30 @@ wheels = [
 [[package]]
 name = "lib-inputs"
 version = "0.1.0"
-source = { git = "https://github.com/russjohnson09/python-misc.git?subdirectory=libs%2Flib-inputs#84d9424bf1d54075d4036d330f42d3b07472247b" }
+source = { editable = "../../libs/lib-inputs" }
 dependencies = [
     { name = "pygame-ce" },
 ]
+
+[package.metadata]
+requires-dist = [{ name = "pygame-ce", specifier = ">=2.5.6" }]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=9.0.1" }]
+
+[[package]]
+name = "lib-sounds"
+version = "0.1.0"
+source = { editable = "../../lib-sounds" }
+dependencies = [
+    { name = "pygame-ce" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pygame-ce", specifier = ">=2.5.6" }]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=9.0.1" }]
 
 [[package]]
 name = "lib-sprites"

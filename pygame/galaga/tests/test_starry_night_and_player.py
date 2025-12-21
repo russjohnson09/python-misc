@@ -29,6 +29,23 @@ MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 # https://stackoverflow.com/questions/39712307/is-there-a-way-with-pygame-to-get-keyboard-input-when-the-window-is-minimized
 # 
 
+class SoundHandler():
+    """Limit the number of channels. If one channel is used up the sound effect is cut short."""
+
+    def __init__(self):
+        pass
+
+    def play_missle_shot(self):
+        print("play_missle_shot")
+
+        pass
+
+    def play_explosion(self):
+        
+        print("play_explosion")
+
+        pass
+
 
 class PlayerInput():
 
@@ -54,18 +71,21 @@ class PlayerInput():
 
 class Player():
 
+    sound_handler: SoundHandler
     attacks_group: pygame.sprite.Group = None # pygame.sprite.Group()
     speed = 5.0
 
     topleft = (0,0)
 
     def __init__(self,
-    ih
+    input_handler,
+    sound_handler
 
     ):
         self.attacks_group = pygame.sprite.Group()
         self.topleft = (0,0)
-        self._input = PlayerInput(ih)
+        self.sound_handler = sound_handler
+        self._input = PlayerInput(input_handler)
         self._player_sprite = ShipSprite(2)
         self._player_group = pygame.sprite.Group()
 
@@ -77,14 +97,13 @@ class Player():
         missle = Missle()
         missle.topleft = (self.topleft[0] + 6,self.topleft[1])
         self.attacks_group.add(missle)
+
+        self.sound_handler.play_missle_shot()
     
        
 
     def handle_event(self, event):
         self._input.handle_event(event)
-
-        if self._input.fire_just_pressed():
-            self._spawn_attack()
 
     def update_and_draw(self, delta, screen):
         """
@@ -101,13 +120,20 @@ class Player():
 
         self._player_group.update()
         self._player_group.draw(screen)
+
+
+        if self._input.fire_just_pressed():
+            print("spawn attack")
+            self._spawn_attack()
         pass
 
 class Bee(BeeSprite):
 
+    sound_handler: SoundHandler
     velocity = (0.5,0.5)
 
-    def __init__(self, scale = 2, FPS = 120):
+    def __init__(self, scale = 2, FPS = 120, sound_handler = None):
+        self.sound_handler = sound_handler
         super().__init__(scale=scale, FPS=FPS)
 
     def update(self):
@@ -120,6 +146,18 @@ class Bee(BeeSprite):
         self.topleft = (self.topleft[0] + self.velocity[0], self.topleft[1] + self.velocity[1])
 
         super().update()
+
+    def hit(self):
+        if self.sound_handler:
+            self.sound_handler.play_explosion()
+        self.kill()
+        pass
+    # def kill(self):
+    #     print("kill")
+        # replace with an explosion
+        # play an explosion sound.
+
+        # super().kill()
 
 class Missle(MissleSprite):
 
@@ -145,7 +183,9 @@ def test_starry_night():
 
     ih.joystick = pygame_handler.get_primary_joystick()
 
-    player = Player(ih)
+    sound_handler = SoundHandler()
+
+    player = Player(input_handler=ih, sound_handler=sound_handler)
 
 
 
@@ -166,17 +206,33 @@ def test_starry_night():
     enemy_sprite_group = pygame.sprite.Group()
 
 
-    bee_sprite = Bee()
+    bee_sprite = Bee(sound_handler=sound_handler)
+
+
     enemy_sprite_group.add(bee_sprite)
 
+
+    def _check_collisions():
+        for enemy in enemy_sprite_group:
+            player_attacks_hit_list = pygame.sprite.spritecollide(enemy, player_attacks_group, dokill=True)#, dokill=False)
+            if len(player_attacks_hit_list) > 0:
+                print(player_attacks_hit_list)
+                enemy.hit() # do_kill removes from the player_attacks_group but not the original sprite
+        # for missle in player_attacks_group:
+        #     # missle.kill()
+        #     enemies_hit = pygame.sprite.spritecollide(missle, enemy_sprite_group, dokill=True)
+        #     # if len(enemies_hit) > 0:
+        #     #     print("kill missle enemy hit")
+        #     #     missle.kill()
 
 
     estimated_delta = 60.0 / FPS
 
     i = 0
     while i < MAX_TEST_LOOPS:
-        pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
+        # pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
+        ih.clear_just_pressed()
         for event in pygame.event.get():
             player.handle_event(event)
             if event.type == pygame.QUIT:
@@ -202,6 +258,10 @@ def test_starry_night():
         
         player.update_and_draw(estimated_delta, screen)
 
+
+        # lib-sprites\tests\test_mouse.py
+        _check_collisions()
+
         # player_group.draw(screen)
         # next draw player sprite
 
@@ -212,6 +272,5 @@ def test_starry_night():
 
         clock.tick(FPS)
 
-        ih.clear_just_pressed()
 
         i += 1
