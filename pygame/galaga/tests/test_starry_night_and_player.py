@@ -2,6 +2,8 @@
 
 from lib_sprites import GalagaBgSpriteGroup, ShipSprite, BeeSprite, Missle as MissleSprite
 from lib_inputs import InputHandler
+from lib_sounds import AndSoundBoard
+
 import pygame
 import numpy
 import os
@@ -32,17 +34,36 @@ MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 class SoundHandler():
     """Limit the number of channels. If one channel is used up the sound effect is cut short."""
 
+    _came: pygame.mixer.SoundType
+
     def __init__(self):
+        #         pygame.mixer.set_num_channels(1)
+# https://stackoverflow.com/questions/38028970/how-to-assign-sounds-to-channels-in-pygame
+        self._andSoundBoard = AndSoundBoard()
+
+        self._came: pygame.mixer.SoundType = pygame.mixer.Sound(self._andSoundBoard.get_sound_bytes("came"))
+
+        
         pass
 
+    def _play_sound(self, sound: pygame.mixer.SoundType):
+        # channel: pygame.mixer.ChannelType = pygame.mixer.find_channel(True) # If no available channel find the one that has played the longest
+        channel: pygame.mixer.ChannelType = pygame.mixer.find_channel(False)
+        if channel is None:
+            return
+        channel.play(sound)
+
     def play_missle_shot(self):
-        print("play_missle_shot")
+
+        self._play_sound(self._came)
 
         pass
 
     def play_explosion(self):
         
         print("play_explosion")
+        # self._andSoundBoard.play('came')
+        self._play_sound(self._came)
 
         pass
 
@@ -57,7 +78,7 @@ class PlayerInput():
         self._ih.handle_event(event)
 
     def fire_just_pressed(self):
-        return self._ih.south_just_pressed
+        return self._ih.south_just_pressed or self._ih.west
     
     def get_direction(self):
         x = 0
@@ -91,11 +112,17 @@ class Player():
 
         self._player_group.add(self._player_sprite)
 
+        rect: pygame.rect.RectType = self._player_sprite.rect
+
+        self._x_offset_center = int((rect.width / 2) - 4)
+
         pass
 
     def _spawn_attack(self):
         missle = Missle()
-        missle.topleft = (self.topleft[0] + 6,self.topleft[1])
+
+        missle.topleft = (self.topleft[0] + self._x_offset_center,
+                          self.topleft[1])
         self.attacks_group.add(missle)
 
         self.sound_handler.play_missle_shot()
@@ -123,7 +150,6 @@ class Player():
 
 
         if self._input.fire_just_pressed():
-            print("spawn attack")
             self._spawn_attack()
         pass
 
@@ -169,7 +195,7 @@ class Missle(MissleSprite):
     def update(self):
         self.topleft = (self.topleft[0] + self.velocity[0], self.topleft[1] + self.velocity[1])
         if self.topleft[1] < 0:
-            print("kill missle")
+            # print("kill missle")
             # https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite.kill
             self.kill()
         super().update()
@@ -229,8 +255,12 @@ def test_starry_night():
     estimated_delta = 60.0 / FPS
 
     i = 0
-    while i < MAX_TEST_LOOPS:
-        # pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
+    
+    def _is_finished(i):
+        return pygame_handler.is_ci_test and i < MAX_TEST_LOOPS
+
+    while not _is_finished(i):
+        pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
 
         ih.clear_just_pressed()
         for event in pygame.event.get():

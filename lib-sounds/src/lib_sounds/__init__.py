@@ -16,7 +16,6 @@ def rot_center(image, rect, angle):
 
 class Sound(pygame.mixer.Sound):
 
-    # Load a specific image from a specific rectangle
     def play(self):
         channel = super().play()
         print(f"end effect channel: {channel}")
@@ -88,22 +87,6 @@ def _load_sound_segment(snd: pygame.mixer.Sound | bytearray,
 
 
 
-    print(f"{start_byte}:{end_byte}:{end_byte-start_byte}")
-    # return pygame.mixer.Sound(byte_array[start_byte:end_byte])
-
-
-
-    # bytes_per_sample = frequency
-    # bytes_per_sample = frequency
-
-    # new_sound_byte_array = byte_array[5462750:5547950]
-
-
-    # end_byte += padding_needed
-
-    # print(f"{start_byte}:{end_byte}:{end_byte-start_byte}")
-
-
     new_byte_array = byte_array[start_byte:end_byte]
 
 
@@ -121,31 +104,23 @@ class AndSoundBoard():
     }
     def __init__(self):
         filename = os.path.join(ASSET_DIR, f'&.mp3')
-        # super().__init__(filename)
         sound = pygame.mixer.Sound(filename)
         raw: bytes = sound.get_raw()
         byte_array =  bytearray(raw)
         self.byte_array = byte_array
-        # self.sound = _load_sound_segment(sound,
-        #                 start_seconds =  5.282,
-        #                 end_seconds =  5.955,
-        #                                  )
 
-    # https://stackoverflow.com/questions/68756636/how-to-play-an-audio-file-starting-at-a-specific-time-in-pygame
-    def play(self, name):
+    def get_sound_bytes(self, name):
         start_seconds =  0
         end_seconds =  None
         start_seconds, end_seconds = self.soundboard_mappings.get(name, [None,None])
-        # self.soundboard_mappings.get(name, {}).get('end_seconds')
-
-        # if name == 'came':
-        #     start_seconds =  5.282
-        #     end_seconds =  5.955
         
         if end_seconds is None:
             return
-        print(len(self.byte_array), start_seconds, end_seconds, name)
+
         sound_bytes = _load_sound_segment(self.byte_array, start_seconds, end_seconds)
+        return sound_bytes
+    
+    def _write_to_file(self, name, sound_bytes):
         sfile = wave.open(f'{name}.wav', 'w')
         frequency: int = 44100
         channels: int = 2
@@ -153,6 +128,22 @@ class AndSoundBoard():
         sfile.setnchannels(channels)
         sfile.setsampwidth(2) # what is sample width? size / 8?
         sfile.writeframesraw(sound_bytes)
+
+    # https://stackoverflow.com/questions/68756636/how-to-play-an-audio-file-starting-at-a-specific-time-in-pygame
+    def play(self, name=None, sound_bytes=None):
+        if sound_bytes is None:
+            start_seconds =  0
+            end_seconds =  None
+            start_seconds, end_seconds = self.soundboard_mappings.get(name, [None,None])
+            
+            if end_seconds is None:
+                return
+
+            sound_bytes = _load_sound_segment(self.byte_array, start_seconds, end_seconds)
+
+
+        # self._write_to_file(name, sound_bytes)
+
         pygame.mixer.Sound(sound_bytes).play()
         # snd.play()
 

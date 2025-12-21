@@ -54,6 +54,9 @@ class PygameHandler():
         self._is_init = True
         pygame.init()
         pygame.mixer.init()
+        
+        pygame.mixer.set_num_channels(1)
+
         pygame.joystick.init()
         # [<pygame.joystick.Joystick object at 0x0000021A9D01BEA0>]
         self._joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
