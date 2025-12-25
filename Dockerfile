@@ -35,4 +35,8 @@ RUN aplay -L
 
 ENV SDL_AUDIODRIVER='dummy' 
 
+WORKDIR /app
+
+COPY ./ .
+# #22 0.045 /bin/sh: cd: line 0: can't cd to pygame/galaga: No such file or directory
 RUN cd pygame/galaga && uv sync --all-extras
