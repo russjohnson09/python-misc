@@ -43,6 +43,8 @@ jobs:
 
   tests:
     env:
+      IS_CI_TEST: "1"
+      MAX_TEST_LOOPS: "600"
       SDL_VIDEODRIVER: "dummy"
       SDL_AUDIODRIVER: "disk" # Or "dummy" if no audio output is needed at all
     name: python

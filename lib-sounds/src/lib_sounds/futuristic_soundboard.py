@@ -20,7 +20,6 @@ class FUTURISTIC_SOUNDS(enum.Enum):
         'end': 0.3
     }
 
-
 class FuturisticSoundboard():
     # assets\300futuristicsfx\SFX2020\MiniLaserAttack3.wav
     def __init__(self):

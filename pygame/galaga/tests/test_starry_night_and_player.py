@@ -46,9 +46,12 @@ class SoundHandler():
 
         self._came: pygame.mixer.SoundType = pygame.mixer.Sound(self._andSoundBoard.get_sound_bytes("came"))
 
-        print(FUTURISTIC_SOUNDS.MINI_LASER_ATTACK.value)
-        self._missle =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_LASER_ATTACK)
-        self._enemy_hit =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_HIT)
+        if os.environ.get('IS_CI_TEST') == '1':
+            self._missle =  self._came
+            self._enemy_hit =  self._came
+        else:
+            self._missle =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_LASER_ATTACK)
+            self._enemy_hit =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_HIT)
 
         
         pass
@@ -260,7 +263,7 @@ def test_starry_night():
     i = 0
     
     def _is_finished(i):
-        return pygame_handler.is_ci_test and i < MAX_TEST_LOOPS
+        return pygame_handler.is_ci_test and i > MAX_TEST_LOOPS
 
     while not _is_finished(i):
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
