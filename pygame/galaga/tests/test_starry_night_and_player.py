@@ -16,6 +16,7 @@ FILL = (15, 15, 15)
 FPS = int(os.environ.get('FPS', '120'))
 # FPS = int(os.environ.get('FPS', '300'))
 MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
+ALLOW_AUTOFIRE = os.environ.get('ALLOW_AUTOFIRE', '0') == '1'
 
 
 
@@ -89,7 +90,7 @@ class PlayerInput():
         self._ih.handle_event(event)
 
     def fire_just_pressed(self):
-        return self._ih.south_just_pressed or self._ih.west
+        return self._ih.south_just_pressed or (self._ih.west and ALLOW_AUTOFIRE)
     
     def get_direction(self):
         x = 0
@@ -205,6 +206,16 @@ class Missle(MissleSprite):
             self.kill()
         super().update()
 
+
+def _spawn_bees(enemy_sprite_group: pygame.sprite.Group, sound_handler):
+
+
+    for y in range(0, 300, 20):
+        for x in range(0, 300, 20):
+            bee_sprite = Bee(sound_handler=sound_handler)
+            bee_sprite.topleft = (x, y)
+            enemy_sprite_group.add(bee_sprite)
+
 # namco that one spaceship game had some good parallax scrolling.
 def test_starry_night():
 
@@ -237,11 +248,6 @@ def test_starry_night():
     enemy_sprite_group = pygame.sprite.Group()
 
 
-    for y in range(0, 300, 20):
-        for x in range(0, 300, 20):
-            bee_sprite = Bee(sound_handler=sound_handler)
-            bee_sprite.topleft = (x, y)
-            enemy_sprite_group.add(bee_sprite)
 
 
     def _check_collisions():
@@ -267,6 +273,11 @@ def test_starry_night():
 
     while not _is_finished(i):
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
+        
+        # if len(enemy_sprite_group.sprites()) == 0:
+        if len(enemy_sprite_group) == 0:
+            _spawn_bees(enemy_sprite_group=enemy_sprite_group, sound_handler=sound_handler)
+
 
         ih.clear_just_pressed()
         for event in pygame.event.get():
