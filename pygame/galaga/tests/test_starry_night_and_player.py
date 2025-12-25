@@ -2,7 +2,7 @@
 
 from lib_sprites import GalagaBgSpriteGroup, ShipSprite, BeeSprite, Missle as MissleSprite
 from lib_inputs import InputHandler
-from lib_sounds import AndSoundBoard
+from lib_sounds import AndSoundBoard, FuturisticSoundboard, FUTURISTIC_SOUNDS
 
 import pygame
 import numpy
@@ -35,13 +35,18 @@ class SoundHandler():
     """Limit the number of channels. If one channel is used up the sound effect is cut short."""
 
     _came: pygame.mixer.SoundType
+    _missle: pygame.mixer.SoundType
 
     def __init__(self):
         #         pygame.mixer.set_num_channels(1)
 # https://stackoverflow.com/questions/38028970/how-to-assign-sounds-to-channels-in-pygame
         self._andSoundBoard = AndSoundBoard()
 
+        self._future = FuturisticSoundboard()
+
         self._came: pygame.mixer.SoundType = pygame.mixer.Sound(self._andSoundBoard.get_sound_bytes("came"))
+
+        self._missle =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_LASER_ATTACK)
 
         
         pass
@@ -57,12 +62,13 @@ class SoundHandler():
 
         self._play_sound(self._came)
 
+        self._play_sound(self._missle)
+
         pass
 
     def play_explosion(self):
         
         print("play_explosion")
-        # self._andSoundBoard.play('came')
         self._play_sound(self._came)
 
         pass

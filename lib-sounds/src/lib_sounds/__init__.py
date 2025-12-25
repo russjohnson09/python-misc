@@ -1,6 +1,7 @@
 import pygame
 import os
 import wave
+from .futuristic_soundboard import FuturisticSoundboard, FUTURISTIC_SOUNDS
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
 
@@ -55,7 +56,7 @@ def _get_nearest_byte(bytes_per_second, seconds, bytes_per_sample = 4):
 
     return bytes + padding_needed
 
-
+ 
 # TODO defaults here should be a shared default which is also passed to the pygame.mixer
 # or pull the current values from pygame.mixer??
 def _load_sound_segment(snd: pygame.mixer.Sound | bytearray,
@@ -175,3 +176,9 @@ class Came():
         # pygame.mixer.music.play()
         # print(self.sound.get_raw())
         # super().play(loops, start, fade_ms)
+
+
+
+__all__ = [
+    FuturisticSoundboard, FUTURISTIC_SOUNDS
+]
