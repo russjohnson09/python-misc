@@ -29,13 +29,11 @@ class InputHandler():
     @property
     def south_just_pressed(self):
         val = self._south_just_pressed
-        # self._south_just_pressed = False
         return val
     
     @property
     def west_just_pressed(self):
         val = self._west_just_pressed
-        # self._west_just_pressed = False
         return val
     
     @property
@@ -71,9 +69,12 @@ class InputHandler():
     def clear_just_pressed(self):
         self._south_just_pressed = False
         self._west_just_pressed = False
+        # print("clear_just_pressed", self._south_just_pressed)
+
         pass
 
     def _handle_keypress(self, key, down = True):
+        # print("_handle_keypress", self._south_just_pressed)
         if key == pygame.K_a:
             self.left = down
         elif key == pygame.K_w:

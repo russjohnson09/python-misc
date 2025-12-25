@@ -202,12 +202,128 @@ class GalagaBgSpriteGroup(pygame.sprite.Group):
         self.add(starry_sky_sprite2)
 
 class GalagaSprite(pygame.sprite.Sprite):
+    topleft = (0,0)
 
     def __init__(self):
         super().__init__()
 
         import lib_spritesheet
         self.spritesheet = lib_spritesheet.GalagaSpritesheet()
+
+
+#  313 122           self.velocity = (-1,-1)
+class Missle(GalagaSprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+
+
+    tick = 0
+    frame = 0
+
+    images = []
+
+    FPS = 120
+    
+
+    def __init__(self, scale = 2, FPS = 120):
+        super().__init__()
+
+        self.FPS = FPS
+
+        play_speed = 5
+        self.ticks_per_frame = FPS / play_speed
+
+        spritesheet = self.spritesheet
+
+        def _scale_image(img, scale: int):
+            size = img.get_size()
+            return pygame.transform.scale(img, (size[0] * scale, size[1] * scale))
+
+        # self.images = [
+        #     _scale_image(spritesheet.image_at((18 * i, 0, 18, 18)), scale) for i in range(0,7)
+        #     ]
+        self.images = [
+            _scale_image(
+                # 315,129
+                spritesheet.image_at((313, 122 , 3, 8)), 
+                         scale=scale)
+            ]
+        
+
+        self.image = self.images[0] # current image
+
+        self.rect: pygame.Rect = self.image.get_rect()
+
+
+    # TODO change animation
+    def update(self):
+        self.rect.topleft = self.topleft
+
+        pass
+
+
+class BeeSprite(GalagaSprite):
+    # https://www.pygame.org/docs/ref/sprite.html
+
+
+    tick = 0
+    frame = 0
+
+    images = []
+
+    animation = 'idle'
+    ANIMATION_IDLE = 'idle'
+
+    _animations = {
+        'idle': []
+    }
+
+    FPS = 120
+    
+
+    def __init__(self, scale = 2, FPS = 120):
+        super().__init__()
+
+        self.FPS = FPS
+
+        play_speed = 5
+        self.ticks_per_frame = FPS / play_speed
+
+        spritesheet = self.spritesheet
+
+        def _scale_image(img, scale: int):
+            size = img.get_size()
+            return pygame.transform.scale(img, (size[0] * scale, size[1] * scale))
+
+        # self.images = [
+        #     _scale_image(spritesheet.image_at((18 * i, 0, 18, 18)), scale) for i in range(0,7)
+        #     ]
+        self.images = [
+            _scale_image(spritesheet.image_at((18 * i, 18 * 5, 18, 18)), scale=scale) for i in range(0,8)
+            ]
+        self._animations[self.ANIMATION_IDLE] = [self.images[6], self.images[7]]
+        # self.images = self.animations.get(self.animation)
+
+        self.image = self.images[0] # current image
+        self.image = self.images[7] # current image
+
+        self.rect: pygame.Rect = self.image.get_rect()
+
+
+    # TODO change animation
+    def update(self):
+        self.rect.topleft = self.topleft
+        self.tick += 1
+
+        if self.tick % self.ticks_per_frame != 0:
+            return
+        
+        self.frame += 1
+
+        images = self._animations[self.animation]
+        self.frame = self.frame % len(images)
+
+        self.image = images[self.frame]
+
 
 
 class ShipSprite(GalagaSprite):

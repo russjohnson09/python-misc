@@ -6,7 +6,6 @@ import numpy
 import os
 
 # from .conftest import get_screen_nes as get_screen
-from .conftest import get_screen
 from .conftest import PygameHandler
 FILL = (5, 5, 5)
 FILL = (15, 15, 15)

@@ -66,3 +66,10 @@
 # russj@beam UCRT64 /c/Users/russj/dev/python-misc/libs/sound/vgmplay-legacy/VGMPlay
 # $ make WINDOWS=1 && ./vgmplay.exe ../02\ Game\ Start\ Music.vgz
 #  make WINDOWS=1 && ./vgm2wav.exe ../02\ Game\ Start\ Music.vgz ../../../../assets/galaga_start.wav
+
+
+
+#https://www.humblebundle.com/downloads?key=kahDtNW2TVkxVdkK
+300futuristicsfx.zip
+
+# assets\300futuristicsfx\SFX2020\MiniLaserAttack3.wav

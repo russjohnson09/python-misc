@@ -1,6 +1,6 @@
 
 
-from lib_sounds import Came, AndSoundBoard
+from lib_sounds import AndSoundBoard
 import pygame
 import wave
 import math
@@ -106,23 +106,7 @@ def test_came():
 
     
     andSoundBoard = AndSoundBoard()
-    came = Came()
-
-    # sound.play()
-    # came.play()
-    # _save_sound(came.sound)
-
-    # new_sound = _load_sound_segment(came.sound)
-
-    # new_sound.play()
-
-    # came.play()
-
-    # andSoundBoard.play('came')
     andSoundBoard.play('came')
-    # andSoundBoard.play('and')
-    # andSoundBoard.play('right')
-    # andSoundBoard.play('wrong')
 
     i = 0
     while i < (60 * 15):
