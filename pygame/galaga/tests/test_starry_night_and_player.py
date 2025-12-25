@@ -234,10 +234,11 @@ def test_starry_night():
     enemy_sprite_group = pygame.sprite.Group()
 
 
-    for i in range(0,20):
-        bee_sprite = Bee(sound_handler=sound_handler)
-        bee_sprite.topleft = (0, i * 2)
-        enemy_sprite_group.add(bee_sprite)
+    for y in range(0, 300, 20):
+        for x in range(0, 300, 20):
+            bee_sprite = Bee(sound_handler=sound_handler)
+            bee_sprite.topleft = (x, y)
+            enemy_sprite_group.add(bee_sprite)
 
 
     def _check_collisions():
