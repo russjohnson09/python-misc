@@ -71,7 +71,7 @@ class SoundHandler():
     def play_explosion(self):
         
         print("play_explosion")
-        self._play_sound(self._came)
+        self._play_sound(self._enemy_hit)
 
         pass
 
