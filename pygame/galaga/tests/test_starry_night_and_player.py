@@ -186,12 +186,6 @@ class Bee(BeeSprite):
             self.sound_handler.play_explosion()
         self.kill()
         pass
-    # def kill(self):
-    #     print("kill")
-        # replace with an explosion
-        # play an explosion sound.
-
-        # super().kill()
 
 class Missle(MissleSprite):
 
@@ -242,6 +236,7 @@ def test_starry_night():
 
     bee_sprite = Bee(sound_handler=sound_handler)
 
+    bee_sprite.topleft = (20,20)
 
     enemy_sprite_group.add(bee_sprite)
 
