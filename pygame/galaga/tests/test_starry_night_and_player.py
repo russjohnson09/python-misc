@@ -46,7 +46,9 @@ class SoundHandler():
 
         self._came: pygame.mixer.SoundType = pygame.mixer.Sound(self._andSoundBoard.get_sound_bytes("came"))
 
+        print(FUTURISTIC_SOUNDS.MINI_LASER_ATTACK.value)
         self._missle =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_LASER_ATTACK)
+        self._enemy_hit =  self._future.get_sound(FUTURISTIC_SOUNDS.MINI_HIT)
 
         
         pass
@@ -60,7 +62,7 @@ class SoundHandler():
 
     def play_missle_shot(self):
 
-        self._play_sound(self._came)
+        # self._play_sound(self._came)
 
         self._play_sound(self._missle)
 
