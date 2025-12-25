@@ -21,9 +21,6 @@ RUN apk add sdl2-dev sdl2_image-dev sdl2_ttf-dev sdl2_mixer sdl2_mixer-dev
 # remove any non runtime packages used in previous steps
 RUN apk del build-base clang clang-extra-tools extra-cmake-modules
 
-RUN ls /app/tests
-RUN ls /app/tests/assets
-
 RUN apk add alsa-utils
 # RUN apk add libasound2
 # https://www.reddit.com/r/AlpineLinux/comments/plf465/how_to_setup_audio_on_alpine/
