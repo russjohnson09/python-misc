@@ -38,7 +38,7 @@ class SoundHandler():
     _missle: pygame.mixer.SoundType
 
     def __init__(self):
-        #         pygame.mixer.set_num_channels(1)
+        pygame.mixer.set_num_channels(3)
 # https://stackoverflow.com/questions/38028970/how-to-assign-sounds-to-channels-in-pygame
         self._andSoundBoard = AndSoundBoard()
 
@@ -54,8 +54,8 @@ class SoundHandler():
         pass
 
     def _play_sound(self, sound: pygame.mixer.SoundType):
-        # channel: pygame.mixer.ChannelType = pygame.mixer.find_channel(True) # If no available channel find the one that has played the longest
-        channel: pygame.mixer.ChannelType = pygame.mixer.find_channel(False)
+        channel: pygame.mixer.ChannelType = pygame.mixer.find_channel(True) # If no available channel find the one that has played the longest
+        # channel: pygame.mixer.ChannelType = pygame.mixer.find_channel(False)
         if channel is None:
             return
         channel.play(sound)
@@ -234,11 +234,10 @@ def test_starry_night():
     enemy_sprite_group = pygame.sprite.Group()
 
 
-    bee_sprite = Bee(sound_handler=sound_handler)
-
-    bee_sprite.topleft = (20,20)
-
-    enemy_sprite_group.add(bee_sprite)
+    for i in range(0,20):
+        bee_sprite = Bee(sound_handler=sound_handler)
+        bee_sprite.topleft = (0, i * 2)
+        enemy_sprite_group.add(bee_sprite)
 
 
     def _check_collisions():

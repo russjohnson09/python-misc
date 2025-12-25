@@ -17,7 +17,7 @@ class FUTURISTIC_SOUNDS(enum.Enum):
     MINI_HIT = {
         'location': f'{_SFX2020}/MiniHit.wav',
         'start': 0,
-        'end': 0.05
+        'end': 0.3
     }
 
 
