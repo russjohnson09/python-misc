@@ -2,13 +2,14 @@ from lib_sprites import Megaman2Tileset
 import pygame
 import numpy
 import os
+from .conftest import PygameHandler
 
-from .conftest import get_screen
 FILL = (5, 5, 5)
 FILL = (15, 15, 15)
 FILL = (255,255,255)
 
 FPS = 120
+pygame_handler = PygameHandler()
 
 _default_asset_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../assets'))
 
@@ -261,10 +262,10 @@ def _read_surface(surface: pygame.surface.Surface):
 
 # FULLSCREEN=1 uv run pytest tests/test_pong.py 
 def test_read_png():
-    font = pygame.font.SysFont("Arial" , 8 , bold = False)
-
     # read in a png and write out some platform using a tileset.
-    screen = get_screen()
+    screen = pygame_handler.get_screen()
+
+    font = pygame.font.SysFont("Arial" , 8 , bold = False)
 
     clock = pygame.time.Clock()
 
