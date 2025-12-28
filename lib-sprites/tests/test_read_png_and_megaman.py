@@ -1,4 +1,4 @@
-from lib_sprites import Megaman2Tileset
+from lib_sprites import Megaman2Tileset, Megaman1
 import pygame
 import numpy
 import os
@@ -260,6 +260,73 @@ def _read_surface(surface: pygame.surface.Surface):
 
     return new_surface
 
+
+class PlayerInput():
+
+    _left = False
+    _right = False
+
+    def __init__(self):
+        pass
+
+    def handle_event(self, event):
+        keys = pygame.key.get_pressed()
+        self._left = keys[pygame.K_a] is True
+        self._right = keys[pygame.K_d] is True
+
+    def get_direction(self):
+        x = 0
+        y = 0
+        if self._left:
+            x = -1
+        elif self._right:
+            x = 1
+        
+        return (x,y)
+
+
+
+class Player():
+
+
+    speed = 5.0
+
+    topleft = (0,0)
+
+    def __init__(self,
+    topleft = (0,0),
+
+    ):
+        self.topleft = (0,0)
+        self._input = PlayerInput()
+        self._player_sprite = Megaman1()
+        self._player_group = pygame.sprite.Group()
+
+        self._player_group.add(self._player_sprite)
+
+        pass
+    
+    def handle_event(self, event):
+        return self._input.handle_event(event)
+
+    def update_and_draw(self, delta, screen):
+        """
+        delta: time in seconds assuming that the FPS is capped out, so if you don't reach the max framerate things are going to slow down for you.
+        """
+        self._player_sprite.topleft = self.topleft
+
+        direction = self._input.get_direction()
+        self.topleft = (
+            self.topleft[0] + (direction[0] * self.speed * delta), 
+            self.topleft[1] + (direction[1] * self.speed * delta), 
+        )
+
+
+        self._player_group.update()
+        self._player_group.draw(screen)
+        pass
+
+
 # FULLSCREEN=1 uv run pytest tests/test_pong.py 
 def test_read_png():
     # read in a png and write out some platform using a tileset.
@@ -288,6 +355,10 @@ def test_read_png():
 
     platform_sprites =  pygame.sprite.Group()
 
+    player = Player(FPS)
+
+
+    estimated_delta = 60.0 / FPS
 
     i = 0
     while i < (60 * 50):
@@ -319,10 +390,13 @@ def test_read_png():
 
         screen.blit(basic_platform_image, (-camera.x, -camera.y))
 
+        
+        player.update_and_draw(estimated_delta, screen)
+
         # blit camera + 100 + 100 rect
 
         # check collision on sprite
-       
+
         fps_counter(screen, clock, font)
         
         pygame.display.flip()

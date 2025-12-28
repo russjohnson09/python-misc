@@ -55,15 +55,84 @@ class Megaman2Tileset():
 
 class MegamanSprite(pygame.sprite.Sprite):
 
+    tick = 0
+    frame = 0
+    animation = 'idle'
+    animations = {
+        'idle': [],
+    }
+
+    SPRITESHEET_LOCATION = os.path.join(ASSET_DIR, '8bitmegaman.png')
+    SPRITESHEET = None
+
+    def update_image(self):
+        spritesheet = self.spritesheet
+
+        self.animations['idle'] = [
+            _image_at(spritesheet, (101,10,24,24)),
+            ]
+
+
+        self.images = self.animations.get(self.animation)
+        self.image = self.images[0] # current image
+        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0,0)
+        pass
+
+    # TODO scale see galaga
     def __init__(self):
+        # I should pull in some singleton class for sprite management here.
         super().__init__()
 
-        # import lib_spritesheet
-        # self.spritesheet = lib_spritesheet.GalagaSpritesheet()
-         # image location
+        self.update_image()
 
-        self.spritesheet = _get_megaman_spritesheet()
 
+    # TODO change animation
+    def update(self):
+        self.tick += 1
+
+        # ticks or frames
+        if self.tick % 30 == 0:
+            self.frame += 1
+
+        self.image = self.images[self.frame % len(self.images)]
+
+class SpritesheetManager():
+
+    _megaman1: pygame.sprite.Sprite = None
+
+    def __init__(self):
+
+        pass
+
+    @property
+    def megaman1(self):
+        if not self._megaman1:
+            self._megaman1 = pygame.image.load(os.path.join(ASSET_DIR, '8bitmegaman.png')).convert_alpha()
+
+        return self._megaman1
+
+sm = SpritesheetManager()
+
+class Megaman1(MegamanSprite):
+
+    def update_image(self):
+        self.spritesheet = sm.megaman1
+        spritesheet = self.spritesheet
+
+        self.animations['idle'] = [
+            _image_at(spritesheet, (101,10,24,24)),
+            ]
+
+
+        self.images = self.animations.get(self.animation)
+        self.image = self.images[0] # current image
+        # self.image = pygame.image.load(self.image_path).convert_alpha() # Load image with transparency
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0,0)
+        pass
+    pass
 
 class OctopusBattery(MegamanSprite):
 
@@ -104,17 +173,6 @@ class OctopusBattery(MegamanSprite):
 
         self.update_image(x_offset, y_offset, x_space_between_sprites)
 
-        # self.animations['idle'] = [_image_at(spritesheet,(18 * i, 18 * 5, 18, 18)) for i in range(0,8)]
-
-        # self.y_offset = 68
-        # self.x_offset = 14
-        # self.x_offset = 57
-
-        # x_space_between_sprites = 19
-
-
-        # self.rect.h = 50
-
 
     # TODO change animation
     def update(self):
@@ -125,3 +183,9 @@ class OctopusBattery(MegamanSprite):
             self.frame += 1
 
         self.image = self.images[self.frame % len(self.images)]
+
+
+
+__all__ = [
+    Megaman1
+]

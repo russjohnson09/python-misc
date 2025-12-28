@@ -1,6 +1,6 @@
 import pygame
 import os
-from .megaman_sprites import OctopusBattery, Megaman2Tileset
+from .megaman_sprites import OctopusBattery, Megaman2Tileset, Megaman1
 from .connect_four_sprites import ConnectFourBoard, ConnectFourNumbers
 from .blade_sprites import Blade
 from .pong_sprites import PongGhostBall, PongPaddle, PongLargeGhostBall, PongLargePaddle
@@ -315,5 +315,6 @@ StarrySky,
 GalagaBgSpriteGroup,
 ShipSprite,
 BeeSprite,
-Missle
+Missle,
+Megaman1
 ]
