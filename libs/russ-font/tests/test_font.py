@@ -1,5 +1,6 @@
 
 from russ_font import FontHelper
+from lib_inputs import InputHandler
 
 import pygame
 import pandas as pd
@@ -83,7 +84,9 @@ def test_font():
     word_idx = 0
 
     words = _get_words()
-    
+    ih = InputHandler(pygame)
+    ih.joystick = ph.get_primary_joystick()
+
 
     i = 0
     while not ph.quit:
@@ -93,8 +96,11 @@ def test_font():
         
         ph.hide_mouse()
 
+        ih.clear_just_pressed()
 
         for event in ph.get_event():
+            ih.handle_event(event)
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a: 
                     pygame.mixer.music.play()
@@ -109,6 +115,17 @@ def test_font():
             # print(event)
             # do my own custom handling
             continue
+
+        if ih.west_just_pressed:
+            pygame.mixer.music.play()
+            word_key_idx = 0
+            word_idx = 0
+            text = words[word_idx]
+
+        if ih.south_just_pressed:
+            word_idx += 1
+            word_idx = word_idx % len(words)
+            text = words[word_idx]
 
 
         ph.fill()

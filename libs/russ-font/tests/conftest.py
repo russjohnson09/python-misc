@@ -10,6 +10,8 @@ os.environ['ASSET_DIR'] = _default_asset_dir
 
 
 class PygameHandler():
+    _joysticks: list[pygame.joystick.JoystickType] = []
+    _primary_joystick: pygame.joystick.JoystickType = None
 
     debug_mode = True
 
@@ -51,6 +53,26 @@ class PygameHandler():
 
         self.screen.blit(fps_t,(0,0))
 
+
+    def get_primary_joystick(self):
+        # this fetching of joysticks could probably be handled by some util in lib_inputs as well.
+        if len(self._joysticks) == 0:
+            print('no joystick devices found')
+            return None
+        if not self._primary_joystick:
+            # use the first Xbox 360 Controller or use the first one found
+            for joystick in self._joysticks:
+                # js: pygame.joystick.JoystickType = joystick
+                print(f"{joystick.get_name()} {joystick.get_guid()}")
+                # Xbox 360 Controller 0300b9695e0400008e02000000007200
+                if joystick.get_name() == "Xbox 360 Controller":
+                    self._primary_joystick = joystick
+                    break
+        if not self._primary_joystick:
+            print("no Xbox 360 Controller found defaulting to first in list")
+            self._primary_joystick = self._joysticks[0]
+        return self._primary_joystick
+    
     def clock_tick(self):
         self.clock.tick(self.FPS)
 

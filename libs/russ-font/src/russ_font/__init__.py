@@ -14,6 +14,8 @@ class FontHelper():
 
     TECHNOLOGIC_SCREEN_BACKGROUND_COLOR = (89.0,7.5,2.0)
 
+    TECHNOLOGIC_SCREEN_BACKGROUND_COLOR = (200.0,7.5,2.0)
+
     _ph = None
 
 
@@ -104,7 +106,7 @@ class FontHelper():
         screen.blit(text_surface,(center[0],0))
 
 
-        screen.blit(text_surface2,(40,40))
+        # screen.blit(text_surface2,(40,40))
 
         pass
 
