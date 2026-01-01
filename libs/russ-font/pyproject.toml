@@ -1,0 +1,32 @@
+[project]
+name = "russ-font"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "russjohnson09@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.9.16,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report html"
+
+[tool.coverage.run]
+#branch = true
+#source = ["src"]
+#relative_files = true
+# Omit specific files or directories from coverage analysis
+omit = [
+    "tests/*",
+]
