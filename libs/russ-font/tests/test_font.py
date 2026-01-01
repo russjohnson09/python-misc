@@ -87,6 +87,8 @@ def test_font():
     ih = InputHandler(pygame)
     ih.joystick = ph.get_primary_joystick()
 
+    print(ih.joystick)
+
 
     i = 0
     while not ph.quit:

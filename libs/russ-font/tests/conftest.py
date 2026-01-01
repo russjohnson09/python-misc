@@ -39,7 +39,10 @@ class PygameHandler():
         self.size = screen_size
 
         pygame.init()
-
+        pygame.joystick.init()
+        self._joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
+        print( self._joysticks)
+        
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Arial" , 8 , bold = False)
 
