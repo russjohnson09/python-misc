@@ -15,6 +15,7 @@ defaults:
 jobs:
   test:
     env:
+      RUSS_MAX_LOOPS: "10" # for tests set the max loops
       IS_CI_TEST: "1"
       # still set a dummy audio driver to avoid these warnings
       # https://github.com/libsdl-org/SDL/issues/10947
