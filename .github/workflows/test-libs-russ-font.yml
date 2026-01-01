@@ -1,0 +1,39 @@
+
+# https://graphite.com/guides/github-actions-on-pull-requests
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'libs/russ-font/**'
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./libs/russ-font
+
+
+jobs:
+  test:
+    env:
+      RUSS_MAX_LOOPS: "10" # for tests set the max loops
+      IS_CI_TEST: "1"
+      # still set a dummy audio driver to avoid these warnings
+      # https://github.com/libsdl-org/SDL/issues/10947
+      # ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+      # ALSA lib conf.c:5204:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+      SDL_VIDEODRIVER: "dummy"
+      SDL_AUDIODRIVER: "disk"
+    name: python
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Run tests
+        run: uv run pytest -s
