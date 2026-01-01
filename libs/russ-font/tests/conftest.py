@@ -29,7 +29,9 @@ class PygameHandler():
     size = (640, 480) # psx resolution
 
     def load_music(self, location):
-        pygame.mixer.music.load(os.path.join(_default_asset_dir, location))
+        full_path = os.path.join(_default_asset_dir, location)
+        if os.path.isfile(full_path):
+            pygame.mixer.music.load(full_path)
 
     def get_sound(self, location):
 
@@ -42,7 +44,7 @@ class PygameHandler():
         pygame.joystick.init()
         self._joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
         print( self._joysticks)
-        
+
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Arial" , 8 , bold = False)
 

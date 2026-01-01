@@ -62,6 +62,7 @@ def test_font():
 
 
     # main_sound = ph.get_sound("09.-Technologic.flac")
+    ph.load_music("&.mp3")
 
     ph.load_music("09.-Technologic.flac")
 
