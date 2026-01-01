@@ -72,7 +72,9 @@ def test_font():
 
     # font = pygame.font.SysFont("Arial" , 8 , bold = False)
 
-    max_loops = os.environ.get('RUSS_MAX_LOOPS')
+    max_loops = os.environ.get('RUSS_MAX_LOOPS', None)
+    if max_loops is not None:
+        max_loops = int(max_loops)
 
     technologic_word_timing = _get_timing()
 
