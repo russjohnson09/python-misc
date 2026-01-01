@@ -79,7 +79,7 @@ def test_font():
     technologic_word_timing = _get_timing()
 
 
-    text = ''
+    text = 'test'
 
     word_key_idx = 0
     word_keys = list(technologic_word_timing.keys())
@@ -91,6 +91,9 @@ def test_font():
     ih.joystick = ph.get_primary_joystick()
 
     print(ih.joystick)
+
+
+
 
 
     i = 0
@@ -156,3 +159,5 @@ def test_font():
 
         ph.clock_tick()
         i += 1
+
+        font_helper.draw_technologic('')
