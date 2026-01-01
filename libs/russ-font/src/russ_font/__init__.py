@@ -70,7 +70,8 @@ class FontHelper():
 
 
         # RENAME
-        text_surface = pygame.transform.scale(text_surface, (screen_size[0] * (len(text) / 6) , screen_size[1]))
+        # UPGRADE
+        text_surface = pygame.transform.scale(text_surface, (screen_size[0] * (len(text) / 7) , screen_size[1]))
 
 
         # pygame.draw.rect(text_surface, (0,0,0), (0,0,screen_size[0], screen_size[1]), 0)

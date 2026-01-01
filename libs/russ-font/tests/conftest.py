@@ -2,36 +2,13 @@
 import pygame
 import os
 
-_root_repo_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../'))
+_root_repo_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../'))
 _default_asset_dir = os.path.abspath(os.path.join(_root_repo_dir, 'assets'))
 
 os.environ['ASSET_DIR'] = _default_asset_dir
 
 
 
-# def do_init():
-#     global _is_init
-#     print("do_init")
-#     if _is_init:
-#         print("already init")
-#         return
-
-#     pygame.init()
-#     # pygame.mixer.init()
-#     # print("pygame init")
-#     # pygame.init()
-#     # pygame.mixer.init()
-
-#     _is_init = True
-
-
-
-
-# tests\test_starry_night_and_player.py Windows fatal exception: access violation
-
-# Current thread 0x00001b68 (most recent call first):
-#   File "C:\Users\russ\python-misc\lib-sprites\tests\conftest.py", line 72 in get_screen
-#   File "C:\Users\russ\python-misc\lib-sprites\tests\conftest.py", line 78 in do_fullscreen
 class PygameHandler():
 
     debug_mode = True
@@ -48,6 +25,13 @@ class PygameHandler():
     _fullscreen = False
     
     size = (640, 480) # psx resolution
+
+    def load_music(self, location):
+        pygame.mixer.music.load(os.path.join(_default_asset_dir, location))
+
+    def get_sound(self, location):
+
+        return pygame.mixer.Sound(os.path.join(_default_asset_dir, location))
 
     def __init__(self, screen_size = size):
         self.size = screen_size
