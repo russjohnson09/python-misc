@@ -101,6 +101,7 @@ class MegamanSprite(pygame.sprite.Sprite):
 class SpritesheetManager():
 
     _megaman1: pygame.sprite.Sprite = None
+    _mm1enemysheet: pygame.sprite.Sprite = None
 
     def __init__(self):
 
@@ -112,6 +113,13 @@ class SpritesheetManager():
             self._megaman1 = pygame.image.load(os.path.join(ASSET_DIR, '8bitmegaman.png')).convert_alpha()
 
         return self._megaman1
+
+    @property
+    def mm1enemysheet(self):
+        if not self._mm1enemysheet:
+            self._mm1enemysheet = pygame.image.load(os.path.join(ASSET_DIR, 'mm1enemysheet.gif')).convert_alpha()
+
+        return self._mm1enemysheet
 
 sm = SpritesheetManager()
 
@@ -150,7 +158,8 @@ class OctopusBattery(MegamanSprite):
     }
 
     def update_image(self,  x_offset = OFFSET_RED, y_offset = 68, x_space_between_sprites = 19):
-        spritesheet = self.spritesheet
+        
+        spritesheet = sm.mm1enemysheet
 
         self.animations['idle'] = [
             _image_at(spritesheet, (x_offset ,y_offset,16,16)),
