@@ -2,10 +2,14 @@
 import pygame
 import os
 
-_root_repo_dir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '../../../'))
+_current_dir =  os.path.abspath(os.path.dirname(__file__))
+
+_root_repo_dir = os.path.abspath(os.path.join(_current_dir, '../../../../'))
 _default_asset_dir = os.path.abspath(os.path.join(_root_repo_dir, 'assets'))
 
 os.environ['ASSET_DIR'] = _default_asset_dir
+
+print(_current_dir,_root_repo_dir, _default_asset_dir)
 
 
 
@@ -30,6 +34,7 @@ class PygameHandler():
 
     def load_music(self, location):
         full_path = os.path.join(_default_asset_dir, location)
+        print(full_path)
         if os.path.isfile(full_path):
             pygame.mixer.music.load(full_path)
 

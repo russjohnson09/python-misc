@@ -27,8 +27,6 @@ def _get_words():
 
     dict_output = df.to_dict(orient="index")
 
-    print(dict_output)
-    # tests\test_font.py {0: {'start': 1000, 'text': 'PRESS'}, 1: {'start': 2000, 'text': ''}, 2: {'start': 3000, 'text': 'ZIP'}}
     
     words = []
     for key in list(dict_output.keys()):
@@ -45,9 +43,15 @@ def _get_words():
     return words
 
 
-def _start_spelling_game():
+def _start_technologic():
 
+
+    screen = ph.screen
+
+
+    # main_sound = ph.get_sound("09.-Technologic.flac")
     ph.load_music("&.mp3")
+
     ph.load_music("09.-Technologic.flac")
 
     font_helper = FontHelper(ph)
@@ -64,13 +68,12 @@ def _start_spelling_game():
     text = 'test'
 
 
+    word_idx = 0
+
     words = _get_words()
-
-    print(words)
-
-
     ih = InputHandler(pygame)
     ih.joystick = ph.get_primary_joystick()
+
 
 
 
@@ -87,16 +90,31 @@ def _start_spelling_game():
         for event in ph.get_event():
             ih.handle_event(event)
 
-            if event.type == pygame.KEYDOWN:
-                print(event.key)
+        if ih.west_just_pressed:
+            pygame.mixer.music.play()
+            word_idx = 0
+            text = words[word_idx]['word']
 
-            # print(event)
-            # do my own custom handling
-            continue
-
+        if ih.south_just_pressed:
+            word_idx += 1
+            word_idx = word_idx % len(words)
+            text = words[word_idx]['word']
 
 
         ph.fill()
+        
+
+        # if pygame.mixer.music.get_busy() and word_key_idx is not None:
+        #     # current_play_pos = pygame.time.get_ticks()
+        #     current_play_pos = pygame.mixer.music.get_pos()
+        # # if word_key_idx is not None:
+        #     timing = word_keys[word_key_idx]
+        #     if current_play_pos > timing:
+        #         text = technologic_word_timing[word_keys[word_key_idx]]
+        #         word_key_idx += 1
+        #         if word_key_idx >= len(word_keys):
+        #             word_key_idx = None
+
 
         # test font in this loop
         font_helper.draw_technologic(text)
@@ -110,6 +128,7 @@ def _start_spelling_game():
         font_helper.draw_technologic('')
 
 
+
 def technologic():
 
     print("start technologic game")
@@ -117,4 +136,4 @@ def technologic():
     print("start technologic game")
     
 
-    _start_spelling_game()
+    _start_technologic()
