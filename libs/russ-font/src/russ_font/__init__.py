@@ -34,7 +34,8 @@ class FontHelper():
     @property
     def font_technologic(self):
         if self._font_technologic is None:
-            self._font_technologic = pygame.font.SysFont("Arial" , 140 , bold = False)
+            # self._font_technologic = pygame.font.SysFont("Arial" , 140 , bold = False)
+            self._font_technologic = pygame.font.SysFont("Arial" , 1400 , bold = False)
         
 
         return self._font_technologic

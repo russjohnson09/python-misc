@@ -30,7 +30,8 @@ class PygameHandler():
 
     _fullscreen = False
     
-    size = (640, 480) # psx resolution
+    # size = (640, 480) # psx resolution
+    size = (2 * 640, 2 * 480) # psx resolution x 2
 
     def load_music(self, location):
         full_path = os.path.join(_default_asset_dir, location)

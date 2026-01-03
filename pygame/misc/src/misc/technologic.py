@@ -11,6 +11,14 @@ import pandas as pd
 import os
 
 screen_size =  (640, 480) # psx resolution
+
+# font_helper.draw_technologic('')
+# is setup to stretch to multiple screen sizes so this will work.
+# The font size is set high enough that this does noticably improve
+# the jagged edges that can show up in the font.
+screen_size = (2 * 640, 2 * 480) # psx resolution x 2
+# screen_size = (3 * 640, 3 * 480) # psx resolution x 4
+
 # screen_size =  (320, 240)
 
 ph = PygameHandler(screen_size=screen_size)
