@@ -1,5 +1,5 @@
-word
-Buy
+word,start,end
+Buy,1,5
 use
 break
 fix

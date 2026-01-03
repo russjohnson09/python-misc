@@ -33,16 +33,21 @@ def _get_words():
     words = []
     for key in list(dict_output.keys()):
         row = dict_output[key]
-        words.append(row['word'].upper())
+        word_upper = row['word'].upper()
+        start = int(row['start'] or 0)
+        end = int(row['end'] or 0)
+        words.append({
+            'word': word_upper,
+            'start': start,
+            'end': end,
+        })
 
     return words
 
 
 def _start_spelling_game():
 
-    # main_sound = ph.get_sound("09.-Technologic.flac")
     ph.load_music("&.mp3")
-
     ph.load_music("09.-Technologic.flac")
 
     font_helper = FontHelper(ph)
@@ -59,15 +64,13 @@ def _start_spelling_game():
     text = 'test'
 
 
-    word_idx = 0
-
     words = _get_words()
+
+    print(words)
+
+
     ih = InputHandler(pygame)
     ih.joystick = ph.get_primary_joystick()
-
-    print(ih.joystick)
-
-
 
 
 
@@ -85,46 +88,15 @@ def _start_spelling_game():
             ih.handle_event(event)
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a: 
-                    pygame.mixer.music.play()
-                    word_key_idx = 0
-                    word_idx = 0
-                    text = words[word_idx]
-                elif event.key == pygame.K_q:
-                    word_idx += 1
-                    word_idx = word_idx % len(words)
-                    text = words[word_idx]
+                print(event.key)
 
             # print(event)
             # do my own custom handling
             continue
 
-        if ih.west_just_pressed:
-            pygame.mixer.music.play()
-            word_key_idx = 0
-            word_idx = 0
-            text = words[word_idx]
-
-        if ih.south_just_pressed:
-            word_idx += 1
-            word_idx = word_idx % len(words)
-            text = words[word_idx]
 
 
         ph.fill()
-        
-
-        # if pygame.mixer.music.get_busy() and word_key_idx is not None:
-        #     # current_play_pos = pygame.time.get_ticks()
-        #     current_play_pos = pygame.mixer.music.get_pos()
-        # # if word_key_idx is not None:
-        #     timing = word_keys[word_key_idx]
-        #     if current_play_pos > timing:
-        #         text = technologic_word_timing[word_keys[word_key_idx]]
-        #         word_key_idx += 1
-        #         if word_key_idx >= len(word_keys):
-        #             word_key_idx = None
-
 
         # test font in this loop
         font_helper.draw_technologic(text)
@@ -140,9 +112,9 @@ def _start_spelling_game():
 
 def technologic():
 
-    print("start spelling game")
-    print("start spelling game")
-    print("start spelling game")
+    print("start technologic game")
+    print("start technologic game")
+    print("start technologic game")
     
 
     _start_spelling_game()
