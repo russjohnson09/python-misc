@@ -1,7 +1,32 @@
 [project]
 name = "misc"
 version = "0.1.0"
-description = "Add your description here"
 readme = "README.md"
+authors = [
+    { email = "russjohnson09@gmail.com" }
+]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "lib-inputs",
+    "russ-font",
+]
+
+[project.scripts]
+misc = "misc:main"
+spelling = "misc:spelling"
+technologic = "misc:technologic"
+
+# part of uv init --package
+# I'm still not sure how this accepts relative imports but uv run src/galaga/spelling.py does not
+#  uv run ./src/misc/__init__.py 
+# It looks like as a script it does do some extra work on defining relative imports.
+# I think I'm mostly only interested in packaged apps and libs.
+
+# This is required
+[build-system]
+requires = ["uv_build>=0.9.16,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+russ-font = { path = "../../libs/russ-font", editable = true }
+lib-inputs = { path = "../../libs/lib-inputs", editable = true }
