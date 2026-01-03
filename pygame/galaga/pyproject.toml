@@ -8,6 +8,7 @@ dependencies = [
     "lib-sprites",
     "lib-inputs",
     "lib-sounds",
+    "russ-font",
     "pygame-ce>=2.5.6",
 ]
 
@@ -24,5 +25,6 @@ lib-models = { git = "ssh://git@github.com/russjohnson09/python-misc.git", subdi
 lib-sprites = { path = "../../lib-sprites/", editable = true }
 lib-sounds = { path = "../../lib-sounds/", editable = true }
 lib-inputs = { path = "../../libs/lib-inputs/", editable = true }
+russ-font = { path = "../../libs/russ-font/", editable = true }
 
 #from lib_sounds import Came, AndSoundBoard
