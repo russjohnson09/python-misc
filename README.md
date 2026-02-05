@@ -43,6 +43,7 @@ ALLOW_AUTOFIRE=1 uv run pytest ./tests/test_starry_night_and_player.py
 
 # Starry Night
 ```
+cd pygame/galaga
 uv run pytest ./tests/test_starry_night.py -s
 ```
 
@@ -52,7 +53,11 @@ lib-sprites\tests\test_read_png_and_megaman.py
 
 I want to take a basic black and white image, and apply some tileset to it.
 
-
+# Youtube download
+```
+cd pygame/galaga
+uv run ./tests/youtube_download.py
+```
 
 # TODO
 
