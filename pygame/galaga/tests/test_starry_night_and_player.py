@@ -4,10 +4,11 @@ from lib_sprites import GalagaBgSpriteGroup, ShipSprite, BeeSprite, Missle as Mi
 from lib_inputs import InputHandler
 from lib_sounds import AndSoundBoard, FuturisticSoundboard, FUTURISTIC_SOUNDS
 
+import datetime
+import time
 import pygame
 import numpy
 import os
-
 # from .conftest import get_screen_nes as get_screen
 from .conftest import pygame_handler
 FILL = (5, 5, 5)
@@ -17,9 +18,14 @@ FPS = int(os.environ.get('FPS', '120'))
 # FPS = int(os.environ.get('FPS', '300'))
 MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 ALLOW_AUTOFIRE = os.environ.get('ALLOW_AUTOFIRE', '0') == '1'
+RECORDING = os.environ.get('RECORDING', '0') == '1'
 
 
 
+recording_dir = f"recording/{int(1000 * time.time())}" #.replace(' ', '-')
+recording_dir = os.path.abspath(recording_dir)
+if not os.path.exists(recording_dir):
+    os.makedirs(recording_dir)
 # Single server. As the server I can see both players but can't control them.
 # Each player / client sends tcp requests to update their locations and that applies to their paddle.
 
@@ -311,6 +317,41 @@ def test_starry_night():
 
         # player_group.draw(screen)
         # next draw player sprite
+
+        # if recording save a png
+
+
+        #  RECORDING=1 ALLOW_AUTOFIRE=1 uv run pytest ./tests/test_starry_night_and_player.py 
+        def _save_surface(screen: pygame.surface.Surface, filename):
+            # https://www.pygame.org/docs/ref/image.html#pygame.image.save
+
+            print(screen, type(screen))
+            # new_surface = surface.copy()
+            pygame.image.save(screen, filename)
+
+
+
+
+        
+
+        # if i == 0:
+        #     _save_surface(screen=screen, filename="test.bmp")
+
+        #     # recording_dir = f"recording/{datetime.datetime.now()}".replace(' ', '-')
+        #     # recording_dir = f"recording/{int(1000 * time.time())}" #.replace(' ', '-')
+
+        #     # _save_surface(screen=screen, filename=f"recording/test.bmp")
+        #     # _save_surface(screen=screen, filename=f"{recording_dir}/test.bmp")
+
+        #     pass
+
+
+        if RECORDING:
+            _save_surface(screen=screen, filename=f"{recording_dir}/{i}.bmp")
+
+
+
+
 
         pygame_handler.debug()
 
