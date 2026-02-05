@@ -42,7 +42,9 @@ ALLOW_AUTOFIRE=1 uv run pytest ./tests/test_starry_night_and_player.py
 
 
 # Starry Night
-
+```
+uv run pytest ./tests/test_starry_night.py -s
+```
 
 
 # Platforming
