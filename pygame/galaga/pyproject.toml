@@ -9,6 +9,9 @@ dependencies = [
     "lib-inputs",
     "lib-sounds",
     "pygame-ce>=2.5.6",
+    "pytube>=15.0.0",
+    "yt-dlp[default]>=2026.2.4",
+    "imageio>=2.37.2",
 ]
 
 [dependency-groups]

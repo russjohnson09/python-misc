@@ -21,8 +21,10 @@ from .conftest import pygame_handler
 FILL = (5, 5, 5)
 FILL = (15, 15, 15)
 
+# FPS = int(os.environ.get('FPS', '60'))
 FPS = int(os.environ.get('FPS', '120'))
-# FPS = int(os.environ.get('FPS', '300'))
+
+
 MAX_TEST_LOOPS = int(os.environ.get('MAX_TEST_LOOPS', (60 * 60)))
 ALLOW_AUTOFIRE = os.environ.get('ALLOW_AUTOFIRE', '0') == '1'
 RECORDING = os.environ.get('RECORDING', '0') == '1'
@@ -220,20 +222,6 @@ class Missle(MissleSprite):
             self.kill()
         super().update()
 
-
-def _spawn_bees(enemy_sprite_group: pygame.sprite.Group, sound_handler):
-
-    max_bee_count = MAX_BEE_COUNT
-    bee_count = 0
-    for y in range(0, 300, 20):
-        for x in range(0, 300, 20):
-            bee_sprite = Bee(sound_handler=sound_handler)
-            bee_sprite.topleft = (x, y)
-            bee_count += 1
-            enemy_sprite_group.add(bee_sprite)
-            if max_bee_count > 0 and bee_count > max_bee_count:
-                return
-
 def test_starry_night():
     recorded_files_orig = _starry_night_main()
     # png_filenames = [os.path.abspath(os.path.join(recording_dir, f)) for f in os.listdir(recording_dir) if os.path.isfile(os.path.join(recording_dir, f))]
@@ -288,19 +276,14 @@ def _starry_night_main():
 
     sound_handler = SoundHandler()
 
-    player = Player(input_handler=ih, sound_handler=sound_handler)
 
 
 
-    player.topleft = (10, 480 - 50)
 
 
-    player_attacks_group = player.attacks_group
 
     missle = Missle()
     missle.topleft = (50,50)
-    player_attacks_group.add(missle)
-
     clock = pygame_handler.clock
 
     bg_sprite_group = GalagaBgSpriteGroup(FPS, screen)
@@ -312,17 +295,7 @@ def _starry_night_main():
 
 
     def _check_collisions():
-        for enemy in enemy_sprite_group:
-            player_attacks_hit_list = pygame.sprite.spritecollide(enemy, player_attacks_group, dokill=True)#, dokill=False)
-            if len(player_attacks_hit_list) > 0:
-                print(player_attacks_hit_list)
-                enemy.hit() # do_kill removes from the player_attacks_group but not the original sprite
-        # for missle in player_attacks_group:
-        #     # missle.kill()
-        #     enemies_hit = pygame.sprite.spritecollide(missle, enemy_sprite_group, dokill=True)
-        #     # if len(enemies_hit) > 0:
-        #     #     print("kill missle enemy hit")
-        #     #     missle.kill()
+        pass
 
 
     estimated_delta = 60.0 / FPS
@@ -334,15 +307,9 @@ def _starry_night_main():
 
     while not _is_finished(i):
         pygame.mouse.set_visible(False) # this is working, I can't see mouse within window
-        
-        # if len(enemy_sprite_group.sprites()) == 0:
-        if len(enemy_sprite_group) == 0:
-            _spawn_bees(enemy_sprite_group=enemy_sprite_group, sound_handler=sound_handler)
-
 
         ih.clear_just_pressed()
         for event in pygame.event.get():
-            player.handle_event(event)
             if event.type == pygame.QUIT:
                 # self._quit = True
                 return recorded_files
@@ -361,11 +328,6 @@ def _starry_night_main():
         enemy_sprite_group.update()
         enemy_sprite_group.draw(screen)
 
-        player_attacks_group.update()
-        player_attacks_group.draw(screen)
-        
-        player.update_and_draw(estimated_delta, screen)
-
 
         # lib-sprites\tests\test_mouse.py
         _check_collisions()
@@ -376,7 +338,7 @@ def _starry_night_main():
         # if recording save a png
 
 
-        #  RECORDING=1 ALLOW_AUTOFIRE=1 uv run pytest ./tests/test_starry_night_and_player.py 
+        # RECORDING=1 uv run pytest ./tests/test_starry_night.py -s
         def _save_surface(screen: pygame.surface.Surface, filename):
             # https://www.pygame.org/docs/ref/image.html#pygame.image.save
 
@@ -408,7 +370,8 @@ def _starry_night_main():
 
 
 
-        pygame_handler.debug()
+        if os.environ.get('DEBUG_FPS', '0') == '1':
+            pygame_handler.debug()
 
 
         pygame.display.flip()
