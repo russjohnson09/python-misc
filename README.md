@@ -28,3 +28,17 @@ https://docs.astral.sh/uv/concepts/projects/dependencies/#index
 
 
 uv add torch --index pytorch=https://download.pytorch.org/whl/cpu
+
+
+
+
+# Galaga
+
+```
+cd pygame/galaga
+ALLOW_AUTOFIRE=1 uv run pytest ./tests/test_starry_night_and_player.py 
+```
+
+
+
+# Starry Night

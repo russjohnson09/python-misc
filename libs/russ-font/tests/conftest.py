@@ -32,6 +32,9 @@ class PygameHandler():
         full_path = os.path.join(_default_asset_dir, location)
         if os.path.isfile(full_path):
             pygame.mixer.music.load(full_path)
+        else:
+            print("load_music failed", full_path)
+
 
     def get_sound(self, location):
 
