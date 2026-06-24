@@ -114,3 +114,21 @@ def _print_top_holdings(ticker_symbol, indent = 0):
 
 
 _print_top_holdings('RFKTX')
+
+# S&P 500
+# Becuase Tesla is part of this, unless I want to manage my investments manually,
+# any index fund is going to include it to some degree which is unfortunate.
+
+#The S&P 500, a leading benchmark of U.S. stock market performance, comprises the majority of America's largest companies, representing 70% to 80% of the total U.S. stock market capitalization. Globally recognized, it serves as a primary benchmark for stock portfolio performance. Achieving returns that outperform the S&P 500 is the ultimate objective for portfolio managers, hedge funds, and private investors worldwide.
+
+# _print_top_holdings('FXAIX')
+# {'Name': 'NVIDIA Corp', 'Holding Percent': 0.0784969}
+# {'Name': 'Apple Inc', 'Holding Percent': 0.0644823}
+# {'Name': 'Microsoft Corp', 'Holding Percent': 0.0490128}
+# {'Name': 'Amazon.com Inc', 'Holding Percent': 0.041911703}
+# {'Name': 'Alphabet Inc Class A', 'Holding Percent': 0.0362623}
+# {'Name': 'Broadcom Inc', 'Holding Percent': 0.032035302}
+# {'Name': 'Alphabet Inc Class C', 'Holding Percent': 0.028912598}
+# {'Name': 'Meta Platforms Inc Class A', 'Holding Percent': 0.0216632}
+# {'Name': 'Tesla Inc', 'Holding Percent': 0.0173731}
+# {'Name': 'Berkshire Hathaway Inc Class B', 'Holding Percent': 0.0140572}
