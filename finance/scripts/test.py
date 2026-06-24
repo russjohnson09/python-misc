@@ -79,17 +79,37 @@ import yfinance as yf
 #     print(sym)
 #     print(holdings_by_symbol[sym]['Holding Percent'])
 
+import sys
+from cffi import FFI
+ffi = FFI()
+
+# 1. Define your custom error handler
+def my_error_handler(exception, exc_value, traceback):
+    print(f"Handled error: {exception}", file=sys.stderr)
+    # Return a safe default value to the C code
+    exit(-1)
 
 
-def _print_top_holdings(ticker_symbol):
-    ticker = yf.Ticker(ticker_symbol)
+def _print_top_holdings(ticker_symbol, indent = 0):
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        # print(ticker)
+        # print(ticker.funds_data)
+        # print(ticker.funds_data.top_holdings)
+        top_holdings = ticker.funds_data.top_holdings
 
-    top_holdings = ticker.funds_data.top_holdings
-    holdings_by_symbol: dict = top_holdings.T.to_dict()
-
+        holdings_by_symbol: dict = top_holdings.T.to_dict()
+    # except Exception as e:
+    #     raise e
+    except Exception as e:
+        return
+    
     for sym in holdings_by_symbol:
-        print(sym)
-        print(holdings_by_symbol[sym]['Holding Percent'])
+        # print(sym)
+        # print(holdings_by_symbol[sym]['Holding Percent'])
+        print(holdings_by_symbol[sym])
+        _print_top_holdings(sym, indent+1)
+
 
 
 
