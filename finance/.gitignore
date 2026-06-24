@@ -1,0 +1,5 @@
+
+# If I include the uv.lock will that be respected?
+# pygame/galaga will have lib-spritesheet so even a breaking change there won't mean a breaking change
+# until lib-spritesheet gets updated
+uv.lock
